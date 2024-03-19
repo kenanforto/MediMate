@@ -11,11 +11,23 @@ public class User {
     @Id
     @GeneratedValue
     private Integer id;
+
     private String userName;
+
     private String password;
+
     @OneToOne
     @JoinColumn(name="role_id",referencedColumnName = "id")
     private Role role;
+
+    @OneToOne(mappedBy = "user")
+    private Admin admin;
+
+    @OneToOne(mappedBy ="user")
+    private Doctor doctor;
+
+    @OneToOne(mappedBy ="user")
+    private Patient patient;
 
     protected User()
     {
