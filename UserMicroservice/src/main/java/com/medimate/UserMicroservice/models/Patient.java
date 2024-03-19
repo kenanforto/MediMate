@@ -3,7 +3,7 @@ package com.medimate.UserMicroservice.models;
 import com.medimate.UserMicroservice.enums.Gender;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="patient")
@@ -13,7 +13,7 @@ public class Patient {
     private Integer id;
     private String firstName;
     private String lastName;
-    private Date birthdate;
+    private LocalDate birthdate;
     private Gender gender;
     private String address;
     private String phoneNumber;
@@ -23,7 +23,7 @@ public class Patient {
     private User user;
 
     protected Patient(){}
-    public Patient(String first_name, String last_name, Date birthdate, Gender gender, String adress, String phone_number) {
+    public Patient(String first_name, String last_name, LocalDate birthdate, Gender gender, String adress, String phone_number) {
         this.firstName = first_name;
         this.lastName = last_name;
         this.birthdate = birthdate;
@@ -44,7 +44,7 @@ public class Patient {
         return lastName;
     }
 
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
