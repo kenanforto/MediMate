@@ -3,14 +3,14 @@ package com.medimate.UserMicroservice.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="admins")
+@Table(name="admin")
 public class Admin {
 
     @Id
     @GeneratedValue
     private Integer id;
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     @OneToOne
     @JoinColumn(name="user_id", referencedColumnName = "id")
     private User user;
@@ -18,19 +18,19 @@ public class Admin {
     protected Admin(){}
     public Admin(String first_name,String last_name)
     {
-        this.first_name=first_name;
-        this.last_name=last_name;
+        this.firstName=first_name;
+        this.lastName=last_name;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 }

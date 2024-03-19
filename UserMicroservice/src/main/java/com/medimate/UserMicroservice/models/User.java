@@ -11,20 +11,11 @@ public class User {
     @Id
     @GeneratedValue
     private Integer id;
-    private String user_name;
+    private String userName;
     private String password;
     @OneToOne
     @JoinColumn(name="role_id",referencedColumnName = "id")
     private Role role;
-
-    @OneToOne(mappedBy = "user")
-    private Admin admin;
-
-    @OneToOne(mappedBy ="user")
-    private Doctor doctor;
-
-    @OneToOne(mappedBy ="user")
-    private Patient patient;
 
     protected User()
     {
@@ -32,7 +23,7 @@ public class User {
     }
 
     public User( String user_name, String password, Role role) {
-        this.user_name = user_name;
+        this.userName = user_name;
         this.password = password;
         this.role = role;
     }
@@ -41,8 +32,8 @@ public class User {
         return id;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
     public Role getRole() {

@@ -3,15 +3,13 @@ package com.medimate.UserMicroservice.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="roles")
+@Table(name="role")
 public class Role {
     @Id
     @GeneratedValue
     private Integer id;
 
     private String role;
-    @OneToOne(mappedBy = "role")
-    private User user;
 
     protected Role() { }
     public Role(String role)
@@ -25,9 +23,5 @@ public class Role {
 
     public String getRole() {
         return role;
-    }
-
-    public User getUser() {
-        return user;
     }
 }
