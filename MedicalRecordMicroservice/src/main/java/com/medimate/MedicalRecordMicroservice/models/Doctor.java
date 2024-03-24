@@ -18,10 +18,21 @@ public class Doctor {
     private List<MedicalRecord> medicalRecords;
     protected Doctor(){}
 
-    public Doctor(Integer id, String firstName, String lastName, String title) {
-        this.id = id;
+    public Doctor(String firstName, String lastName, String title) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.title = title;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }
