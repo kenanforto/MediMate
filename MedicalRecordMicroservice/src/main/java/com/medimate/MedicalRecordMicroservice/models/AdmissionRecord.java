@@ -26,9 +26,11 @@ public class AdmissionRecord {
     private MedicalRecord medicalRecord;
 
     protected AdmissionRecord(){}
-    public AdmissionRecord(Integer id, boolean urgent) {
-        this.id = id;
+    public AdmissionRecord(LocalDate admittedAt, boolean urgent,Doctor doctor,Patient patient,MedicalRecord medicalRecord) {
         this.admittedAt = LocalDate.now();
         this.urgent = urgent;
+        this.doctor=doctor;
+        this.patient=patient;
+        this.medicalRecord=medicalRecord;
     }
 }

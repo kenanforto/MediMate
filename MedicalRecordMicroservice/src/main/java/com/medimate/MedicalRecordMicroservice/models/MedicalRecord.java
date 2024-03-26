@@ -25,9 +25,27 @@ public class MedicalRecord {
     private AdmissionRecord admisionRecord;
 
     protected MedicalRecord(){}
-    public MedicalRecord(Integer id,String description) {
-        this.id=id;
+    public MedicalRecord(String description,Doctor doctor,Patient patient) {
         this.description = description;
         this.createdDate=LocalDate.now();
+        this.doctor=doctor;
+        this.patient=patient;
+//        this.admisionRecord=admissionRecord;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
     }
 }
