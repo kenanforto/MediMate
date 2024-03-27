@@ -32,7 +32,10 @@ public class MedicalRecordService {
     public void addMedicalRecord(MedicalRecordVM mr)
     {
         repo.save(
-                new MedicalRecord(mr.getDescription(),repoDoctor.findById(mr.getDoctorId()).orElse(null),repoPatient.findById(mr.getPatientId()).orElse(null))//null) //repoAdmission.findById(mr.getAdmissionId()).orElse(null))
+                new MedicalRecord(mr.getDescription(),
+                        repoDoctor.findById(mr.getDoctorId()).orElse(null),
+                        repoPatient.findById(mr.getPatientId()).orElse(null),
+                        repoAdmission.findById(mr.getAdmissionId()).orElse(null))
         );
     }
     public List<MedicalRecord> getAllMedicalRecords()

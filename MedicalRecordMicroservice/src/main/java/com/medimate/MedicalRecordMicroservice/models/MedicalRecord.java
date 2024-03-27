@@ -21,16 +21,17 @@ public class MedicalRecord {
     @JoinColumn(name="doctor_id")
     private Doctor doctor;
 
-    @OneToOne(mappedBy = "medicalRecord")
-    private AdmissionRecord admisionRecord;
+    @OneToOne
+    @JoinColumn(name="admissionRecord_id")
+    private AdmissionRecord admissionRecord;
 
     protected MedicalRecord(){}
-    public MedicalRecord(String description,Doctor doctor,Patient patient) {
+    public MedicalRecord(String description,Doctor doctor,Patient patient,AdmissionRecord admissionRecord) {
         this.description = description;
         this.createdDate=LocalDate.now();
         this.doctor=doctor;
         this.patient=patient;
-//        this.admisionRecord=admissionRecord;
+        this.admissionRecord=admissionRecord;
     }
 
     public String getDescription() {
@@ -47,5 +48,9 @@ public class MedicalRecord {
 
     public Doctor getDoctor() {
         return doctor;
+    }
+
+    public AdmissionRecord getAdmissionRecord() {
+        return admissionRecord;
     }
 }

@@ -20,17 +20,30 @@ public class AdmissionRecord {
     @ManyToOne
     @JoinColumn(name="doctor_id")
     private Doctor doctor;
-
-    @OneToOne
-    @JoinColumn(name="medicalRecord_id")
+    @OneToOne(mappedBy = "admissionRecord")
     private MedicalRecord medicalRecord;
 
     protected AdmissionRecord(){}
-    public AdmissionRecord(LocalDate admittedAt, boolean urgent,Doctor doctor,Patient patient,MedicalRecord medicalRecord) {
+    public AdmissionRecord(LocalDate admittedAt, boolean urgent,Doctor doctor,Patient patient) {
         this.admittedAt = LocalDate.now();
         this.urgent = urgent;
         this.doctor=doctor;
         this.patient=patient;
-        this.medicalRecord=medicalRecord;
+    }
+
+    public LocalDate getAdmittedAt() {
+        return admittedAt;
+    }
+
+    public boolean isUrgent() {
+        return urgent;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
     }
 }
