@@ -1,10 +1,21 @@
 package com.medimate.WorkingHoursMicroservice.viewmodels;
 
 import com.medimate.WorkingHoursMicroservice.models.Admin;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class TrackWorkingHoursVM {
 
+    @NotNull
+    @Min(4)
+    @Max(8)
     private Integer totalHours;
+
+    @NotNull
+    @Min(1)
+    @Max(2)
     private Integer breakHours;
 
     private Admin admin;

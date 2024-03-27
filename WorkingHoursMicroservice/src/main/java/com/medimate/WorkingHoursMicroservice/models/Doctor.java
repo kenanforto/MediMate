@@ -17,20 +17,8 @@ public class Doctor {
     @Id
     @GeneratedValue
     private Integer id;
-
-    @NotNull
-    @NotBlank
-    @Pattern(regexp="[A-Za-z]+")
     private String firstName;
-
-    @NotNull
-    @NotBlank
-    @Pattern(regexp="[A-Za-z]+")
     private String lastName;
-
-    @NotNull
-    @NotBlank
-    @Pattern(regexp="[A-Za-z]+")
     private String title;
 
     public Doctor(String firstName, String lastName, String title) {

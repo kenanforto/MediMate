@@ -3,6 +3,7 @@ package com.medimate.WorkingHoursMicroservice.controllers;
 import com.medimate.WorkingHoursMicroservice.models.TrackWorkingHours;
 import com.medimate.WorkingHoursMicroservice.services.TrackWorkingHoursService;
 import com.medimate.WorkingHoursMicroservice.viewmodels.TrackWorkingHoursVM;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +16,8 @@ public class TrackWorkingHoursController {
     TrackWorkingHoursService trackWorkingHoursService;
 
     @PostMapping("")
-    public void addOne(@RequestBody TrackWorkingHoursVM trackWorkingHoursVM){
-        trackWorkingHoursService.addOne(trackWorkingHoursVM);
+    public TrackWorkingHours addOne(@RequestBody @Valid TrackWorkingHoursVM trackWorkingHoursVM){
+        return trackWorkingHoursService.addOne(trackWorkingHoursVM);
     }
 
     @DeleteMapping("{id}")

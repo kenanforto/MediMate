@@ -16,15 +16,8 @@ public class TrackWorkingHours {
     @Id
     @GeneratedValue
     private Integer id;
-
-    @NotNull
-    @NotBlank
     private Integer totalHours;
-
-    @NotNull
-    @NotBlank
     private Integer breakHours;
-
 
     @OneToOne
     private Admin admin;

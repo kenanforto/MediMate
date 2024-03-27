@@ -17,18 +17,12 @@ public class AdminService {
     AdminRepository repo;
 
     public Admin addOne(AdminVM adminVM) {
-
-        try{
             return repo.save(
                     new Admin(
                             adminVM.getFirstName(),
                             adminVM.getLastName()
                     )
             );
-        } catch (Exception ex){
-            throw new ValidationException("");
-        }
-
     }
 
     public void deleteById(Integer id) {

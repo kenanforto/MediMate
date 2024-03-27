@@ -19,15 +19,7 @@ public class Admin {
     @Id
     @GeneratedValue
     private Integer id;
-
-    @NotNull
-    @NotBlank
-    @Pattern(regexp="[A-Za-z]+")
     private String firstName;
-
-    @NotNull
-    @NotBlank
-    @Pattern(regexp="[A-Za-z]+")
     private String lastName;
 
     public Admin(String firstName, String lastName) {

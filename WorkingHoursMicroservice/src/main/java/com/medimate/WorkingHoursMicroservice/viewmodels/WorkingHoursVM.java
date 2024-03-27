@@ -2,13 +2,26 @@ package com.medimate.WorkingHoursMicroservice.viewmodels;
 
 import com.medimate.WorkingHoursMicroservice.models.Doctor;
 import com.medimate.WorkingHoursMicroservice.models.TrackWorkingHours;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalTime;
 
 public class WorkingHoursVM {
 
+    @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime startTime;
+
+    @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime endTime;
+
+    @NotNull
+    @NotBlank
+    @Pattern(regexp="[A-Za-z]+")
     private String title;
 
     private Doctor doctor;

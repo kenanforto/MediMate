@@ -15,8 +15,8 @@ public class TrackWorkingHoursService {
     @Autowired
     TrackWorkingHoursRepository repo;
 
-    public void addOne(TrackWorkingHoursVM trackWorkingHoursVM){
-        repo.save(
+    public TrackWorkingHours addOne(TrackWorkingHoursVM trackWorkingHoursVM){
+        return repo.save(
                 new TrackWorkingHours(
                         trackWorkingHoursVM.getTotalHours(),
                         trackWorkingHoursVM.getBreakHours(),

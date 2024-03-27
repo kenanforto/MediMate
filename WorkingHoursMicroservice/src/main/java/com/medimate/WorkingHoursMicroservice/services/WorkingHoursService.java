@@ -14,8 +14,8 @@ public class WorkingHoursService {
 
     @Autowired
     private WorkingHoursRepository repo;
-    public void addOne(WorkingHoursVM workingHoursVM){
-        repo.save(
+    public WorkingHours addOne(WorkingHoursVM workingHoursVM){
+        return repo.save(
                 new WorkingHours(
                         workingHoursVM.getStartTime(),
                         workingHoursVM.getEndTime(),

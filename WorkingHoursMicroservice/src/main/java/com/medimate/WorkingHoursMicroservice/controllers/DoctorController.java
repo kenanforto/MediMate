@@ -3,6 +3,7 @@ package com.medimate.WorkingHoursMicroservice.controllers;
 import com.medimate.WorkingHoursMicroservice.models.Doctor;
 import com.medimate.WorkingHoursMicroservice.services.DoctorService;
 import com.medimate.WorkingHoursMicroservice.viewmodels.DoctorVM;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +16,8 @@ public class DoctorController {
     DoctorService doctorService;
 
     @PostMapping("")
-    public void addOne(@RequestBody DoctorVM doctorVM){
-        doctorService.addOne(doctorVM);
+    public Doctor addOne(@RequestBody @Valid DoctorVM doctorVM){
+        return doctorService.addOne(doctorVM);
     }
 
     @DeleteMapping("{id}")

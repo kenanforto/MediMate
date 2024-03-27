@@ -16,8 +16,8 @@ public class DoctorService {
   DoctorRepository repo;
 
 
-  public void addOne(DoctorVM doctorVM){
-      repo.save(
+  public Doctor addOne(DoctorVM doctorVM){
+      return repo.save(
               new Doctor(
                       doctorVM.getFirstName(),
                       doctorVM.getLastName(),

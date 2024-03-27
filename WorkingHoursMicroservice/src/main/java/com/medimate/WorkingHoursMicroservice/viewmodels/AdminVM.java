@@ -1,12 +1,18 @@
 package com.medimate.WorkingHoursMicroservice.viewmodels;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 public class AdminVM {
     @NotBlank
+    @NotNull
+    @Pattern(regexp="[A-Za-z]+")
     private String firstName;
 
     @NotBlank
+    @NotNull
+    @Pattern(regexp="[A-Za-z]+")
     private String lastName;
 
     public AdminVM(String firstName, String lastName) {
