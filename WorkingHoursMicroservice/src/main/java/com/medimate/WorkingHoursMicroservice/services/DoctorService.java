@@ -3,6 +3,7 @@ package com.medimate.WorkingHoursMicroservice.services;
 import com.medimate.WorkingHoursMicroservice.models.Doctor;
 import com.medimate.WorkingHoursMicroservice.repositories.DoctorRepository;
 import com.medimate.WorkingHoursMicroservice.viewmodels.DoctorVM;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class DoctorService {
 
   public Doctor getById(Integer id){
       Optional<Doctor> doctorOptional = repo.findById(id);
-      return doctorOptional.orElse(null);
+      return doctorOptional.orElseThrow(() -> new EntityNotFoundException("Could not find doctor with id %d".formatted(id)));
   }
 
 }

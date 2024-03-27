@@ -3,6 +3,7 @@ package com.medimate.WorkingHoursMicroservice.services;
 import com.medimate.WorkingHoursMicroservice.models.WorkingHours;
 import com.medimate.WorkingHoursMicroservice.repositories.WorkingHoursRepository;
 import com.medimate.WorkingHoursMicroservice.viewmodels.WorkingHoursVM;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,6 @@ public class WorkingHoursService {
 
     public WorkingHours getById(Integer id) {
         Optional<WorkingHours> workingHoursOptional = repo.findById(id);
-        return workingHoursOptional.orElse(null);
+        return workingHoursOptional.orElseThrow(() -> new EntityNotFoundException("Could not find working hours with id %d".formatted(id)));
     }
 }

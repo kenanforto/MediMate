@@ -8,22 +8,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("doctors")
 public class DoctorController {
 
     @Autowired
     DoctorService doctorService;
 
-    @PostMapping("/doctor/add")
+    @PostMapping("")
     public void addOne(@RequestBody DoctorVM doctorVM){
         doctorService.addOne(doctorVM);
     }
 
-    @DeleteMapping("/doctor/{id}")
+    @DeleteMapping("{id}")
     public void deleteById(@PathVariable Integer id){
         doctorService.deleteById(id);
     }
 
-    @GetMapping("/doctor/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Doctor> getById(@PathVariable Integer id){
         Doctor doctor = doctorService.getById(id);
         if (doctor != null) {

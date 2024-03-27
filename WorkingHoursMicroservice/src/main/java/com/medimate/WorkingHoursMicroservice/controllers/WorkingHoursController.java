@@ -8,23 +8,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("working-hours")
 public class WorkingHoursController {
 
     @Autowired
     WorkingHoursService workingHoursService;
 
-    @PostMapping("/working-hours/add")
+    @PostMapping("")
     public void addOne(@RequestBody WorkingHoursVM workingHoursVM){
         workingHoursService.addOne(workingHoursVM);
     }
 
-    @DeleteMapping("/working-hours/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteOne(@PathVariable Integer id){
         workingHoursService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/working-hours/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<WorkingHours> getById(@PathVariable Integer id){
         //return ResponseEntity.ok(WorkingHours.builder().id(id).build());
         //return ResponseEntity.notFound().build();
