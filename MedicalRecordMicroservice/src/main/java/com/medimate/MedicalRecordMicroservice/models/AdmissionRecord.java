@@ -1,6 +1,8 @@
 package com.medimate.MedicalRecordMicroservice.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
@@ -11,7 +13,10 @@ public class AdmissionRecord {
     @Id
     @GeneratedValue
     private Integer id;
+    @NotNull
+    @NotBlank
     private LocalDate admittedAt;
+    @NotBlank
     private boolean urgent;
 
     @ManyToOne

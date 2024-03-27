@@ -1,6 +1,9 @@
 package com.medimate.MedicalRecordMicroservice.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.List;
 
@@ -10,8 +13,16 @@ public class Doctor {
     @Id
     @GeneratedValue
     private Integer id;
+    @NotNull
+    @NotBlank
     private String firstName;
+    @NotNull
+    @NotBlank
+    @Pattern(regexp="[A-Za-z]+")
     private String lastName;
+    @NotNull
+    @NotBlank
+    @Pattern(regexp="[A-Za-z]+")
     private String title;
 
     @OneToMany(mappedBy = "doctor")

@@ -2,6 +2,9 @@ package com.medimate.MedicalRecordMicroservice.models;
 
 import com.medimate.MedicalRecordMicroservice.enums.Gender;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,11 +15,21 @@ public class Patient {
     @Id
     @GeneratedValue
     private Integer id;
+    @NotNull
+    @NotBlank
+    @Pattern(regexp="[A-Za-z]+")
     private String firstName;
+    @NotNull
+    @NotBlank
+    @Pattern(regexp="[A-Za-z]+")
     private String lastName;
+    @NotNull
     private LocalDate birthdate;
+    @NotNull
     private Gender gender;
+    @Pattern(regexp = "^(\\d+)?([A-Za-z](?= ))?(.*?)([^ ]+?)?((?<= )APT)? ?((?<= )\\d*)?$")
     private String address;
+    @Pattern(regexp = "^\\+?[0-9]{7,14}$")
     private String phoneNumber;
 
     @OneToMany(mappedBy = "patient")
