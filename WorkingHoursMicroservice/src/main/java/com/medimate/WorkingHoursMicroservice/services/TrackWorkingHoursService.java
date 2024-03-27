@@ -1,6 +1,7 @@
 package com.medimate.WorkingHoursMicroservice.services;
 
 import com.medimate.WorkingHoursMicroservice.models.TrackWorkingHours;
+import com.medimate.WorkingHoursMicroservice.repositories.AdminRepository;
 import com.medimate.WorkingHoursMicroservice.repositories.TrackWorkingHoursRepository;
 import com.medimate.WorkingHoursMicroservice.viewmodels.TrackWorkingHoursVM;
 import jakarta.persistence.EntityNotFoundException;
@@ -15,13 +16,15 @@ public class TrackWorkingHoursService {
     @Autowired
     TrackWorkingHoursRepository repo;
 
+    @Autowired
+    AdminRepository adminRepo;
+
     public TrackWorkingHours addOne(TrackWorkingHoursVM trackWorkingHoursVM){
         return repo.save(
                 new TrackWorkingHours(
                         trackWorkingHoursVM.getTotalHours(),
                         trackWorkingHoursVM.getBreakHours(),
-                        trackWorkingHoursVM.getAdmin()
-                )
+                        adminRepo.findById(trackWorkingHoursVM.getAdminId()).orElse(null))
         );
     }
 

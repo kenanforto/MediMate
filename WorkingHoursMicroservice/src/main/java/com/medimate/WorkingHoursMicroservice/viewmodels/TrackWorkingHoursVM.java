@@ -18,14 +18,13 @@ public class TrackWorkingHoursVM {
     @Max(2)
     private Integer breakHours;
 
-    private Admin admin;
+    private Integer adminId;
 
-    public TrackWorkingHoursVM(Integer totalHours, Integer breakHours, Admin admin) {
+    public TrackWorkingHoursVM(Integer totalHours, Integer breakHours, Integer adminId) {
         this.totalHours = totalHours;
         this.breakHours = breakHours;
-        this.admin = admin;
+        this.adminId = adminId;
     }
-
 
     public Integer getTotalHours() {
         return totalHours;
@@ -43,11 +42,11 @@ public class TrackWorkingHoursVM {
         this.breakHours = breakHours;
     }
 
-    public Admin getAdmin() {
-        return admin;
+    public Integer getAdminId() {
+        return adminId;
     }
 
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
     }
 }

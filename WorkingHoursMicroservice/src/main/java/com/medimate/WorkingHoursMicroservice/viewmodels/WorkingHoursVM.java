@@ -24,16 +24,15 @@ public class WorkingHoursVM {
     @Pattern(regexp="[A-Za-z]+")
     private String title;
 
-    private Doctor doctor;
+    private Integer doctorId;
+    private Integer trackWorkingHoursId;
 
-    private TrackWorkingHours trackWorkingHours;
-
-    public WorkingHoursVM(LocalTime startTime, LocalTime endTime, String title, Doctor doctor, TrackWorkingHours trackWorkingHours) {
+    public WorkingHoursVM(LocalTime startTime, LocalTime endTime, String title, Integer doctorId, Integer trackWorkingHoursId) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.title = title;
-        this.doctor = doctor;
-        this.trackWorkingHours = trackWorkingHours;
+        this.doctorId = doctorId;
+        this.trackWorkingHoursId = trackWorkingHoursId;
     }
 
     public LocalTime getStartTime() {
@@ -60,19 +59,19 @@ public class WorkingHoursVM {
         this.title = title;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
+    public Integer getDoctorId() {
+        return doctorId;
     }
 
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setDoctorId(Integer doctorId) {
+        this.doctorId = doctorId;
     }
 
-    public TrackWorkingHours getTrackWorkingHours() {
-        return trackWorkingHours;
+    public Integer getTrackWorkingHoursId() {
+        return trackWorkingHoursId;
     }
 
-    public void setTrackWorkingHours(TrackWorkingHours trackWorkingHours) {
-        this.trackWorkingHours = trackWorkingHours;
+    public void setTrackWorkingHoursId(Integer trackWorkingHoursId) {
+        this.trackWorkingHoursId = trackWorkingHoursId;
     }
 }

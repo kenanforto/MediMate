@@ -20,6 +20,7 @@ public class TrackWorkingHours {
     private Integer breakHours;
 
     @OneToOne
+    @JoinColumn(name="admin_id")
     private Admin admin;
 
     public TrackWorkingHours(Integer totalHours, Integer breakHours, Admin admin) {

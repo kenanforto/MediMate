@@ -37,9 +37,11 @@ public class WorkingHours {
     private String title;
 
     @OneToOne
+    @JoinColumn(name="doctor_id")
     private Doctor doctor;
 
     @ManyToOne
+    @JoinColumn(name="track_working_hours_id")
     private TrackWorkingHours trackWorkingHours;
 
     public WorkingHours(LocalTime startTime, LocalTime endTime, String title, Doctor doctor, TrackWorkingHours trackWorkingHours) {

@@ -1,6 +1,8 @@
 package com.medimate.WorkingHoursMicroservice.services;
 
 import com.medimate.WorkingHoursMicroservice.models.WorkingHours;
+import com.medimate.WorkingHoursMicroservice.repositories.DoctorRepository;
+import com.medimate.WorkingHoursMicroservice.repositories.TrackWorkingHoursRepository;
 import com.medimate.WorkingHoursMicroservice.repositories.WorkingHoursRepository;
 import com.medimate.WorkingHoursMicroservice.viewmodels.WorkingHoursVM;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,15 +16,21 @@ public class WorkingHoursService {
 
     @Autowired
     private WorkingHoursRepository repo;
+
+    @Autowired
+    private DoctorRepository doctorRepo;
+
+    @Autowired
+    private TrackWorkingHoursRepository trackWHRepo;
+
     public WorkingHours addOne(WorkingHoursVM workingHoursVM){
         return repo.save(
                 new WorkingHours(
                         workingHoursVM.getStartTime(),
                         workingHoursVM.getEndTime(),
                         workingHoursVM.getTitle(),
-                        workingHoursVM.getDoctor(),
-                        workingHoursVM.getTrackWorkingHours()
-                )
+                        doctorRepo.findById(workingHoursVM.getDoctorId()).orElse(null),
+                        trackWHRepo.findById(workingHoursVM.getTrackWorkingHoursId()).orElse(null))
         );
     }
 
