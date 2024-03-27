@@ -3,6 +3,8 @@ package com.medimate.WorkingHoursMicroservice.services;
 import com.medimate.WorkingHoursMicroservice.models.Admin;
 import com.medimate.WorkingHoursMicroservice.repositories.AdminRepository;
 import com.medimate.WorkingHoursMicroservice.viewmodels.AdminVM;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,22 +16,28 @@ public class AdminService {
     @Autowired
     AdminRepository repo;
 
-    public void addOne(AdminVM adminVM){
-        repo.save(
-                new Admin(
-                        adminVM.getFirstName(),
-                        adminVM.getLastName()
-                )
-        );
+    public Admin addOne(AdminVM adminVM) {
+
+        try{
+            return repo.save(
+                    new Admin(
+                            adminVM.getFirstName(),
+                            adminVM.getLastName()
+                    )
+            );
+        } catch (Exception ex){
+            throw new ValidationException("");
+        }
+
     }
 
-    public void deleteById(Integer id){
+    public void deleteById(Integer id) {
         repo.deleteById(id);
 
     }
 
-    public Admin getById(Integer id){
+    public Admin getById(Integer id) {
         Optional<Admin> adminOptional = repo.findById(id);
-        return adminOptional.orElse(null);
+        return adminOptional.orElseThrow(() -> new EntityNotFoundException("Could not find admin with id %d".formatted(id)));
     }
 }

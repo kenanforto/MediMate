@@ -1,8 +1,12 @@
 package com.medimate.WorkingHoursMicroservice.viewmodels;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class AdminVM {
+    @NotBlank
     private String firstName;
 
+    @NotBlank
     private String lastName;
 
     public AdminVM(String firstName, String lastName) {
