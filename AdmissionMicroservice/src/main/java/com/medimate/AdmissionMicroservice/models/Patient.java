@@ -20,33 +20,21 @@ public class Patient {
     @GeneratedValue
     private Integer id;
 
-    @NotNull
-    @NotBlank
-    @Pattern(regexp="[A-Za-z]+")
     private String firstName;
 
-    @NotNull
-    @NotBlank
-    @Pattern(regexp="[A-Za-z]+")
     private String lastName;
 
-    @NotNull
     private LocalDate birthdate;
 
-    @NotNull
     private Gender gender;
 
-    @Pattern(regexp = "^(\\d+)?([A-Za-z](?= ))?(.*?)([^ ]+?)?((?<= )APT)? ?((?<= )\\d*)?$")
     private String address;
 
-    @Pattern(regexp = "^\\+?[0-9]{7,14}$")
     private String phoneNumber;
 
     @OneToMany(mappedBy = "patient")
     private List<Appointment> appointments;
 
-    @OneToMany(mappedBy = "patient")
-    List<AdmissionRecord> admissionRecords;
 
     public Patient(String firstName, String lastName, LocalDate birthdate, Gender gender, String address, String phoneNumber) {
         this.firstName = firstName;
@@ -58,4 +46,28 @@ public class Patient {
     }
 
     public Patient() {}
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 }
