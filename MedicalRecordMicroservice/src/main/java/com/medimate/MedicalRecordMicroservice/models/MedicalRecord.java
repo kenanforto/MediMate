@@ -1,5 +1,6 @@
 package com.medimate.MedicalRecordMicroservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -29,7 +30,7 @@ public class MedicalRecord {
     @JoinColumn(name="admissionRecord_id")
     private AdmissionRecord admissionRecord;
 
-    protected MedicalRecord(){}
+    public MedicalRecord(){}
     public MedicalRecord(String description,Doctor doctor,Patient patient,AdmissionRecord admissionRecord) {
         this.description = description;
         this.createdDate=LocalDate.now();
@@ -56,5 +57,13 @@ public class MedicalRecord {
 
     public AdmissionRecord getAdmissionRecord() {
         return admissionRecord;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
