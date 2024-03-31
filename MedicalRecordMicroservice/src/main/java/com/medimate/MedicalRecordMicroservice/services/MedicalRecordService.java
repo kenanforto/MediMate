@@ -14,13 +14,13 @@ import java.util.List;
 @Service
 public class MedicalRecordService {
     @Autowired
-    private MedicalRecordRepository repo;
+    private MedicalRecordRepository medicalRecordRepository;
 
     @Autowired
-    private PatientRepository repoPatient;
+    private PatientRepository patientRepository;
 
     @Autowired
-    private DoctorRepository repoDoctor;
+    private DoctorRepository doctorRepository;
 
     @Autowired
     private AdmissionRecordRepository repoAdmission;
@@ -31,19 +31,21 @@ public class MedicalRecordService {
 
     public void addMedicalRecord(MedicalRecordVM mr)
     {
-        repo.save(
-                new MedicalRecord(mr.getDescription(),
-                        repoDoctor.findById(mr.getDoctorId()).orElse(null),
-                        repoPatient.findById(mr.getPatientId()).orElse(null),
-                        repoAdmission.findById(mr.getAdmissionId()).orElse(null))
-        );
+//        medicalRecordRepository.save(
+//                new MedicalRecord(mr.getDescription(),
+//                        doctorRepository.findById(mr.getDoctorId()).orElse(null),
+//                        patientRepository.findById(mr.getPatientId()).orElse(null),
+//                        repoAdmission.findById(mr.getAdmissionId()).orElse(null))
+//        );
+        medicalRecordRepository.save(MedicalRecordVM.toEntity(mr));
+
     }
     public List<MedicalRecord> getAllMedicalRecords()
     {
-        return repo.findAll();
+        return medicalRecordRepository.findAll();
     }
     public List<MedicalRecord> getMedicalRecordsForPatient(Integer id)
     {
-        return repo.findByPatientId(id);
+        return medicalRecordRepository.findByPatientId(id);
     }
 }

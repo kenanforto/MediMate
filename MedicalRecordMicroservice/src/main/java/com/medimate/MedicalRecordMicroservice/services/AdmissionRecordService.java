@@ -20,22 +20,22 @@ public class AdmissionRecordService {
     private DoctorRepository repoDoctor;
 
 
-    public void addAdmissionRecord(AdmissionRecordVM admissionRecord)
-    {
-        repo.save( new AdmissionRecord(
+    public void addAdmissionRecord(AdmissionRecordVM admissionRecord) {
+        repo.save(new AdmissionRecord(
                 admissionRecord.getAdmittedAt(),
                 admissionRecord.isUrgent(),
-                repoDoctor.findById(admissionRecord.getDoctorId()).orElse(null),
-                repoPatient.findById(admissionRecord.getPatientId()).orElse(null)));
+                admissionRecord.getDoctorId(),
+                admissionRecord.getPatientId())
+        );
     }
     public List<AdmissionRecord> getAdmissionRecordsForDoctor(Integer id)
     {
         return repo.findByDoctorId(id);
     }
-    public List<AdmissionRecord> getAllAdmissionRecords()
-    {
-        return repo.findAll();
-    }
+//    public List<AdmissionRecord> getAllAdmissionRecords()
+//    {
+//        return repo.findAll();
+//    }
     public void deleteAdmissionRecord(Integer id)
     {
         repo.deleteById(id);

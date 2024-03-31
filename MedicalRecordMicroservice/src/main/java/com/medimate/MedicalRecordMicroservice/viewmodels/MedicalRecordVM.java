@@ -1,5 +1,7 @@
 package com.medimate.MedicalRecordMicroservice.viewmodels;
 
+import com.medimate.MedicalRecordMicroservice.models.MedicalRecord;
+
 import java.time.LocalDate;
 
 public class MedicalRecordVM {
@@ -16,6 +18,10 @@ public class MedicalRecordVM {
         this.patientId=patientId;
         this.doctorId=doctorId;
         this.admissionId=admissionId;
+    }
+
+    public static MedicalRecord toEntity(MedicalRecordVM medicalRecordVM) {
+        return new MedicalRecord(null, medicalRecordVM.description, medicalRecordVM.patientId, medicalRecordVM.doctorId, medicalRecordVM.admissionId);
     }
 
     public String getDescription() {

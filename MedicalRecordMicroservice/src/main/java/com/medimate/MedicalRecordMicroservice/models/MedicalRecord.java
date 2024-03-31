@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name="medical_record")
@@ -16,35 +19,72 @@ public class MedicalRecord {
     @NotBlank
     @NotNull
     private String description;
-    private LocalDate createdDate;
+    private LocalDateTime createdDate = ZonedDateTime.now(ZoneOffset.UTC).toLocalDateTime();
 
+    @Column(name = "patient_id")
+    private Integer patientId;
+
+    @Column(name = "doctor_id")
+    private Integer doctorId;
+
+    @Column(name = "admission_record_id")
+    private Integer admissionRecordId;
+
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="patient_id")
+    @JoinColumn(name="patient_id", insertable = false, updatable = false)
     private Patient patient;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name="doctor_id")
+    @JoinColumn(name="doctor_id", insertable = false, updatable = false)
     private Doctor doctor;
 
+    @JsonIgnore
     @OneToOne
-    @JoinColumn(name="admissionRecord_id")
+    @JoinColumn(name="admission_record_id", insertable = false, updatable = false)
     private AdmissionRecord admissionRecord;
 
     public MedicalRecord(){}
-    public MedicalRecord(String description,Doctor doctor,Patient patient,AdmissionRecord admissionRecord) {
+
+    public MedicalRecord(Integer id, String description, Integer patientId, Integer doctorId, Integer admissionRecordId) {
+        this.id = id;
         this.description = description;
-        this.createdDate=LocalDate.now();
-        this.doctor=doctor;
-        this.patient=patient;
-        this.admissionRecord=admissionRecord;
+        this.patientId = patientId;
+        this.doctorId = doctorId;
+        this.admissionRecordId = admissionRecordId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
+    }
+
+    public Integer getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Integer doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public Integer getAdmissionRecordId() {
+        return admissionRecordId;
+    }
+
+    public void setAdmissionRecordId(Integer admissionRecordId) {
+        this.admissionRecordId = admissionRecordId;
     }
 
     public String getDescription() {
         return description;
-    }
-
-    public LocalDate getCreatedDate() {
-        return createdDate;
     }
 
     public Patient getPatient() {
