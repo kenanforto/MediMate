@@ -17,18 +17,23 @@ public class AdminService {
     AdminRepository repo;
 
     public Admin addOne(AdminVM adminVM) {
-            return repo.save(
-                    new Admin(
-                            adminVM.getFirstName(),
-                            adminVM.getLastName()
-                    )
-            );
+        return repo.save(
+                new Admin(
+                        adminVM.getFirstName(),
+                        adminVM.getLastName()
+                )
+        );
     }
 
     public void deleteById(Integer id) {
-        repo.deleteById(id);
-
+        Optional<Admin> adminOptional = repo.findById(id);
+        if (adminOptional.isPresent()) {
+            repo.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Could not find admin with id " + id);
+        }
     }
+
 
     public Admin getById(Integer id) {
         Optional<Admin> adminOptional = repo.findById(id);

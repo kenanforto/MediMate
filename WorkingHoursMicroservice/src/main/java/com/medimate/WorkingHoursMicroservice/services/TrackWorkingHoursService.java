@@ -1,5 +1,6 @@
 package com.medimate.WorkingHoursMicroservice.services;
 
+import com.medimate.WorkingHoursMicroservice.models.Admin;
 import com.medimate.WorkingHoursMicroservice.models.TrackWorkingHours;
 import com.medimate.WorkingHoursMicroservice.repositories.AdminRepository;
 import com.medimate.WorkingHoursMicroservice.repositories.TrackWorkingHoursRepository;
@@ -28,10 +29,15 @@ public class TrackWorkingHoursService {
         );
     }
 
-
-    public void deleteById(Integer id){
-        repo.deleteById(id);
+    public void deleteById(Integer id) {
+        Optional<TrackWorkingHours> trackWorkingHoursOptional = repo.findById(id);
+        if(trackWorkingHoursOptional.isPresent()) {
+            repo.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Could not find tracked working hours with id " + id);
+        }
     }
+
     public TrackWorkingHours getById(Integer id){
         Optional<TrackWorkingHours> trackWorkingHoursOptional = repo.findById(id);
         return trackWorkingHoursOptional.orElseThrow(() -> new EntityNotFoundException("Could not find track working hours with id %d".formatted(id)));

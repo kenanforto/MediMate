@@ -1,5 +1,6 @@
 package com.medimate.WorkingHoursMicroservice.services;
 
+import com.medimate.WorkingHoursMicroservice.models.Admin;
 import com.medimate.WorkingHoursMicroservice.models.WorkingHours;
 import com.medimate.WorkingHoursMicroservice.repositories.DoctorRepository;
 import com.medimate.WorkingHoursMicroservice.repositories.TrackWorkingHoursRepository;
@@ -35,7 +36,12 @@ public class WorkingHoursService {
     }
 
     public void deleteById(Integer id) {
-        repo.deleteById(id);
+        Optional<WorkingHours> workingHours = repo.findById(id);
+        if(workingHours.isPresent()) {
+            repo.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Could not find working hours with id " + id);
+        }
     }
 
     public WorkingHours getById(Integer id) {
