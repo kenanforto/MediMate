@@ -1,34 +1,15 @@
-package com.medimate.AdmissionMicroservice.models;
+package com.medimate.MedicalRecordMicroservice.viewmodels;
 
-import jakarta.persistence.*;
-
-import java.util.List;
-
-@Entity
-@Table(name = "doctor")
-public class Doctor {
-
-    @Id
-    @GeneratedValue
-    private Integer id;
-
+public class DoctorVM {
     private String firstName;
-
     private String lastName;
-
     private String title;
 
-    @OneToMany(mappedBy = "doctor")
-    List<Appointment> appointments;
-
-
-    public Doctor(String firstName, String lastName, String title) {
+    public DoctorVM(String firstName, String lastName, String title) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.title = title;
     }
-
-    public Doctor() {}
 
     public String getFirstName() {
         return firstName;
@@ -41,5 +22,4 @@ public class Doctor {
     public String getTitle() {
         return title;
     }
-
 }
