@@ -1,5 +1,8 @@
 package com.medimate.MedicalRecordMicroservice.viewmodels;
 
+import lombok.Getter;
+
+@Getter
 public class DoctorVM {
     private String firstName;
     private String lastName;
@@ -11,15 +14,4 @@ public class DoctorVM {
         this.title = title;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getTitle() {
-        return title;
-    }
 }

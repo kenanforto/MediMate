@@ -14,24 +14,24 @@ public class DoctorController{
 
     @Autowired
     private DoctorService doctorService;
-    @PostMapping(path="/add")
+
+    @PostMapping
     public void addDoctor(@RequestBody DoctorVM doctor) {
-        //Doctor korisnik = new Doctor(1, "Kenan", "Forto", "doca");
         doctorService.addDoctor(doctor);
     }
-    @GetMapping(path="/getall")
+    @GetMapping(path="/all")
     public List<Doctor> getAllDoctors()
     {
         return doctorService.getAllDoctors();
     }
-    @GetMapping(path="/get/{id}")
+    @GetMapping(path="/{id}")
     public Doctor getOneDoctor(@PathVariable Integer id)
     {
-        return doctorService.getOneDoctor(id);
+        return doctorService.getDoctor(id);
     }
-    @DeleteMapping(path="/delete/{id}")
+    @DeleteMapping(path="/{id}")
     public void deleteOneDoctor(@PathVariable Integer id)
     {
-        doctorService.deleteOneDoctor(id);
+        doctorService.deleteDoctor(id);
     }
 }

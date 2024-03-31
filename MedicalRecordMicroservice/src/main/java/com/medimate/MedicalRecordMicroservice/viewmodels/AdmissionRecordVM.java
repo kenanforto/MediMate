@@ -1,7 +1,10 @@
 package com.medimate.MedicalRecordMicroservice.viewmodels;
 
+import lombok.Getter;
+
 import java.time.LocalDate;
 
+@Getter
 public class AdmissionRecordVM {
     private LocalDate admittedAt;
     private boolean urgent;
@@ -15,19 +18,4 @@ public class AdmissionRecordVM {
         this.patientId=patientId;
     }
 
-    public LocalDate getAdmittedAt() {
-        return admittedAt;
-    }
-
-    public boolean isUrgent() {
-        return urgent;
-    }
-
-    public Integer getDoctorId() {
-        return doctorId;
-    }
-
-    public Integer getPatientId() {
-        return patientId;
-    }
 }

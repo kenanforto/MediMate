@@ -11,6 +11,5 @@ import java.util.List;
 
 @Repository
 public interface AdmissionRecordRepository extends JpaRepository<AdmissionRecord,Integer> {
-List<AdmissionRecord> findByDoctorId(Integer doctorId);
-
+    List<AdmissionRecord> findByDoctorId(Integer doctorId);
 }

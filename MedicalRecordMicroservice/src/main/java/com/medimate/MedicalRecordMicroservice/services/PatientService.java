@@ -12,32 +12,31 @@ import java.util.Optional;
 
 @Service
 public class PatientService {
+
     @Autowired
-    private PatientRepository repo;
+    private PatientRepository patientRepository;
 
     public PatientService(PatientRepository repo) {
-        this.repo = repo;
+        this.patientRepository = repo;
     }
 
     public void addPatient(PatientVM patientRequest)
     {
-        repo.save(
-                new Patient(
-                        patientRequest.getFirstName(),patientRequest.getLastName(),patientRequest.getBirthdate(),patientRequest.getGender(),patientRequest.getAddress(),patientRequest.getPhoneNumber()
-                )
+        patientRepository.save(
+                new Patient(patientRequest.getFirstName(),patientRequest.getLastName(),patientRequest.getBirthdate(),patientRequest.getGender(),patientRequest.getAddress(),patientRequest.getPhoneNumber())
         );
     }
     public Patient getOnePatient(Integer id) {
-        return repo.findById(id).orElse(null);
+        return patientRepository.findById(id).orElse(null);
     }
     public List<Patient> getAllPatients()
     {
-        return repo.findAll();
+        return patientRepository.findAll();
     }
 
     public void deleteOnePatient(Integer id)
     {
-        repo.deleteById(id);
+        patientRepository.deleteById(id);
     }
 
 }

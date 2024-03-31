@@ -12,25 +12,26 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path="/patient")
 public class PatientController {
+
     @Autowired
     private PatientService patientService;
 
-    @GetMapping(path="/get/{id}")
+    @GetMapping(path="{id}")
     public Patient getOnePatient(@PathVariable Integer id)
     {
         return patientService.getOnePatient(id);
     }
-    @GetMapping(path="/getall")
+    @GetMapping(path="/all")
     public List<Patient> getAllPatients()
     {
         return patientService.getAllPatients();
     }
-    @PostMapping(path="/add")
+    @PostMapping
     public void addPatient(@RequestBody PatientVM patient)
     {
         patientService.addPatient(patient);
     }
-    @DeleteMapping(path="/delete/{id}")
+    @DeleteMapping(path="{id}")
     public void deleteOnePatient(@PathVariable Integer id)
     {
         patientService.deleteOnePatient(id);

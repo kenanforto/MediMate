@@ -11,27 +11,25 @@ import java.util.List;
 
 @Service
 public class DoctorService {
+
     @Autowired
-    private DoctorRepository repo;
+    private DoctorRepository doctorRepository;
 
     public void addDoctor(DoctorVM doctorRequest)
     {
-        repo.save(
-                new Doctor(
-                        doctorRequest.getFirstName(),doctorRequest.getLastName(),doctorRequest.getTitle()
-                )
+        doctorRepository.save(
+                new Doctor(doctorRequest.getFirstName(),doctorRequest.getLastName(),doctorRequest.getTitle())
         );
     }
-    public Doctor getOneDoctor(Integer id) {
-        Doctor doctor=repo.findById(id).orElse(null);
-        return doctor;
+    public Doctor getDoctor(Integer id) {
+        return doctorRepository.findById(id).orElse(null);
     }
     public List<Doctor> getAllDoctors()
     {
-        return repo.findAll();
+        return doctorRepository.findAll();
     }
-    public void deleteOneDoctor(Integer id)
+    public void deleteDoctor(Integer id)
     {
-        repo.deleteById(id);
+        doctorRepository.deleteById(id);
     }
 }

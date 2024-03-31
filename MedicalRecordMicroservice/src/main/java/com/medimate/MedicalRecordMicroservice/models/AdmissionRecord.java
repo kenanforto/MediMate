@@ -2,12 +2,19 @@ package com.medimate.MedicalRecordMicroservice.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="admission_record")
 public class AdmissionRecord {
@@ -15,8 +22,8 @@ public class AdmissionRecord {
     @Id
     @GeneratedValue
     private Integer id;
-    @NotNull
-    private LocalDate admittedAt;
+
+    private LocalDate admittedAt = ZonedDateTime.now(ZoneOffset.UTC).toLocalDate();
 
     private boolean urgent;
 
@@ -41,31 +48,10 @@ public class AdmissionRecord {
     @OneToOne(mappedBy = "admissionRecord")
     private MedicalRecord medicalRecord;
 
-    protected AdmissionRecord(){}
     public AdmissionRecord(LocalDate admittedAt, boolean urgent,Integer doctor,Integer patient) {
         this.admittedAt = LocalDate.now();
         this.urgent = urgent;
         this.doctorId=doctor;
         this.patientId=patient;
-    }
-
-    public LocalDate getAdmittedAt() {
-        return admittedAt;
-    }
-
-    public boolean isUrgent() {
-        return urgent;
-    }
-
-    public Integer getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(Integer patientId) {
-        this.patientId = patientId;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
     }
 }

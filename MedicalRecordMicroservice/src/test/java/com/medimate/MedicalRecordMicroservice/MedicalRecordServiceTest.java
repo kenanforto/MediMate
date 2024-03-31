@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,10 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.client.RestTemplate;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,31 +32,27 @@ public class MedicalRecordServiceTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private MedicalRecordRepository medicalRecordRepository;
-
-    @Autowired
     private ObjectMapper objectMapper;
 
     private MedicalRecord medicalRecord;
 
     @BeforeAll
     void setup() {
-        medicalRecord = new MedicalRecord();
+        medicalRecord = new MedicalRecord("Opis nalaza", 5, 1, 52);
         medicalRecord.setId(1);
-        medicalRecord.setDescription("Ovo je opis nalaza");
     }
 
     @Test
     void getMedicalRecordsSuccessfully() throws Exception {
-        mockMvc.perform(get(String.format("/medicalrecord/get/%d", 1))
+        mockMvc.perform(get(String.format("/medical-record/%d", 1))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpectAll(status().isOk());
     }
 
     @Test
     void addMedicalRecordsSuccessfully() throws Exception {
-        mockMvc.perform(post("/medicalrecord/add").content(objectMapper.writeValueAsString(medicalRecord))
+        mockMvc.perform(post("/medical-record").content(objectMapper.writeValueAsString(medicalRecord))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
     }
 }

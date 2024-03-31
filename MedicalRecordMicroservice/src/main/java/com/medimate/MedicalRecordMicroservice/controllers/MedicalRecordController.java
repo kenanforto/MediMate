@@ -9,22 +9,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/medicalrecord")
+@RequestMapping(path="/medical-record")
 public class MedicalRecordController {
+
     @Autowired
     private MedicalRecordService mrService;
 
-    @PostMapping(path="/add")
+    @PostMapping
     public void addMedicalRecord(@RequestBody MedicalRecordVM medicalRecord)
     {
         mrService.addMedicalRecord(medicalRecord);
     }
-    @GetMapping(path="/getall")
+    @GetMapping(path="/all")
     public List<MedicalRecord> getAllMedicalRecords()
     {
         return mrService.getAllMedicalRecords();
     }
-    @GetMapping(path="/get/{id}")
+    @GetMapping(path="/{id}")
     public List<MedicalRecord> getMedicalRecordsForPatient(@PathVariable Integer id)
     {
         return mrService.getMedicalRecordsForPatient(id);
