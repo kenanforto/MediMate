@@ -1,13 +1,17 @@
 package com.medimate.WorkingHoursMicroservice.controllers;
 
+import com.medimate.WorkingHoursMicroservice.models.Doctor;
 import com.medimate.WorkingHoursMicroservice.models.TrackWorkingHours;
 import com.medimate.WorkingHoursMicroservice.services.TrackWorkingHoursService;
 import com.medimate.WorkingHoursMicroservice.viewmodels.TrackWorkingHoursVM;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("track-working-hours")
@@ -36,4 +40,39 @@ public class TrackWorkingHoursController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("all")
+    public ResponseEntity<List<TrackWorkingHours>> getAll() {
+        List<TrackWorkingHours> trackWorkingHours = trackWorkingHoursService.getAll();
+        return (trackWorkingHours != null) ? ResponseEntity.ok(trackWorkingHours) : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping(path = "admin/{adminId}")
+    public ResponseEntity<List<TrackWorkingHours>> getAllByAdminId(
+            @PathVariable Integer adminId
+    ) {
+        List<TrackWorkingHours> trackWorkingHours = trackWorkingHoursService.getByAdminId(adminId);
+        return (trackWorkingHours != null) ? ResponseEntity.ok(trackWorkingHours) : ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping(path = "{trackWorkingHoursId}/admin/{adminId}")
+    @Transactional
+    public ResponseEntity<Void> deleteMedicalRecordForPatient(
+            @PathVariable Integer trackWorkingHoursId,
+            @PathVariable Integer adminId
+    ) {
+        trackWorkingHoursService.deleteOneForAdmin(trackWorkingHoursId, adminId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping(path = "admin/{adminId}")
+    @Transactional
+    public ResponseEntity<Void> deleteAllMedicalRecordsForPatient(
+            @PathVariable Integer adminId
+    ) {
+        trackWorkingHoursService.deleteAllForAdmin(adminId);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }

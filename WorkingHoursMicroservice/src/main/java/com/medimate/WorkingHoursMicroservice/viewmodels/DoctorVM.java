@@ -1,5 +1,7 @@
 package com.medimate.WorkingHoursMicroservice.viewmodels;
 
+import com.medimate.WorkingHoursMicroservice.models.Admin;
+import com.medimate.WorkingHoursMicroservice.models.Doctor;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -36,5 +38,9 @@ public class DoctorVM {
 
     public String getTitle() {
         return title;
+    }
+
+    public static Doctor toEntity(DoctorVM doctorVM) {
+        return new Doctor(doctorVM.firstName, doctorVM.lastName, doctorVM.title);
     }
 }

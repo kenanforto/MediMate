@@ -1,7 +1,9 @@
 package com.medimate.WorkingHoursMicroservice.viewmodels;
 
+import com.medimate.WorkingHoursMicroservice.models.Admin;
 import com.medimate.WorkingHoursMicroservice.models.Doctor;
 import com.medimate.WorkingHoursMicroservice.models.TrackWorkingHours;
+import com.medimate.WorkingHoursMicroservice.models.WorkingHours;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -24,7 +26,10 @@ public class WorkingHoursVM {
     @Pattern(regexp="[A-Za-z]+")
     private String title;
 
+    @NotNull
     private Integer doctorId;
+
+    @NotNull
     private Integer trackWorkingHoursId;
 
     public WorkingHoursVM(LocalTime startTime, LocalTime endTime, String title, Integer doctorId, Integer trackWorkingHoursId) {
@@ -73,5 +78,9 @@ public class WorkingHoursVM {
 
     public void setTrackWorkingHoursId(Integer trackWorkingHoursId) {
         this.trackWorkingHoursId = trackWorkingHoursId;
+    }
+
+    public static WorkingHours toEntity(WorkingHoursVM workingHoursVM) {
+        return new WorkingHours(workingHoursVM.startTime, workingHoursVM.endTime, workingHoursVM.title, workingHoursVM.doctorId, workingHoursVM.trackWorkingHoursId);
     }
 }

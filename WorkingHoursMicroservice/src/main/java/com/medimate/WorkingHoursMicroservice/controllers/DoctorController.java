@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("doctors")
 public class DoctorController {
@@ -30,10 +32,12 @@ public class DoctorController {
     @GetMapping("{id}")
     public ResponseEntity<Doctor> getById(@PathVariable Integer id) {
         Doctor doctor = doctorService.getById(id);
-        if (doctor != null) {
-            return ResponseEntity.ok(doctor);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return (doctor != null) ? ResponseEntity.ok(doctor) : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("all")
+    public ResponseEntity<List<Doctor>> getAll() {
+        List<Doctor> doctors = doctorService.getAll();
+        return (doctors != null) ? ResponseEntity.ok(doctors) : ResponseEntity.notFound().build();
     }
 }

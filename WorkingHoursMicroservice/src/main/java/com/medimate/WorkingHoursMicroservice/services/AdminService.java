@@ -8,6 +8,7 @@ import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,5 +39,10 @@ public class AdminService {
     public Admin getById(Integer id) {
         Optional<Admin> adminOptional = repo.findById(id);
         return adminOptional.orElseThrow(() -> new EntityNotFoundException("Could not find admin with id %d".formatted(id)));
+    }
+
+    public List<Admin> getAll() {
+        Optional<List<Admin>> admins = Optional.of(repo.findAll());
+        return admins.orElseThrow(() -> new EntityNotFoundException("There are no admins"));
     }
 }

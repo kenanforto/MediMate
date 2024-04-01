@@ -1,5 +1,6 @@
 package com.medimate.WorkingHoursMicroservice.viewmodels;
 
+import com.medimate.WorkingHoursMicroservice.models.Admin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -34,5 +35,9 @@ public class AdminVM {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public static Admin toEntity(AdminVM adminVM) {
+        return new Admin(adminVM.firstName, adminVM.lastName);
     }
 }

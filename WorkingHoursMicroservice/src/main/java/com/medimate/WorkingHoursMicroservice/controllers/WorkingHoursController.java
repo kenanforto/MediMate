@@ -1,5 +1,6 @@
 package com.medimate.WorkingHoursMicroservice.controllers;
 
+import com.medimate.WorkingHoursMicroservice.models.TrackWorkingHours;
 import com.medimate.WorkingHoursMicroservice.models.WorkingHours;
 import com.medimate.WorkingHoursMicroservice.services.WorkingHoursService;
 import com.medimate.WorkingHoursMicroservice.viewmodels.WorkingHoursVM;
@@ -8,6 +9,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("working-hours")
@@ -38,5 +41,11 @@ public class WorkingHoursController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("all")
+    public ResponseEntity<List<WorkingHours>> getAll() {
+        List<WorkingHours> workingHours = workingHoursService.getAll();
+        return (workingHours != null) ? ResponseEntity.ok(workingHours) : ResponseEntity.notFound().build();
     }
 }

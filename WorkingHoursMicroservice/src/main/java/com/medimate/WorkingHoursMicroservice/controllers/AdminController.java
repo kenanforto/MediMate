@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("admins")
 public class AdminController {
@@ -31,10 +33,12 @@ public class AdminController {
     public ResponseEntity<Admin> getById(@PathVariable Integer id) {
         Admin admin = adminService.getById(id);
 
-        if (admin != null) {
-            return ResponseEntity.ok(admin);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return (admin != null) ? ResponseEntity.ok(admin) : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("all")
+    public ResponseEntity<List<Admin>> getAll() {
+        List<Admin> admins = adminService.getAll();
+        return (admins != null) ? ResponseEntity.ok(admins) : ResponseEntity.notFound().build();
     }
 }
