@@ -1,62 +1,50 @@
 package com.medimate.UserMicroservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.medimate.UserMicroservice.enums.Gender;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 
+@Builder
+@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="patient")
 public class Patient {
     @Id
     @GeneratedValue
     private Integer id;
+
     private String firstName;
+
     private String lastName;
+
     private LocalDate birthdate;
+
     private Gender gender;
+
     private String address;
+
     private String phoneNumber;
 
+    @Column(name = "user_id")
+    private Integer userId;
+
+    @JsonIgnore
     @OneToOne
-    @JoinColumn(name="user_id", referencedColumnName = "id")
+    @JoinColumn(name="user_id", insertable = false, updatable = false)
     private User user;
 
-    protected Patient(){}
-    public Patient(String first_name, String last_name, LocalDate birthdate, Gender gender, String adress, String phone_number) {
-        this.firstName = first_name;
-        this.lastName = last_name;
+    public Patient(String firstName, String lastName, LocalDate birthdate, Gender gender, String address, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.birthdate = birthdate;
         this.gender = gender;
-        this.address = adress;
-        this.phoneNumber = phone_number;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public LocalDate getBirthdate() {
-        return birthdate;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
     }
 }

@@ -1,7 +1,14 @@
 package com.medimate.UserMicroservice.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 @Entity
 @Table(name="role")
 public class Role {
@@ -9,19 +16,11 @@ public class Role {
     @GeneratedValue
     private Integer id;
 
+    @NotBlank(message = "Name of role is mandatory")
     private String role;
 
-    protected Role() { }
     public Role(String role)
     {
         this.role=role;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getRole() {
-        return role;
     }
 }
