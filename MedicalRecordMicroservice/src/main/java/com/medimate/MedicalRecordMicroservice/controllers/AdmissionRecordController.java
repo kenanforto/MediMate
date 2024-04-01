@@ -21,16 +21,16 @@ public class AdmissionRecordController {
         admissionRecordService.addAdmissionRecord(admissionRecord);
     }
 
-    @GetMapping(path="/all")
+    @GetMapping(path = "/all")
     public List<AdmissionRecord> getAllAdmissionRecords()
     {
         return admissionRecordService.getAllAdmissionRecords();
     }
 
-    @GetMapping(path="/{id}")
-    public List<AdmissionRecord> getAdmissionRecordsForDoctor(@PathVariable Integer id)
+    @GetMapping(path = "/{doctorId}")
+    public List<AdmissionRecord> getAdmissionRecordsForDoctor(@PathVariable Integer doctorId)
     {
-        return admissionRecordService.getAdmissionRecordsForDoctor(id);
+        return admissionRecordService.getAdmissionRecordsForDoctor(doctorId);
     }
 
     @DeleteMapping(path="/{id}")

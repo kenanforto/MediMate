@@ -33,12 +33,15 @@ public class MedicalRecord {
     private LocalDateTime createdDate = ZonedDateTime.now(ZoneOffset.UTC).toLocalDateTime();
 
     @Column(name = "patient_id")
+    @NotNull
     private Integer patientId;
 
     @Column(name = "doctor_id")
+    @NotNull
     private Integer doctorId;
 
     @Column(name = "admission_record_id")
+    @NotNull
     private Integer admissionRecordId;
 
     @JsonIgnore

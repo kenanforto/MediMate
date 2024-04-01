@@ -44,7 +44,7 @@ public class MedicalRecordServiceTest {
 
     @Test
     void getMedicalRecordsSuccessfully() throws Exception {
-        mockMvc.perform(get(String.format("/medical-record/%d", 1))
+        mockMvc.perform(get("/medical-record/patient/" + 1)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpectAll(status().isOk());
     }

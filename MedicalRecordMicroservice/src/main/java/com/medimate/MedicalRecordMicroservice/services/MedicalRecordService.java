@@ -3,10 +3,12 @@ package com.medimate.MedicalRecordMicroservice.services;
 import com.medimate.MedicalRecordMicroservice.models.MedicalRecord;
 import com.medimate.MedicalRecordMicroservice.repositories.MedicalRecordRepository;
 import com.medimate.MedicalRecordMicroservice.viewmodels.MedicalRecordVM;
+import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class MedicalRecordService {
@@ -14,35 +16,51 @@ public class MedicalRecordService {
     @Autowired
     private MedicalRecordRepository medicalRecordRepository;
 
-    public void addMedicalRecord(MedicalRecordVM mr)
+    public MedicalRecord addMedicalRecord(MedicalRecordVM medicalRecordVM)
     {
-        MedicalRecord pomocna = MedicalRecordVM.toEntity(mr);
-        System.out.println("pomocna "+pomocna);
-        medicalRecordRepository.save(pomocna);
+        return medicalRecordRepository.save(MedicalRecordVM.toEntity(medicalRecordVM));
 
+    }
+
+    public MedicalRecord getMedicalRecord(Integer id)
+    {
+        return medicalRecordRepository.findById(id).orElseThrow(() -> new EntityExistsException("Could not find medical record with id " + id));
     }
     public List<MedicalRecord> getAllMedicalRecords()
     {
 
         return medicalRecordRepository.findAll();
     }
-    public List<MedicalRecord> getMedicalRecordsForPatient(Integer id)
+    public List<MedicalRecord> getMedicalRecordsForPatient(Integer patientId)
     {
-        return medicalRecordRepository.findByPatientId(id);
+        List<MedicalRecord> medicalRecords = medicalRecordRepository.findByPatientId(patientId);
+        medicalRecords.forEach(medicalRecord -> {
+            if (medicalRecord.getPatientId() != patientId) throw new EntityExistsException("Could not find medical record for patient with id " + patientId);
+        });
+        return medicalRecords;
     }
 
-    public List<MedicalRecord> getMedicalRecordsForDoctor(Integer id)
+    public List<MedicalRecord> getMedicalRecordsForDoctor(Integer doctorId)
     {
-        return medicalRecordRepository.findByDoctorId(id);
+        List<MedicalRecord> medicalRecords = medicalRecordRepository.findByDoctorId(doctorId);
+        medicalRecords.forEach(medicalRecord -> {
+            if (medicalRecord.getPatientId() != doctorId) throw new EntityExistsException("Could not find medical record for doctor with id " + doctorId);
+        });
+        return medicalRecords;
     }
 
-    public void deleteMedicalRecordForPatient(Integer id)
+    public void deleteMedicalRecordForPatient(Integer id, Integer patientId)
     {
-        medicalRecordRepository.deleteByPatientId(id);
+        medicalRecordRepository.deleteByPatientId(id, patientId);
     }
 
-    public void deleteMedicalRecord(Integer id)
+    public void deleteAllMedicalRecordsForPatient(Integer patientId)
     {
-        medicalRecordRepository.deleteById(id);
+        medicalRecordRepository.deleteAllByPatientId(patientId);
+    }
+
+    public void deleteMedicalRecord(Integer id) throws NoSuchElementException
+    {
+            medicalRecordRepository.deleteById(id);
     }
 }
