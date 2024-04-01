@@ -34,9 +34,9 @@ public class MedicalRecordService {
     public List<MedicalRecord> getMedicalRecordsForPatient(Integer patientId)
     {
         List<MedicalRecord> medicalRecords = medicalRecordRepository.findByPatientId(patientId);
-        medicalRecords.forEach(medicalRecord -> {
-            if (medicalRecord.getPatientId() != patientId) throw new EntityExistsException("Could not find medical record for patient with id " + patientId);
-        });
+
+        if(medicalRecords.isEmpty()) throw new EntityExistsException("Could not find medical record with patient id " + patientId);
+
         return medicalRecords;
     }
 
