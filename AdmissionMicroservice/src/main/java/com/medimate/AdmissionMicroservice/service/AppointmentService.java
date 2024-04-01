@@ -5,9 +5,11 @@ import com.medimate.AdmissionMicroservice.repositories.AppointmentRepository;
 import com.medimate.AdmissionMicroservice.repositories.DoctorRepository;
 import com.medimate.AdmissionMicroservice.repositories.PatientRepository;
 import com.medimate.AdmissionMicroservice.viewModels.AppointmentVM;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.*;
 import java.util.List;
 
 @Service
@@ -19,12 +21,9 @@ public class AppointmentService {
     @Autowired
     private PatientRepository repoPatient;
 
-    public void addOneAppointment(AppointmentVM appointment)
+    public void addAppointment(AppointmentVM appointment)
     {
-        repo.save( new Appointment(appointment.getAppointmentDateTime(),
-                repoDoctor.findById(appointment.getDoctorId()).orElse(null),
-                repoPatient.findById(appointment.getPatientId()).orElse(null))
-        );
+        repo.save(AppointmentVM.toEntity(appointment));
     }
     public List<Appointment> getAllAppointments()
     {
@@ -32,9 +31,11 @@ public class AppointmentService {
     }
     public List<Appointment> getAppointmentsForDoctor(Integer id)
     {
-        return repo.findAllByDoctorId(id);
+        List<Appointment> appointments=repo.findAllByDoctorId(id);
+        if(appointments.isEmpty()) throw new EntityNotFoundException("Could not find appointments with patient id "+id);
+        return appointments;
     }
-    public void deleteOneAppointment(Integer id)
+    public void deleteAppointment(Integer id)
     {
         repo.deleteById(id);
     }

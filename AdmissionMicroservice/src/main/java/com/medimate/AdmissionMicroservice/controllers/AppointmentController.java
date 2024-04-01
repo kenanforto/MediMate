@@ -3,6 +3,7 @@ package com.medimate.AdmissionMicroservice.controllers;
 import com.medimate.AdmissionMicroservice.models.Appointment;
 import com.medimate.AdmissionMicroservice.service.AppointmentService;
 import com.medimate.AdmissionMicroservice.viewModels.AppointmentVM;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,13 +26,13 @@ public class AppointmentController {
          return appointmentService.getAppointmentsForDoctor(id);
     }
     @PostMapping(path="/add")
-    public void addAppointment(@RequestBody AppointmentVM appointment)
+    public void addAppointment(@Valid @RequestBody AppointmentVM appointment)
     {
-        appointmentService.addOneAppointment(appointment);
+        appointmentService.addAppointment(appointment);
     }
     @DeleteMapping(path="/delete/{id}")
-    public void deleteOneAppointment(@PathVariable Integer id)
+    public void deleteAppointment(@PathVariable Integer id)
     {
-        appointmentService.deleteOneAppointment(id);
+        appointmentService.deleteAppointment(id);
     }
 }

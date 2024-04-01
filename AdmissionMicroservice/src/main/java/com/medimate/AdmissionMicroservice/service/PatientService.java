@@ -5,6 +5,8 @@ import com.medimate.AdmissionMicroservice.repositories.PatientRepository;
 import com.medimate.AdmissionMicroservice.viewModels.PatientVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import jakarta.persistence.EntityNotFoundException;
+
 
 import java.util.List;
 
@@ -16,21 +18,17 @@ public class PatientService {
 
     public void addPatient(PatientVM patient)
     { //  LocalDate birthdate, Gender gender, String address, String phoneNumber
-        repo.save(
-                new Patient(
-                        patient.getFirstName(),patient.getLastName(), patient.getBirthdate(), patient.getGender(), patient.getAddress(), patient.getPhoneNumber()
-                )
-        );
+        repo.save(PatientVM.toEntity(patient));
     }
-    public Patient getOnePatient(Integer id)
+    public Patient getPatient(Integer id)
     {
-        return repo.findById(id).orElse(null);
+        return repo.findById(id).orElseThrow(()-> new EntityNotFoundException("Could not find patient with id: "+id));
     }
     public List<Patient> getAllPatients()
     {
         return repo.findAll();
     }
-    public void deleteOnePatient(Integer id)
+    public void deletePatient(Integer id)
     {
         repo.deleteById(id);
     }

@@ -1,5 +1,6 @@
 package com.medimate.AdmissionMicroservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.medimate.AdmissionMicroservice.enums.Gender;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
@@ -32,6 +33,7 @@ public class Patient {
 
     private String phoneNumber;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "patient")
     private List<Appointment> appointments;
 

@@ -1,5 +1,6 @@
 package com.medimate.AdmissionMicroservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,8 +19,9 @@ public class Doctor {
 
     private String title;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "doctor")
-    List<Appointment> appointments;
+    private List<Appointment> appointments;
 
 
     public Doctor(String firstName, String lastName, String title) {

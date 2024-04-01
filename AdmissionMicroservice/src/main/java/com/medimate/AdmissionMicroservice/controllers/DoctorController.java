@@ -4,6 +4,7 @@ import com.medimate.AdmissionMicroservice.models.Doctor;
 import com.medimate.AdmissionMicroservice.repositories.DoctorRepository;
 import com.medimate.AdmissionMicroservice.service.DoctorService;
 import com.medimate.AdmissionMicroservice.viewModels.DoctorVM;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class DoctorController {
     private DoctorService doctorService;
 
     @PostMapping(path="/add")
-    public void addDoctor(@RequestBody DoctorVM doctor)
+    public void addDoctor(@Valid @RequestBody DoctorVM doctor)
     {
         doctorService.addDoctor(doctor);
     }
@@ -26,13 +27,13 @@ public class DoctorController {
         return doctorService.getAllDoctors();
     }
     @GetMapping(path="/get/{id}")
-    public Doctor getOneDoctor(@PathVariable Integer id)
+    public Doctor getDoctor(@PathVariable Integer id)
     {
-        return doctorService.getOneDoctor(id);
+        return doctorService.getDoctor(id);
     }
     @DeleteMapping(path="/delete/{id}")
-    public void deleteOneDoctor(@PathVariable Integer id)
+    public void deleteDoctor(@PathVariable Integer id)
     {
-        doctorService.deleteOneDoctor(id);
+        doctorService.deleteDoctor(id);
     }
 }

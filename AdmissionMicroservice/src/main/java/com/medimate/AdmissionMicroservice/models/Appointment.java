@@ -1,6 +1,7 @@
 package com.medimate.AdmissionMicroservice.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import javax.print.Doc;
@@ -21,18 +22,25 @@ public class Appointment {
 
     private LocalDateTime createdDate = ZonedDateTime.now(ZoneOffset.UTC).toLocalDateTime();
 
+    @Column(name="patient_id")
+    private Integer patientId;
+    @Column(name="doctor_id")
+    private Integer doctorId;
+
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "patient_id")
+    @JoinColumn(name = "patient_id",insertable=false,updatable = false)
     private Patient patient;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "doctor_id")
+    @JoinColumn(name = "doctor_id",insertable = false,updatable = false)
     private Doctor doctor;
 
-    public Appointment(LocalDateTime appointmentDateTime, Doctor doctor,Patient patient) {
+    public Appointment(LocalDateTime appointmentDateTime, Integer doctorId,Integer patientId) {
         this.appointmentDateTime = appointmentDateTime;
-        this.doctor=doctor;
-        this.patient=patient;
+        this.doctorId=doctorId;
+        this.patientId=patientId;
     }
 
     public Appointment() {}
@@ -45,11 +53,11 @@ public class Appointment {
         return createdDate;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public Integer getPatientId() {
+        return patientId;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
+    public Integer getDoctorId() {
+        return doctorId;
     }
 }
