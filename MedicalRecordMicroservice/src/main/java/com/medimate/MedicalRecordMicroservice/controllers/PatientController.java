@@ -3,7 +3,9 @@ package com.medimate.MedicalRecordMicroservice.controllers;
 import com.medimate.MedicalRecordMicroservice.models.Patient;
 import com.medimate.MedicalRecordMicroservice.services.PatientService;
 import com.medimate.MedicalRecordMicroservice.viewmodels.PatientVM;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,24 +18,31 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
-    @GetMapping(path="{id}")
-    public Patient getOnePatient(@PathVariable Integer id)
+    @GetMapping(path = "{id}")
+    public ResponseEntity<Patient> getPatient(@PathVariable Integer id)
     {
-        return patientService.getOnePatient(id);
+        Patient patient = patientService.getPatient(id);
+        return (patient != null) ? ResponseEntity.ok(patient) : ResponseEntity.notFound().build();
     }
+
     @GetMapping(path="/all")
-    public List<Patient> getAllPatients()
+    public ResponseEntity<List<Patient>> getAllPatients()
     {
-        return patientService.getAllPatients();
+        List<Patient> patients = patientService.getAllPatients();
+        return (patients != null) ? ResponseEntity.ok(patients) : ResponseEntity.notFound().build();
     }
+
     @PostMapping
-    public void addPatient(@RequestBody PatientVM patient)
+    public Patient addPatient(@RequestBody @Valid PatientVM patient)
     {
-        patientService.addPatient(patient);
+        return patientService.addPatient(patient);
     }
+
     @DeleteMapping(path="{id}")
-    public void deleteOnePatient(@PathVariable Integer id)
+    public ResponseEntity<Void> deleteOnePatient(@PathVariable Integer id)
     {
         patientService.deleteOnePatient(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

@@ -22,21 +22,21 @@ public class DoctorController{
         return doctorService.addDoctor(doctor);
     }
 
-    @GetMapping(path="/all")
+    @GetMapping(path = "/all")
     public ResponseEntity<List<Doctor>> getAllDoctors()
     {
         List<Doctor> doctors = doctorService.getAllDoctors();
         return (doctors != null) ? ResponseEntity.ok(doctors) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping(path="/{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<Doctor> getDoctor(@PathVariable Integer id)
     {
         Doctor doctor = doctorService.getDoctor(id);
         return (doctor != null) ? ResponseEntity.ok(doctor) : ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping(path="/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteDoctor(@PathVariable Integer id)
     {
         doctorService.deleteDoctor(id);

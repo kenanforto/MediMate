@@ -20,10 +20,10 @@ public class MedicalRecordController {
 
     @PostMapping
     public MedicalRecord addMedicalRecord(
-            @RequestBody @Valid MedicalRecordVM medicalRecord
+            @RequestBody @Valid MedicalRecordVM medicalRecordVM
     )
     {
-        return medicalRecordService.addMedicalRecord(medicalRecord);
+        return medicalRecordService.addMedicalRecord(medicalRecordVM);
     }
 
     @GetMapping(path = "/all")

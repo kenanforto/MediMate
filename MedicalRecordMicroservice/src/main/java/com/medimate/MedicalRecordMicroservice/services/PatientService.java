@@ -4,6 +4,7 @@ import com.medimate.MedicalRecordMicroservice.models.MedicalRecord;
 import com.medimate.MedicalRecordMicroservice.models.Patient;
 import com.medimate.MedicalRecordMicroservice.repositories.PatientRepository;
 import com.medimate.MedicalRecordMicroservice.viewmodels.PatientVM;
+import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,18 +17,12 @@ public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
-    public PatientService(PatientRepository repo) {
-        this.patientRepository = repo;
-    }
-
-    public void addPatient(PatientVM patientRequest)
+    public Patient addPatient(PatientVM patientVM)
     {
-        patientRepository.save(
-                new Patient(patientRequest.getFirstName(),patientRequest.getLastName(),patientRequest.getBirthdate(),patientRequest.getGender(),patientRequest.getAddress(),patientRequest.getPhoneNumber())
-        );
+        return patientRepository.save(PatientVM.toEntity(patientVM));
     }
-    public Patient getOnePatient(Integer id) {
-        return patientRepository.findById(id).orElse(null);
+    public Patient getPatient(Integer id) {
+        return patientRepository.findById(id).orElseThrow(() -> new EntityExistsException("Could not find patient with id " + id));
     }
     public List<Patient> getAllPatients()
     {
