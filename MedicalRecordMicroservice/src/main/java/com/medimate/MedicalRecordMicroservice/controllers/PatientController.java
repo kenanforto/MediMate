@@ -18,7 +18,7 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
-    @GetMapping(path = "{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<Patient> getPatient(@PathVariable Integer id)
     {
         Patient patient = patientService.getPatient(id);
@@ -38,7 +38,7 @@ public class PatientController {
         return patientService.addPatient(patient);
     }
 
-    @DeleteMapping(path="{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteOnePatient(@PathVariable Integer id)
     {
         patientService.deleteOnePatient(id);

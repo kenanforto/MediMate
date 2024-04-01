@@ -46,7 +46,7 @@ public class AdmissionRecordController {
         return admissionRecordService.getAdmissionRecordsForDoctor(doctorId);
     }
 
-    @DeleteMapping(path="/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteAdmissionRecord(@PathVariable Integer id)
     {
         admissionRecordService.deleteAdmissionRecord(id);

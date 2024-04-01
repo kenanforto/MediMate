@@ -24,9 +24,9 @@ public class AdmissionRecordService {
     public List<AdmissionRecord> getAdmissionRecordsForDoctor(Integer doctorId)
     {
         List<AdmissionRecord> admissionRecords = admissionRecordRepository.findByDoctorId(doctorId);
-        admissionRecords.forEach(medicalRecord -> {
-            if (medicalRecord.getPatientId() != doctorId) throw new EntityExistsException("Could not find admission record for doctor with id " + doctorId);
-        });
+
+        if(admissionRecords.isEmpty()) throw new EntityExistsException("Could not find admission record for doctor with id " + doctorId);
+
         return admissionRecords;
     }
     public List<AdmissionRecord> getAllAdmissionRecords()

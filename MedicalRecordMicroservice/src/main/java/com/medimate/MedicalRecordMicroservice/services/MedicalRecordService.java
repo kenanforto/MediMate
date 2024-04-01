@@ -43,9 +43,9 @@ public class MedicalRecordService {
     public List<MedicalRecord> getMedicalRecordsForDoctor(Integer doctorId)
     {
         List<MedicalRecord> medicalRecords = medicalRecordRepository.findByDoctorId(doctorId);
-        medicalRecords.forEach(medicalRecord -> {
-            if (medicalRecord.getPatientId() != doctorId) throw new EntityExistsException("Could not find medical record for doctor with id " + doctorId);
-        });
+
+        if(medicalRecords.isEmpty()) throw new EntityExistsException("Could not find medical record for doctor with id " + doctorId);
+
         return medicalRecords;
     }
 
@@ -59,7 +59,7 @@ public class MedicalRecordService {
         medicalRecordRepository.deleteAllByPatientId(patientId);
     }
 
-    public void deleteMedicalRecord(Integer id) throws NoSuchElementException
+    public void deleteMedicalRecord(Integer id)
     {
             medicalRecordRepository.deleteById(id);
     }
