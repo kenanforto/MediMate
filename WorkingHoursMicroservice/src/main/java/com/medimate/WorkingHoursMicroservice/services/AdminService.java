@@ -1,8 +1,10 @@
 package com.medimate.WorkingHoursMicroservice.services;
 
 import com.medimate.WorkingHoursMicroservice.models.Admin;
+import com.medimate.WorkingHoursMicroservice.models.WorkingHours;
 import com.medimate.WorkingHoursMicroservice.repositories.AdminRepository;
 import com.medimate.WorkingHoursMicroservice.viewmodels.AdminVM;
+import com.medimate.WorkingHoursMicroservice.viewmodels.WorkingHoursVM;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +19,11 @@ public class AdminService {
     @Autowired
     AdminRepository repo;
 
-    public Admin addOne(AdminVM adminVM) {
-        return repo.save(
-                new Admin(
-                        adminVM.getFirstName(),
-                        adminVM.getLastName()
-                )
-        );
-    }
 
+    public Admin addOne(AdminVM adminVM)
+    {
+        return repo.save(AdminVM.toEntity(adminVM));
+    }
     public void deleteById(Integer id) {
         Optional<Admin> adminOptional = repo.findById(id);
         if (adminOptional.isPresent()) {

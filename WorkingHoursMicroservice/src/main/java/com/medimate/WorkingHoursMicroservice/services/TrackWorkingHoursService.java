@@ -24,7 +24,7 @@ public class TrackWorkingHoursService {
 
     public TrackWorkingHours addOne(TrackWorkingHoursVM trackWorkingHoursVM) {
         return repo.save(
-                trackWorkingHoursVM.toEntity(trackWorkingHoursVM)
+                TrackWorkingHoursVM.toEntity(trackWorkingHoursVM)
         );
     }
 

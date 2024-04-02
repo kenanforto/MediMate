@@ -26,20 +26,14 @@ public class WorkingHoursService {
     @Autowired
     private TrackWorkingHoursRepository trackWHRepo;
 
-    public WorkingHours addOne(WorkingHoursVM workingHoursVM){
-        return repo.save(
-                new WorkingHours(
-                        workingHoursVM.getStartTime(),
-                        workingHoursVM.getEndTime(),
-                        workingHoursVM.getTitle(),
-                        doctorRepo.findById(workingHoursVM.getDoctorId()).orElse(null),
-                        trackWHRepo.findById(workingHoursVM.getTrackWorkingHoursId()).orElse(null))
-        );
+    public WorkingHours addOne(WorkingHoursVM workingHoursVM)
+    {
+        return repo.save(WorkingHoursVM.toEntity(workingHoursVM));
     }
 
     public void deleteById(Integer id) {
         Optional<WorkingHours> workingHours = repo.findById(id);
-        if(workingHours.isPresent()) {
+        if (workingHours.isPresent()) {
             repo.deleteById(id);
         } else {
             throw new EntityNotFoundException("Could not find working hours with id " + id);
