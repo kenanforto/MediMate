@@ -1,5 +1,6 @@
 package com.medimate.SuppliesMicroservice.viewmodels;
 
+import com.medimate.SuppliesMicroservice.models.Admin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -7,12 +8,12 @@ import jakarta.validation.constraints.Pattern;
 public class AdminVM {
     @NotBlank
     @NotNull
-    @Pattern(regexp="[A-Za-z]+")
+    @Pattern(regexp = "[A-Za-z]+")
     private String firstName;
 
     @NotBlank
     @NotNull
-    @Pattern(regexp="[A-Za-z]+")
+    @Pattern(regexp = "[A-Za-z]+")
     private String lastName;
 
     public AdminVM(String firstName, String lastName) {
@@ -34,5 +35,9 @@ public class AdminVM {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public static Admin toEntity(AdminVM adminVM) {
+        return new Admin(adminVM.firstName, adminVM.lastName);
     }
 }

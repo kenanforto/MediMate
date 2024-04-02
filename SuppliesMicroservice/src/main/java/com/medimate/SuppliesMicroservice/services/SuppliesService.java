@@ -19,14 +19,11 @@ public class SuppliesService {
     @Autowired
     AdminRepository adminRepo;
 
-    public Supplies addOne(SuppliesVM suppliesVM){
-        return repo.save(
-                new Supplies(
-                        suppliesVM.getMedicationName(),
-                        suppliesVM.getAmount(),
-                        adminRepo.findById(suppliesVM.getAdminId()).orElse(null))
-        );
+    public Supplies addOne(SuppliesVM suppliesVM)
+    {
+        return repo.save(SuppliesVM.toEntity(suppliesVM));
     }
+
 
     public void deleteById(Integer id){
         repo.deleteById(id);
@@ -35,6 +32,14 @@ public class SuppliesService {
     public Supplies getById(Integer id){
         Optional<Supplies> suppliesOptional = repo.findById(id);
         return suppliesOptional.orElseThrow(() -> new EntityNotFoundException("Could not find supplies with id %d".formatted(id)));
+    }
 
+    public Supplies updateById(Integer id, SuppliesVM suppliesVM) {
+        Supplies existingSupplies = getById(id);
+
+        existingSupplies.setAmount(suppliesVM.getAmount() != null ? suppliesVM.getAmount() : existingSupplies.getAmount());
+        existingSupplies.setMedicationName(suppliesVM.getMedicationName() != null ? suppliesVM.getMedicationName() : existingSupplies.getMedicationName());
+
+        return repo.save(existingSupplies);
     }
 }

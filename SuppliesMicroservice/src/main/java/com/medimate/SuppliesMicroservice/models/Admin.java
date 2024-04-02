@@ -1,5 +1,6 @@
 package com.medimate.SuppliesMicroservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,10 @@ public class Admin {
     private Integer id;
     private String firstName;
     private String lastName;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "admin")
+    private List<Supplies> supplies;
 
     public Admin(String firstName, String lastName) {
         this.firstName = firstName;

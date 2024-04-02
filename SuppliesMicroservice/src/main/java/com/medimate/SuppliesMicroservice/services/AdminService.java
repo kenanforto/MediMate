@@ -16,13 +16,9 @@ public class AdminService {
     AdminRepository repo;
 
     public Admin addOne(AdminVM adminVM) {
-            return repo.save(
-                    new Admin(
-                            adminVM.getFirstName(),
-                            adminVM.getLastName()
-                    )
-            );
+        return repo.save(AdminVM.toEntity(adminVM));
     }
+
 
     public void deleteById(Integer id) {
         repo.deleteById(id);
@@ -33,4 +29,14 @@ public class AdminService {
         Optional<Admin> adminOptional = repo.findById(id);
         return adminOptional.orElseThrow(() -> new EntityNotFoundException("Could not find admin with id %d".formatted(id)));
     }
+
+    public Admin updateById(Integer id, AdminVM adminVM) {
+        Admin existingAdmin = getById(id);
+
+        existingAdmin.setFirstName(adminVM.getFirstName() != null ? adminVM.getFirstName() : existingAdmin.getFirstName());
+        existingAdmin.setLastName(adminVM.getLastName() != null ? adminVM.getLastName() : existingAdmin.getLastName());
+
+        return repo.save(existingAdmin);
+    }
+
 }

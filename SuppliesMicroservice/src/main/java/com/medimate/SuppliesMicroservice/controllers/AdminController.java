@@ -36,4 +36,11 @@ public class AdminController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Admin> updateAdmin(@PathVariable Integer id, @RequestBody AdminVM adminVM) {
+        Admin updatedAdmin = adminService.updateById(id, adminVM);
+        return ResponseEntity.ok(updatedAdmin);
+    }
+
 }

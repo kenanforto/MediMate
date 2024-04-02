@@ -1,10 +1,7 @@
 package com.medimate.SuppliesMicroservice.controllers;
 
-import com.medimate.SuppliesMicroservice.models.Admin;
 import com.medimate.SuppliesMicroservice.models.Supplies;
-import com.medimate.SuppliesMicroservice.services.AdminService;
 import com.medimate.SuppliesMicroservice.services.SuppliesService;
-import com.medimate.SuppliesMicroservice.viewmodels.AdminVM;
 import com.medimate.SuppliesMicroservice.viewmodels.SuppliesVM;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,4 +36,11 @@ public class SuppliesController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Supplies> updateById(@PathVariable Integer id, @RequestBody SuppliesVM suppliesVM) {
+        Supplies updatedSupplies = suppliesService.updateById(id, suppliesVM);
+        return ResponseEntity.ok(updatedSupplies);
+    }
+
 }
