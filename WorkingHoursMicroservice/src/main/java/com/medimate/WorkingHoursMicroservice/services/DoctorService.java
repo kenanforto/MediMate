@@ -45,4 +45,14 @@ public class DoctorService {
 
     }
 
+    public Doctor updateById(Integer id, DoctorVM doctorVM) {
+        Doctor existingDoctor = getById(id);
+
+        existingDoctor.setFirstName(doctorVM.getFirstName() != null ? doctorVM.getFirstName() : existingDoctor.getFirstName());
+        existingDoctor.setLastName(doctorVM.getLastName() != null ? doctorVM.getLastName() : existingDoctor.getLastName());
+        existingDoctor.setTitle(doctorVM.getTitle() != null ? doctorVM.getTitle() : existingDoctor.getTitle());
+
+        return repo.save(existingDoctor);
+    }
+
 }

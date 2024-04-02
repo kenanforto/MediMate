@@ -40,4 +40,10 @@ public class DoctorController {
         List<Doctor> doctors = doctorService.getAll();
         return (doctors != null) ? ResponseEntity.ok(doctors) : ResponseEntity.notFound().build();
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Doctor> updateAdmin(@PathVariable Integer id, @RequestBody DoctorVM doctorVM) {
+        Doctor updatedDoctor = doctorService.updateById(id, doctorVM);
+        return ResponseEntity.ok(updatedDoctor);
+    }
 }

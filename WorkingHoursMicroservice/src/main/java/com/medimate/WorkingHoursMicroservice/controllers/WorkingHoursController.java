@@ -48,4 +48,10 @@ public class WorkingHoursController {
         List<WorkingHours> workingHours = workingHoursService.getAll();
         return (workingHours != null) ? ResponseEntity.ok(workingHours) : ResponseEntity.notFound().build();
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<WorkingHours> updateAdmin(@PathVariable Integer id, @RequestBody WorkingHoursVM workingHoursVM) {
+        WorkingHours updatedWorkingHours = workingHoursService.updateById(id, workingHoursVM);
+        return ResponseEntity.ok(updatedWorkingHours);
+    }
 }

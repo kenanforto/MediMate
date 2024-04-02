@@ -75,4 +75,9 @@ public class TrackWorkingHoursController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<TrackWorkingHours> updateAdmin(@PathVariable Integer id, @RequestBody TrackWorkingHoursVM trackWorkingHoursVM) {
+        TrackWorkingHours updatedTrackWH = trackWorkingHoursService.updateById(id, trackWorkingHoursVM);
+        return ResponseEntity.ok(updatedTrackWH);
+    }
 }

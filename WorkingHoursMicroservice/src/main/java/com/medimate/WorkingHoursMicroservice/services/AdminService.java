@@ -43,4 +43,13 @@ public class AdminService {
         Optional<List<Admin>> admins = Optional.of(repo.findAll());
         return admins.orElseThrow(() -> new EntityNotFoundException("There are no admins"));
     }
+
+    public Admin updateById(Integer id, AdminVM adminVM) {
+        Admin existingAdmin = getById(id);
+
+        existingAdmin.setFirstName(adminVM.getFirstName() != null ? adminVM.getFirstName() : existingAdmin.getFirstName());
+        existingAdmin.setLastName(adminVM.getLastName() != null ? adminVM.getLastName() : existingAdmin.getLastName());
+
+        return repo.save(existingAdmin);
+    }
 }

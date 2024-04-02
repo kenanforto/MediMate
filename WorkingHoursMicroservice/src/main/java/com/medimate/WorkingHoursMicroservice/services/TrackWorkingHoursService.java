@@ -1,9 +1,11 @@
 package com.medimate.WorkingHoursMicroservice.services;
 
 import com.medimate.WorkingHoursMicroservice.models.Admin;
+import com.medimate.WorkingHoursMicroservice.models.Doctor;
 import com.medimate.WorkingHoursMicroservice.models.TrackWorkingHours;
 import com.medimate.WorkingHoursMicroservice.repositories.AdminRepository;
 import com.medimate.WorkingHoursMicroservice.repositories.TrackWorkingHoursRepository;
+import com.medimate.WorkingHoursMicroservice.viewmodels.DoctorVM;
 import com.medimate.WorkingHoursMicroservice.viewmodels.TrackWorkingHoursVM;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
@@ -60,5 +62,15 @@ public class TrackWorkingHoursService {
 
     public void deleteAllForAdmin(Integer adminId) {
         repo.deleteAllByAdminId(adminId);
+    }
+
+    public TrackWorkingHours updateById(Integer id, TrackWorkingHoursVM trackWorkingHoursVM) {
+        TrackWorkingHours existingTrackWH = getById(id);
+
+        existingTrackWH.setBreakHours(trackWorkingHoursVM.getBreakHours() != null ? trackWorkingHoursVM.getBreakHours() : existingTrackWH.getBreakHours());
+        existingTrackWH.setTotalHours(trackWorkingHoursVM.getTotalHours() != null ? trackWorkingHoursVM.getTotalHours() : existingTrackWH.getTotalHours());
+
+
+        return repo.save(existingTrackWH);
     }
 }

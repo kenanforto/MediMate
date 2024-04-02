@@ -6,6 +6,7 @@ import com.medimate.WorkingHoursMicroservice.models.WorkingHours;
 import com.medimate.WorkingHoursMicroservice.repositories.DoctorRepository;
 import com.medimate.WorkingHoursMicroservice.repositories.TrackWorkingHoursRepository;
 import com.medimate.WorkingHoursMicroservice.repositories.WorkingHoursRepository;
+import com.medimate.WorkingHoursMicroservice.viewmodels.TrackWorkingHoursVM;
 import com.medimate.WorkingHoursMicroservice.viewmodels.WorkingHoursVM;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,7 @@ public class WorkingHoursService {
     @Autowired
     private TrackWorkingHoursRepository trackWHRepo;
 
-    public WorkingHours addOne(WorkingHoursVM workingHoursVM)
-    {
+    public WorkingHours addOne(WorkingHoursVM workingHoursVM) {
         return repo.save(WorkingHoursVM.toEntity(workingHoursVM));
     }
 
@@ -48,5 +48,18 @@ public class WorkingHoursService {
     public List<WorkingHours> getAll() {
         Optional<List<WorkingHours>> workingHours = Optional.of(repo.findAll());
         return workingHours.orElseThrow(() -> new EntityNotFoundException("There are no working hours"));
+    }
+
+    public WorkingHours updateById(Integer id, WorkingHoursVM workingHoursVM) {
+        WorkingHours existingWorkingHours = getById(id);
+
+        existingWorkingHours.setTitle(workingHoursVM.getTitle() != null ? workingHoursVM.getTitle() : existingWorkingHours.getTitle());
+        existingWorkingHours.setStartTime(workingHoursVM.getStartTime() != null ? workingHoursVM.getStartTime() : existingWorkingHours.getStartTime());
+        existingWorkingHours.setEndTime(workingHoursVM.getEndTime() != null ? workingHoursVM.getEndTime() : existingWorkingHours.getEndTime());
+        existingWorkingHours.setDoctorId(workingHoursVM.getDoctorId() != null ? workingHoursVM.getDoctorId() : existingWorkingHours.getDoctorId());
+        existingWorkingHours.setTrackWorkingHoursId(workingHoursVM.getTrackWorkingHoursId() != null ? workingHoursVM.getTrackWorkingHoursId() : existingWorkingHours.getTrackWorkingHoursId());
+
+
+        return repo.save(existingWorkingHours);
     }
 }
