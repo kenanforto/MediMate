@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalTime;
 
@@ -25,11 +26,11 @@ public class WorkingHours {
     private Integer id;
 
     @NotNull
-    @NotBlank
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime startTime;
 
     @NotNull
-    @NotBlank
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime endTime;
 
     @NotNull
@@ -54,14 +55,6 @@ public class WorkingHours {
     @ManyToOne
     @JoinColumn(name = "track_working_hours_id", insertable = false, updatable = false)
     private TrackWorkingHours trackWorkingHours;
-
-    public WorkingHours(LocalTime startTime, LocalTime endTime, String title, Doctor doctor, TrackWorkingHours trackWorkingHours) {
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.title = title;
-        this.doctor = doctor;
-        this.trackWorkingHours = trackWorkingHours;
-    }
 
     public WorkingHours(LocalTime startTime, LocalTime endTime, String title, Integer doctorId, Integer trackWorkingHoursId
     ) {
