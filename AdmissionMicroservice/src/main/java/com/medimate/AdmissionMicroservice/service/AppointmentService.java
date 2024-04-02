@@ -32,7 +32,7 @@ public class AppointmentService {
     public List<Appointment> getAppointmentsForDoctor(Integer id)
     {
         List<Appointment> appointments=repo.findAllByDoctorId(id);
-        if(appointments.isEmpty()) throw new EntityNotFoundException("Could not find appointments with patient id "+id);
+        if(appointments.isEmpty()) throw new EntityNotFoundException("Could not find appointments with doctor id "+id);
         return appointments;
     }
     public void deleteAppointment(Integer id)
