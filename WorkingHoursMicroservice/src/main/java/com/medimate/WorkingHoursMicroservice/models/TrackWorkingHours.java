@@ -32,7 +32,7 @@ public class TrackWorkingHours {
     private Admin admin;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "track_working_hours")
+    @OneToMany(mappedBy = "trackWorkingHours")
     private List<WorkingHours> workingHours;
 
     public TrackWorkingHours(Integer totalHours, Integer breakHours, Admin admin) {

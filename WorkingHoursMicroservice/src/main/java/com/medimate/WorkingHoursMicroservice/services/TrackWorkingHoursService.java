@@ -24,10 +24,7 @@ public class TrackWorkingHoursService {
 
     public TrackWorkingHours addOne(TrackWorkingHoursVM trackWorkingHoursVM) {
         return repo.save(
-                new TrackWorkingHours(
-                        trackWorkingHoursVM.getTotalHours(),
-                        trackWorkingHoursVM.getBreakHours(),
-                        adminRepo.findById(trackWorkingHoursVM.getAdminId()).orElse(null))
+                trackWorkingHoursVM.toEntity(trackWorkingHoursVM)
         );
     }
 
