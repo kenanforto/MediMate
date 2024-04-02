@@ -1,5 +1,6 @@
 package com.medimate.UserMicroservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -18,6 +19,10 @@ public class Role {
 
     @NotBlank(message = "Name of role is mandatory")
     private String role;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "role")
+    private User user;
 
     public Role(String role)
     {

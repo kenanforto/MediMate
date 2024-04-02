@@ -2,10 +2,7 @@ package com.medimate.UserMicroservice.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Builder
@@ -31,11 +28,12 @@ public class User {
     @Email(message="Please provide a valid email address")
     private String email;
 
+    @NotNull
     @Column(name = "role_id")
     private Integer roleId;
 
     @JsonIgnore
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="role_id", insertable = false, updatable = false)
     private Role role;
 
@@ -51,11 +49,10 @@ public class User {
     @OneToOne(mappedBy ="user")
     private Patient patient;
 
-
-    public User( String user_name, String password, Role role) {
-        this.userName = user_name;
+    public User(String userName, String password, String email, Integer roleId) {
+        this.userName = userName;
         this.password = password;
-        this.role = role;
+        this.email = email;
+        this.roleId = roleId;
     }
-
 }
