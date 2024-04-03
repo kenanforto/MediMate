@@ -26,7 +26,7 @@ public class UserService {
             throw new EntityExistsException("Username or email already exists!");
 
         // provjeri dodavanje rola i passworda
-        return userRepository.save(UserVM.toEntity(userVM));
+        return userRepository.save(UserVM.toEntity(userVM)); // bcript
 
     }
 
