@@ -21,9 +21,9 @@ public class AppointmentService {
     @Autowired
     private PatientRepository repoPatient;
 
-    public void addAppointment(AppointmentVM appointment)
+    public Appointment addAppointment(AppointmentVM appointment)
     {
-        repo.save(AppointmentVM.toEntity(appointment));
+        return repo.save(AppointmentVM.toEntity(appointment));
     }
     public List<Appointment> getAllAppointments()
     {

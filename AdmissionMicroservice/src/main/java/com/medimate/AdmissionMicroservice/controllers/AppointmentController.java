@@ -5,6 +5,7 @@ import com.medimate.AdmissionMicroservice.service.AppointmentService;
 import com.medimate.AdmissionMicroservice.viewModels.AppointmentVM;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,24 +16,25 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
-    @GetMapping(path="/getall")
+    @PostMapping
+    public Appointment addAppointment(@Valid @RequestBody AppointmentVM appointment)
+    {
+        return appointmentService.addAppointment(appointment);
+    }
+    @GetMapping(path="/all")
     public List<Appointment> getAllAppointments()
     {
        return appointmentService.getAllAppointments();
     }
-    @GetMapping(path="/get/{id}")
-    public List<Appointment> getAppointmentsForDoctor(@PathVariable Integer id)
+    @GetMapping(path="/doctor/{doctorId}")
+    public List<Appointment> getAppointmentsForDoctor(@PathVariable Integer doctorId)
     {
-         return appointmentService.getAppointmentsForDoctor(id);
+         return appointmentService.getAppointmentsForDoctor(doctorId);
     }
-    @PostMapping(path="/add")
-    public void addAppointment(@Valid @RequestBody AppointmentVM appointment)
+    @DeleteMapping(path="/delete/{appointmentId}")
+    public ResponseEntity<Void> deleteAppointment(@PathVariable Integer appointmentId)
     {
-        appointmentService.addAppointment(appointment);
-    }
-    @DeleteMapping(path="/delete/{id}")
-    public void deleteAppointment(@PathVariable Integer id)
-    {
-        appointmentService.deleteAppointment(id);
+        appointmentService.deleteAppointment(appointmentId);
+        return ResponseEntity.noContent().build();
     }
 }
