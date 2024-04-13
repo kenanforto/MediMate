@@ -6,7 +6,12 @@ import com.medimate.UserMicroservice.repositories.RoleRepository;
 import com.medimate.UserMicroservice.repositories.UserRepository;
 import com.medimate.UserMicroservice.viewmodels.UserVM;
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,6 +50,7 @@ public class UserService {
         return userRepository.save(user);
 
     }
+
     public User addRoleToUser(Integer id, Integer roleId) {
         Role role = roleRepository.findById(roleId).orElseThrow(() -> new EntityExistsException("Could not find role with id " + roleId));
         User user = userRepository.findById(id).orElseThrow(() -> new EntityExistsException("Could not find user with id " + id));
@@ -52,17 +58,25 @@ public class UserService {
         return user;
     }
 
-    public User getUser(Integer id)
-    {
+    public User getUser(Integer id) {
         return userRepository.findById(id).orElseThrow(() -> new EntityExistsException("Could not find user with id " + id));
     }
-    public List<User> getAllUsers()
-    {
-        return userRepository.findAll();
+
+    public Page<User> getAllUsers(int page, int size, String sortBy, String userName) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        Page<User> users;
+        if (userName != null) {
+            users = userRepository.findByUserNameContaining(userName);
+        } else {
+            users = userRepository.findAll(pageable);
+        }
+        if (users.isEmpty()) {
+            throw new EntityNotFoundException("There are no users");
+        }
+        return users;
     }
 
-    public void deleteUser(Integer id)
-    {
+    public void deleteUser(Integer id) {
         userRepository.deleteById(id);
     }
 }

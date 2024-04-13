@@ -5,6 +5,10 @@ import com.medimate.SuppliesMicroservice.repositories.AdminRepository;
 import com.medimate.SuppliesMicroservice.viewmodels.AdminVM;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -23,6 +27,26 @@ public class AdminService {
     public void deleteById(Integer id) {
         repo.deleteById(id);
 
+    }
+
+    public Page<Admin> getAll(int page, int size, String sortBy, String firstName, String lastName) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+
+        Page<Admin> admins;
+        if (firstName != null && lastName != null) {
+            admins = repo.findByFirstNameContainingAndLastNameContaining(firstName, lastName, pageable);
+        } else if (firstName != null) {
+            admins = repo.findByFirstNameContaining(firstName, pageable);
+        } else if (lastName != null) {
+            admins = repo.findByLastNameContaining(lastName, pageable);
+        } else {
+            admins = repo.findAll(pageable);
+        }
+
+        if (admins.isEmpty()) {
+            throw new EntityNotFoundException("There are no admins matching the given filters");
+        }
+        return admins;
     }
 
     public Admin getById(Integer id) {

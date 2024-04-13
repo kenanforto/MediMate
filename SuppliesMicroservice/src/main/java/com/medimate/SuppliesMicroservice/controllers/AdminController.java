@@ -5,6 +5,7 @@ import com.medimate.SuppliesMicroservice.services.AdminService;
 import com.medimate.SuppliesMicroservice.viewmodels.AdminVM;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    @PostMapping("")
+    @PostMapping
     public Admin addOne(@RequestBody @Valid AdminVM adminVM){
        return adminService.addOne(adminVM);
     }
@@ -24,6 +25,19 @@ public class AdminController {
     public ResponseEntity<Void> deleteById(@PathVariable Integer id){
         adminService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<Admin>> getAll(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "1") Integer size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName
+    ) {
+        Page<Admin> admins = adminService.getAll(page, size, sortBy, firstName, lastName);
+
+        return (admins != null && !admins.isEmpty()) ? ResponseEntity.ok().body(admins) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("{id}")

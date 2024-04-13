@@ -10,6 +10,10 @@ import com.medimate.WorkingHoursMicroservice.viewmodels.TrackWorkingHoursVM;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,6 +48,14 @@ public class TrackWorkingHoursService {
         return trackWorkingHoursOptional.orElseThrow(() -> new EntityNotFoundException("Could not find track working hours with id %d".formatted(id)));
     }
 
+    public Page<TrackWorkingHours> getAll(int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        Page<TrackWorkingHours> trackWorkingHours = repo.findAll(pageable);
+        if (trackWorkingHours.isEmpty()) {
+            throw new EntityNotFoundException("There are no tracked working hours");
+        }
+        return trackWorkingHours;
+    }
     public List<TrackWorkingHours> getAll() {
         Optional<List<TrackWorkingHours>> trackWorkingHours = Optional.of(repo.findAll());
         return trackWorkingHours.orElseThrow(() -> new EntityNotFoundException("There are no tracked working hours"));

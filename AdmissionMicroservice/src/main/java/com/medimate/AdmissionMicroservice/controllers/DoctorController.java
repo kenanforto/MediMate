@@ -6,34 +6,44 @@ import com.medimate.AdmissionMicroservice.service.DoctorService;
 import com.medimate.AdmissionMicroservice.viewModels.DoctorVM;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/doctor")
+@RequestMapping(path = "doctors")
 public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
-    @PostMapping(path="/add")
-    public void addDoctor(@Valid @RequestBody DoctorVM doctor)
-    {
+    @PostMapping
+    public void addDoctor(@Valid @RequestBody DoctorVM doctor) {
         doctorService.addDoctor(doctor);
     }
-    @GetMapping(path="/getall")
-    public List<Doctor> getAllDoctors()
-    {
-        return doctorService.getAllDoctors();
+
+    @GetMapping
+    public ResponseEntity<Page<Doctor>> getAllDoctors(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "1") Integer size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName,
+            @RequestParam(required = false) String title
+    ) {
+        Page<Doctor> doctors = doctorService.getAllDoctors(page, size, sortBy, firstName, lastName, title);
+
+        return (doctors != null && !doctors.isEmpty()) ? ResponseEntity.ok().body(doctors) : ResponseEntity.notFound().build();
     }
-    @GetMapping(path="/get/{id}")
-    public Doctor getDoctor(@PathVariable Integer id)
-    {
+
+    @GetMapping(path = "{id}")
+    public Doctor getDoctor(@PathVariable Integer id) {
         return doctorService.getDoctor(id);
     }
-    @DeleteMapping(path="/delete/{id}")
-    public void deleteDoctor(@PathVariable Integer id)
-    {
+
+    @DeleteMapping(path = "{id}")
+    public void deleteDoctor(@PathVariable Integer id) {
         doctorService.deleteDoctor(id);
     }
 }

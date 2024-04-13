@@ -3,9 +3,9 @@ package com.medimate.WorkingHoursMicroservice.controllers;
 import com.medimate.WorkingHoursMicroservice.models.Admin;
 import com.medimate.WorkingHoursMicroservice.services.AdminService;
 import com.medimate.WorkingHoursMicroservice.viewmodels.AdminVM;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +18,7 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    @PostMapping("")
+    @PostMapping
     public Admin addOne(@RequestBody @Valid AdminVM adminVM) {
         return adminService.addOne(adminVM);
     }
@@ -36,11 +36,19 @@ public class AdminController {
         return (admin != null) ? ResponseEntity.ok(admin) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("all")
-    public ResponseEntity<List<Admin>> getAll() {
-        List<Admin> admins = adminService.getAll();
-        return (admins != null) ? ResponseEntity.ok(admins) : ResponseEntity.notFound().build();
+    @GetMapping
+    public ResponseEntity<Page<Admin>> getAll(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "1") Integer size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName
+    ) {
+        Page<Admin> admins = adminService.getAll(page, size, sortBy, firstName, lastName);
+
+        return (admins != null && !admins.isEmpty()) ? ResponseEntity.ok().body(admins) : ResponseEntity.notFound().build();
     }
+
 
     @PutMapping("{id}")
     public ResponseEntity<Admin> updateAdmin(@PathVariable Integer id, @RequestBody AdminVM adminVM) {

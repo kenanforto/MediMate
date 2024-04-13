@@ -1,12 +1,11 @@
 package com.medimate.WorkingHoursMicroservice.controllers;
 
-import com.medimate.WorkingHoursMicroservice.models.TrackWorkingHours;
 import com.medimate.WorkingHoursMicroservice.models.WorkingHours;
 import com.medimate.WorkingHoursMicroservice.services.WorkingHoursService;
 import com.medimate.WorkingHoursMicroservice.viewmodels.WorkingHoursVM;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +18,7 @@ public class WorkingHoursController {
     @Autowired
     WorkingHoursService workingHoursService;
 
-    @PostMapping("")
+    @PostMapping
     public WorkingHours addOne(@RequestBody @Valid WorkingHoursVM workingHoursVM) {
         return workingHoursService.addOne(workingHoursVM);
     }
@@ -43,10 +42,15 @@ public class WorkingHoursController {
         }
     }
 
-    @GetMapping("all")
-    public ResponseEntity<List<WorkingHours>> getAll() {
-        List<WorkingHours> workingHours = workingHoursService.getAll();
-        return (workingHours != null) ? ResponseEntity.ok(workingHours) : ResponseEntity.notFound().build();
+    @GetMapping
+    public ResponseEntity<Page<WorkingHours>> getAll(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "1") Integer size,
+            @RequestParam(defaultValue = "id") String sortBy
+    ) {
+        Page<WorkingHours> workingHours = workingHoursService.getAll(page, size, sortBy);
+
+        return (workingHours != null && !workingHours.isEmpty()) ? ResponseEntity.ok().body(workingHours) : ResponseEntity.notFound().build();
     }
 
     @PutMapping("{id}")

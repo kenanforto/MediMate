@@ -8,6 +8,10 @@ import com.medimate.WorkingHoursMicroservice.viewmodels.WorkingHoursVM;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,10 +24,10 @@ public class AdminService {
     AdminRepository repo;
 
 
-    public Admin addOne(AdminVM adminVM)
-    {
+    public Admin addOne(AdminVM adminVM) {
         return repo.save(AdminVM.toEntity(adminVM));
     }
+
     public void deleteById(Integer id) {
         Optional<Admin> adminOptional = repo.findById(id);
         if (adminOptional.isPresent()) {
@@ -39,10 +43,26 @@ public class AdminService {
         return adminOptional.orElseThrow(() -> new EntityNotFoundException("Could not find admin with id %d".formatted(id)));
     }
 
-    public List<Admin> getAll() {
-        Optional<List<Admin>> admins = Optional.of(repo.findAll());
-        return admins.orElseThrow(() -> new EntityNotFoundException("There are no admins"));
+    public Page<Admin> getAll(int page, int size, String sortBy, String firstName, String lastName) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+
+        Page<Admin> admins;
+        if (firstName != null && lastName != null) {
+            admins = repo.findByFirstNameContainingAndLastNameContaining(firstName, lastName, pageable);
+        } else if (firstName != null) {
+            admins = repo.findByFirstNameContaining(firstName, pageable);
+        } else if (lastName != null) {
+            admins = repo.findByLastNameContaining(lastName, pageable);
+        } else {
+            admins = repo.findAll(pageable);
+        }
+
+        if (admins.isEmpty()) {
+            throw new EntityNotFoundException("There are no admins matching the given filters");
+        }
+        return admins;
     }
+
 
     public Admin updateById(Integer id, AdminVM adminVM) {
         Admin existingAdmin = getById(id);

@@ -1,18 +1,18 @@
 package com.medimate.WorkingHoursMicroservice.services;
 
-import com.medimate.WorkingHoursMicroservice.models.Admin;
-import com.medimate.WorkingHoursMicroservice.models.TrackWorkingHours;
 import com.medimate.WorkingHoursMicroservice.models.WorkingHours;
 import com.medimate.WorkingHoursMicroservice.repositories.DoctorRepository;
 import com.medimate.WorkingHoursMicroservice.repositories.TrackWorkingHoursRepository;
 import com.medimate.WorkingHoursMicroservice.repositories.WorkingHoursRepository;
-import com.medimate.WorkingHoursMicroservice.viewmodels.TrackWorkingHoursVM;
 import com.medimate.WorkingHoursMicroservice.viewmodels.WorkingHoursVM;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,9 +45,13 @@ public class WorkingHoursService {
         return workingHoursOptional.orElseThrow(() -> new EntityNotFoundException("Could not find working hours with id %d".formatted(id)));
     }
 
-    public List<WorkingHours> getAll() {
-        Optional<List<WorkingHours>> workingHours = Optional.of(repo.findAll());
-        return workingHours.orElseThrow(() -> new EntityNotFoundException("There are no working hours"));
+    public Page<WorkingHours> getAll(int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        Page<WorkingHours> workingHours = repo.findAll(pageable);
+        if (workingHours.isEmpty()) {
+            throw new EntityNotFoundException("There are no working hours");
+        }
+        return workingHours;
     }
 
     public WorkingHours updateById(Integer id, WorkingHoursVM workingHoursVM) {

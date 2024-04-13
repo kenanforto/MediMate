@@ -1,13 +1,12 @@
 package com.medimate.WorkingHoursMicroservice.controllers;
 
-import com.medimate.WorkingHoursMicroservice.models.Doctor;
 import com.medimate.WorkingHoursMicroservice.models.TrackWorkingHours;
 import com.medimate.WorkingHoursMicroservice.services.TrackWorkingHoursService;
 import com.medimate.WorkingHoursMicroservice.viewmodels.TrackWorkingHoursVM;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +19,7 @@ public class TrackWorkingHoursController {
     @Autowired
     TrackWorkingHoursService trackWorkingHoursService;
 
-    @PostMapping("")
+    @PostMapping
     public TrackWorkingHours addOne(@RequestBody @Valid TrackWorkingHoursVM trackWorkingHoursVM) {
         return trackWorkingHoursService.addOne(trackWorkingHoursVM);
     }
@@ -41,10 +40,15 @@ public class TrackWorkingHoursController {
         }
     }
 
-    @GetMapping("all")
-    public ResponseEntity<List<TrackWorkingHours>> getAll() {
-        List<TrackWorkingHours> trackWorkingHours = trackWorkingHoursService.getAll();
-        return (trackWorkingHours != null) ? ResponseEntity.ok(trackWorkingHours) : ResponseEntity.notFound().build();
+    @GetMapping
+    public ResponseEntity<Page<TrackWorkingHours>> getAll(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "1") Integer size,
+            @RequestParam(defaultValue = "id") String sortBy
+    ) {
+        Page<TrackWorkingHours> trackWorkingHours = trackWorkingHoursService.getAll(page, size, sortBy);
+
+        return (trackWorkingHours != null && !trackWorkingHours.isEmpty()) ? ResponseEntity.ok().body(trackWorkingHours) : ResponseEntity.notFound().build();
     }
 
     @GetMapping(path = "admin/{adminId}")
