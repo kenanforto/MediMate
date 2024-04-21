@@ -6,9 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -19,6 +17,8 @@ import java.util.List;
 @Table(name="admin")
 public class Admin {
 
+    @Setter
+    @Getter
     @Id
     @GeneratedValue
     private Integer id;
