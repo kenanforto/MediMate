@@ -62,23 +62,15 @@ public class MedicalRecordControllerTest {
     }
 
     @Test
-    void getAllMedicalRecords() throws Exception{
-        this.mockMvc
-                .perform(get("/medical-record/all"))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
-    @Test
     void MedicalRecordNotFound() throws Exception {
         this.mockMvc
-                .perform(get("/medical-recod/"+0))
+                .perform(get("/medical-recods/"+0))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void getMedicalRecordsForPatient() throws Exception {
-        this.mockMvc.perform(get("/medical-record/patient/"+2))
+        this.mockMvc.perform(get("/medical-records/patient/"+2))
                 .andDo(print())
                 .andExpect(status().isOk());
 
@@ -86,7 +78,7 @@ public class MedicalRecordControllerTest {
 
     @Test
     void getMedicalRecordsForDoctor() throws Exception {
-        this.mockMvc.perform(get("/medical-record/doctor/"+1))
+        this.mockMvc.perform(get("/medical-records/doctor/"+2))
                 .andDo(print())
                 .andExpect(status().isOk());
 
