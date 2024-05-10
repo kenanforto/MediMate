@@ -33,11 +33,6 @@ public class User {
     private Integer roleId;
 
     @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="role_id", insertable = false, updatable = false)
-    private Role role;
-
-    @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Admin admin;
 

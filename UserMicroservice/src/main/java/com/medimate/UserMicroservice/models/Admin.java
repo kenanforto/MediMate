@@ -31,8 +31,9 @@ public class Admin {
     @JoinColumn(name="user_id", insertable = false, updatable = false)
     private User user;
 
-    public Admin(String firstName, String lastName) {
+    public Admin(String firstName, String lastName,Integer userId) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.userId=userId;
     }
 }

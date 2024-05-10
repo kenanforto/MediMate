@@ -39,12 +39,13 @@ public class Patient {
     @JoinColumn(name="user_id", insertable = false, updatable = false)
     private User user;
 
-    public Patient(String firstName, String lastName, LocalDate birthdate, Gender gender, String address, String phoneNumber) {
+    public Patient(String firstName, String lastName, LocalDate birthdate, Gender gender, String address, String phoneNumber,Integer userId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
         this.gender = gender;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.userId=userId;
     }
 }

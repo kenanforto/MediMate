@@ -2,7 +2,6 @@ package com.medimate.UserMicroservice.services;
 
 import com.medimate.UserMicroservice.models.Role;
 import com.medimate.UserMicroservice.models.User;
-import com.medimate.UserMicroservice.repositories.RoleRepository;
 import com.medimate.UserMicroservice.repositories.UserRepository;
 import com.medimate.UserMicroservice.viewmodels.UserVM;
 import jakarta.persistence.EntityExistsException;
@@ -22,8 +21,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
 
     public User createUser(UserVM userVM) {
         List<User> pomocna = userRepository.findByUserNameOrEmail(userVM.getUserName(), userVM.getEmail());
@@ -52,9 +49,8 @@ public class UserService {
     }
 
     public User addRoleToUser(Integer id, Integer roleId) {
-        Role role = roleRepository.findById(roleId).orElseThrow(() -> new EntityExistsException("Could not find role with id " + roleId));
         User user = userRepository.findById(id).orElseThrow(() -> new EntityExistsException("Could not find user with id " + id));
-        user.setRole(role);
+        user.setRoleId(roleId);
         return user;
     }
 
@@ -66,7 +62,7 @@ public class UserService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         Page<User> users;
         if (userName != null) {
-            users = userRepository.findByUserNameContaining(userName);
+            users = userRepository.findByUserNameContaining(userName, pageable);
         } else {
             users = userRepository.findAll(pageable);
         }

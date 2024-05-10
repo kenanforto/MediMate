@@ -43,9 +43,10 @@ public class Doctor {
     @JoinColumn(name="user_id", insertable = false, updatable = false)
     private User user;
 
-    public Doctor(String first_name, String last_name, String title) {
+    public Doctor(String first_name, String last_name, String title, Integer userId) {
         this.firstName = first_name;
         this.lastName = last_name;
         this.title = title;
+        this.userId=userId;
     }
 }
