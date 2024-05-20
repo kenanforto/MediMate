@@ -27,7 +27,6 @@ public class AppointmentController {
     public Appointment addAppointment(@Valid @RequestBody AppointmentVM appointment) {
         ResponseEntity<DoctorVM> doctor=restTemplate.getForEntity("http://USERMICROSERVICE/doctors/{id}", DoctorVM.class,appointment.getDoctorId());
         DoctorVM doctor1=doctor.getBody();
-        System.out.println("KENANE OVDJE SAM"+doctor1.getFirstName()+doctor1.getLastName());
         return appointmentService.addAppointment(appointment);
     }
 

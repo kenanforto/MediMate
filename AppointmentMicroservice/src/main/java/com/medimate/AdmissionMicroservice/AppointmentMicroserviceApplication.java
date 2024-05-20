@@ -1,5 +1,6 @@
 package com.medimate.AdmissionMicroservice;
 
+import com.medimate.AdmissionMicroservice.interceptor.SystemEventsInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -20,6 +21,12 @@ public class AppointmentMicroserviceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppointmentMicroserviceApplication.class, args);
+	}
+
+	@Bean
+	public SystemEventsInterceptor customInterceptor()
+	{
+		return new SystemEventsInterceptor();
 	}
 
 }
