@@ -17,17 +17,17 @@ public class SystemEvent {
     private String userName;
     private String action;
     private String resource;
-    private String resourceType;
+    private String responseType;
 
     public SystemEvent(){    }
 
-    public SystemEvent(String timestamp, String microserviceName, String user, String action, String resource, String resourceType) {
+    public SystemEvent(String timestamp, String microserviceName, String user, String action, String resource, String responseType) {
         this.timestamp = timestamp;
         this.microserviceName = microserviceName;
         this.userName = user;
         this.action = action;
         this.resource = resource;
-        this.resourceType = resourceType;
+        this.responseType = responseType;
     }
 
     public Integer getId() {
@@ -54,7 +54,7 @@ public class SystemEvent {
         return resource;
     }
 
-    public String getResourceType() {
-        return resourceType;
+    public String getResponseType() {
+        return responseType;
     }
 }

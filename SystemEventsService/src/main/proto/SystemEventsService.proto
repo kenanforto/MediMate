@@ -8,7 +8,7 @@ message SystemEventRequest {
   string user=3;
   string action=4;
   string resource=5;
-  string resourceType=6;
+  string responseType=6;
 }
 
 message SystemEventResponse{
