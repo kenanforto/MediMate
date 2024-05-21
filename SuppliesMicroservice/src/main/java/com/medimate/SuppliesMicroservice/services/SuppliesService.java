@@ -28,14 +28,12 @@ public class SuppliesService {
         return repo.save(SuppliesVM.toEntity(suppliesVM));
     }
 
-    public Page<Supplies> getAll(int page, int size, String sortBy, String medicationName) {
+    public Page<Supplies> getAll(int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         Page<Supplies> supplies;
-        if (medicationName != null) {
-            supplies = repo.findByMedicationNameContaining(medicationName);
-        } else {
-            supplies = repo.findAll(pageable);
-        }
+
+        supplies = repo.findAll(pageable);
+
         if (supplies.isEmpty()) {
             throw new EntityNotFoundException("There are no supplies");
         }

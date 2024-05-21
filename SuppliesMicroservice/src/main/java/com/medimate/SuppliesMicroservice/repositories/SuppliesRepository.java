@@ -7,6 +7,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SuppliesRepository extends JpaRepository<Supplies, Integer> {
-    Page<Supplies> findByMedicationNameContaining(String medicationName);
 
 }

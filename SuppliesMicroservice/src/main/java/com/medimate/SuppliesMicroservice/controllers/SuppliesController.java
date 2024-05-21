@@ -26,10 +26,9 @@ public class SuppliesController {
     public ResponseEntity<Page<Supplies>> getAll(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "1") Integer size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(required = false) String medicationName
+            @RequestParam(defaultValue = "id") String sortBy
     ) {
-        Page<Supplies> supplies = suppliesService.getAll(page, size, sortBy, medicationName);
+        Page<Supplies> supplies = suppliesService.getAll(page, size, sortBy);
 
         return (supplies != null && !supplies.isEmpty()) ? ResponseEntity.ok().body(supplies) : ResponseEntity.notFound().build();
     }

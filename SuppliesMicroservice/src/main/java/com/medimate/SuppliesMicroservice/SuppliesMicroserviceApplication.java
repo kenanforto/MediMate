@@ -1,8 +1,10 @@
 package com.medimate.SuppliesMicroservice;
 
+import com.medimate.SuppliesMicroservice.interceptor.SystemEventsInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -12,4 +14,9 @@ public class SuppliesMicroserviceApplication {
 		SpringApplication.run(SuppliesMicroserviceApplication.class, args);
 	}
 
+	@Bean
+	public SystemEventsInterceptor systemEventsInterceptor()
+	{
+		return new SystemEventsInterceptor();
+	}
 }
