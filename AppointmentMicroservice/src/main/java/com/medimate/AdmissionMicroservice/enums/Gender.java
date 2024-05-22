@@ -1,4 +1,4 @@
-package com.medimate.AdmissionMicroservice.enums;
+package com.medimate.AppointmentMicroservice.enums;
 
 public enum Gender {
     Male,

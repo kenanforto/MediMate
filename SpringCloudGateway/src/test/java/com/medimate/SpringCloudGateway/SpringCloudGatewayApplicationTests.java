@@ -1,10 +1,10 @@
-package com.medimate.AppointmentMicroservice;
+package com.medimate.SpringCloudGateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AdmissionMicroserviceApplicationTests {
+class SpringCloudGatewayApplicationTests {
 
 	@Test
 	void contextLoads() {

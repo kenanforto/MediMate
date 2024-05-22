@@ -1,4 +1,4 @@
-package com.medimate.AdmissionMicroservice.interceptor;
+package com.medimate.AppointmentMicroservice.interceptor;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;

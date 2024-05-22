@@ -1,9 +1,8 @@
-package com.medimate.AdmissionMicroservice;
+package com.medimate.AppointmentMicroservice;
 
-import com.medimate.AdmissionMicroservice.interceptor.SystemEventsInterceptor;
+import com.medimate.AppointmentMicroservice.interceptor.SystemEventsInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration

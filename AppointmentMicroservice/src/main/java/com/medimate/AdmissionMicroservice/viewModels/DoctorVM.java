@@ -1,6 +1,6 @@
-package com.medimate.AdmissionMicroservice.viewModels;
+package com.medimate.AppointmentMicroservice.viewModels;
 
-import com.medimate.AdmissionMicroservice.models.Doctor;
+import com.medimate.AppointmentMicroservice.models.Doctor;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

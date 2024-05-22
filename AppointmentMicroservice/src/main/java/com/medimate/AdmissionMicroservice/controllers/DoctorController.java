@@ -1,16 +1,13 @@
-package com.medimate.AdmissionMicroservice.controllers;
+package com.medimate.AppointmentMicroservice.controllers;
 
-import com.medimate.AdmissionMicroservice.models.Doctor;
-import com.medimate.AdmissionMicroservice.repositories.DoctorRepository;
-import com.medimate.AdmissionMicroservice.service.DoctorService;
-import com.medimate.AdmissionMicroservice.viewModels.DoctorVM;
+import com.medimate.AppointmentMicroservice.models.Doctor;
+import com.medimate.AppointmentMicroservice.service.DoctorService;
+import com.medimate.AppointmentMicroservice.viewModels.DoctorVM;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "doctors")

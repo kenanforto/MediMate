@@ -1,6 +1,6 @@
-package com.medimate.AdmissionMicroservice.repositories;
+package com.medimate.AppointmentMicroservice.repositories;
 
-import com.medimate.AdmissionMicroservice.models.Patient;
+import com.medimate.AppointmentMicroservice.models.Patient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

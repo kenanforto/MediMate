@@ -1,17 +1,9 @@
-package com.medimate.AdmissionMicroservice.models;
+package com.medimate.AppointmentMicroservice.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.medimate.AdmissionMicroservice.enums.Gender;
+import com.medimate.AppointmentMicroservice.enums.Gender;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "patient")

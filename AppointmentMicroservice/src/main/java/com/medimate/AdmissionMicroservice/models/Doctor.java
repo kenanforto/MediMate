@@ -1,9 +1,6 @@
-package com.medimate.AdmissionMicroservice.models;
+package com.medimate.AppointmentMicroservice.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "doctor")

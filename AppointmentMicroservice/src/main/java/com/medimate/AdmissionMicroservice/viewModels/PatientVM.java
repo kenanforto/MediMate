@@ -1,8 +1,8 @@
-package com.medimate.AdmissionMicroservice.viewModels;
+package com.medimate.AppointmentMicroservice.viewModels;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.medimate.AdmissionMicroservice.enums.Gender;
-import com.medimate.AdmissionMicroservice.models.Patient;
+import com.medimate.AppointmentMicroservice.enums.Gender;
+import com.medimate.AppointmentMicroservice.models.Patient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

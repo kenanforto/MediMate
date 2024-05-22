@@ -1,4 +1,4 @@
-package com.medimate.AdmissionMicroservice.viewModels;
+package com.medimate.AppointmentMicroservice.viewModels;
 
 public class ApiResponse {
     private String message;

@@ -1,11 +1,8 @@
-package com.medimate.AdmissionMicroservice.models;
+package com.medimate.AppointmentMicroservice.models;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import javax.print.Doc;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;

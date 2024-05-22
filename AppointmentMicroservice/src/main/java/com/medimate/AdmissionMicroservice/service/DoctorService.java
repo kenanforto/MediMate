@@ -1,8 +1,8 @@
-package com.medimate.AdmissionMicroservice.service;
+package com.medimate.AppointmentMicroservice.service;
 
-import com.medimate.AdmissionMicroservice.models.Doctor;
-import com.medimate.AdmissionMicroservice.repositories.DoctorRepository;
-import com.medimate.AdmissionMicroservice.viewModels.DoctorVM;
+import com.medimate.AppointmentMicroservice.models.Doctor;
+import com.medimate.AppointmentMicroservice.repositories.DoctorRepository;
+import com.medimate.AppointmentMicroservice.viewModels.DoctorVM;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,8 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class DoctorService {
