@@ -22,21 +22,6 @@ const useStyles = makeStyles(() => ({
       },
     },
   },
-  registerBtn: {
-    width: "100%",
-    maxWidth: "124px",
-    height: "40px",
-    textWrap: "nowrap",
-    fontSize: "12px",
-    justifyContent: "center",
-    display: "flex",
-    backgroundColor: "#1C0D52",
-    color: "#ffffff",
-    border: "none",
-    borderRadius: "100%",
-    boxShadow:
-      " 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30)",
-  },
 }));
 
 const Signup = () => {
@@ -66,6 +51,7 @@ const Signup = () => {
           borderRadius: "40px",
           backgroundColor: "rgba(255,255,255,0.2)",
           width: "65%",
+          minHeight: "70vh",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-start",
@@ -109,6 +95,7 @@ const Signup = () => {
             borderRadius: "40px",
             backgroundColor: "rgba(255,255,255,0.3)",
             width: "45%",
+            minHeight: "70vh",
             boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
             display: "flex",
             flexDirection: "column",
@@ -209,9 +196,20 @@ const Signup = () => {
             }}
           >
             <Button
-              type="submit"
-              variant="contained"
-              className={classes.registerBtn}
+              sx={{
+                borderRadius: "42px",
+                width: "40%",
+                background: "#02618A",
+                color: "#f5f5f5",
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                padding: "8px 18px",
+                textTransform: "none",
+                display: "flex",
+                alignItems: "center",
+                "&:hover": {
+                  background: "#7BB4D6",
+                },
+              }}
             >
               Register
             </Button>
