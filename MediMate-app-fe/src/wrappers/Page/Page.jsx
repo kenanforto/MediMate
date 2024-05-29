@@ -11,9 +11,13 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Avatar,
+  Typography,
 } from "@mui/material";
-import MoveToInboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import { Link } from "react-router-dom";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import GroupsIcon from "@mui/icons-material/Groups";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 
 import Logo from "../../assets/LogoAndText.png";
 
@@ -46,30 +50,59 @@ function Page({ children }) {
       >
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
-          <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <MoveToInboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+          <List
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              padding: 2,
+            }}
+          >
+            <Avatar sx={{ width: 56, height: 56, marginRight: 4 }}>H</Avatar>
+            <Typography>Hello World</Typography>
           </List>
           <Divider />
           <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem key={text} disablePadding>
+            <Link
+              style={{ textDecoration: "none", color: "#023047" }}
+              to="/dashboard"
+            >
+              <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    {index % 2 === 0 ? <MoveToInboxIcon /> : <MailIcon />}
+                    <DashboardIcon sx={{ color: "#02618a" }} />
                   </ListItemIcon>
-                  <ListItemText primary={text} />
+                  <ListItemText primary="Dashboard" />
                 </ListItemButton>
               </ListItem>
-            ))}
+            </Link>
+
+            <Link
+              style={{ textDecoration: "none", color: "#023047" }}
+              to="/appointments"
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <AssignmentTurnedInIcon sx={{ color: "#02618a" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Appointments" />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+
+            <Link
+              style={{ textDecoration: "none", color: "#023047" }}
+              to="/patients"
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <GroupsIcon sx={{ color: "#02618a" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Patients" />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           </List>
         </Box>
       </Drawer>

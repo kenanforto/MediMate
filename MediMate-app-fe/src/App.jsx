@@ -3,7 +3,9 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Signup from "./screens/Signup";
 import Login from "./screens/Login";
 import Page from "./wrappers/Page/Page";
-import Dashboard from "./components/Dashboard/Dashboard";
+import Dashboard from "./screens/Dashboard";
+import Patients from "./screens/Patients";
+import Appointments from "./screens/Appointments";
 function App() {
   const location = useLocation();
   console.log(location.pathname);
@@ -27,6 +29,8 @@ function PageRoutes() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/patients" element={<Patients />} />
+        <Route path="/appointments" element={<Appointments />} />
       </Routes>
     </Page>
   );
