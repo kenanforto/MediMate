@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -13,17 +14,29 @@ import {
   ListItemText,
   Avatar,
   Typography,
+  Button,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupsIcon from "@mui/icons-material/Groups";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import dayjs from "dayjs";
 
 import Logo from "../../assets/LogoAndText.png";
 
 const drawerWidth = 240;
 
 function Page({ children }) {
+  const [currentDateTime, setCurrentDateTime] = useState(dayjs());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentDateTime(dayjs());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -31,9 +44,50 @@ function Page({ children }) {
         position="fixed"
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <Toolbar sx={{ backgroundColor: "#f5f5f5" }}>
+        <Toolbar
+          sx={{
+            backgroundColor: "#f5f5f5",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           <Box>
-            <img style={{ width: "50%" }} src={Logo} alt="logo" />
+            <Link style={{ textDecoration: "none", color: "#023047" }} to="/">
+              <img
+                style={{ width: "50%", cursor: "pointer" }}
+                src={Logo}
+                alt="logo"
+              />
+            </Link>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography sx={{ color: "#023047", paddingX: 10 }}>
+              {currentDateTime.format("ddd DD MMM h:mm A")}
+            </Typography>
+            <Button
+              sx={{
+                borderRadius: "42px",
+                background: "#02618A",
+                color: "#f5f5f5",
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                padding: "8px 18px",
+                textTransform: "none",
+                display: "flex",
+                alignItems: "center",
+                "&:hover": {
+                  background: "#7BB4D6",
+                },
+              }}
+            >
+              Log out
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
