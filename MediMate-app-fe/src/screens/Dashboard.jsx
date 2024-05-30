@@ -25,6 +25,7 @@ const Dashboard = () => {
       email: "john@example.com",
       phone: "2015550123",
       time: "13:00 PM",
+      hadAppointment: false,
     },
     {
       id: "26262626263",
@@ -32,6 +33,7 @@ const Dashboard = () => {
       email: "jane@example.com",
       phone: "2015550124",
       time: "14:00 PM",
+      hadAppointment: false,
     },
     {
       id: "26262626264",
@@ -39,6 +41,7 @@ const Dashboard = () => {
       email: "jim@example.com",
       phone: "2015550125",
       time: "15:00 PM",
+      hadAppointment: false,
     },
   ];
 
