@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Box,
   Typography,
@@ -10,6 +11,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import PatientsList from "../components/Lists/PatientsList";
 
 const Patients = () => {
+  const [selectedPatient, setSelectedPatient] = useState(null);
+
   const patients = [
     {
       id: "26262626262",
@@ -36,6 +39,14 @@ const Patients = () => {
       hadAppointment: false,
     },
   ];
+
+  const handlePatientChange = (event, value) => {
+    setSelectedPatient(value);
+  };
+
+  const filteredPatients = selectedPatient
+    ? patients.filter((patient) => patient.name === selectedPatient)
+    : patients;
 
   return (
     <Box
@@ -65,6 +76,8 @@ const Patients = () => {
       >
         <Autocomplete
           freeSolo
+          value={selectedPatient}
+          onChange={handlePatientChange}
           sx={{
             backgroundColor: "#f5f5f5",
             borderRadius: "16px",
@@ -109,7 +122,7 @@ const Patients = () => {
           paddingY: 3,
         }}
       >
-        <PatientsList patients={patients} />
+        <PatientsList patients={filteredPatients} />
       </Box>
     </Box>
   );
