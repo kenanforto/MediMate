@@ -23,9 +23,9 @@ public class UserService {
 
 
     public User createUser(UserVM userVM) {
-        List<User> pomocna = userRepository.findByUserNameOrEmail(userVM.getUserName(), userVM.getEmail());
-        if (!pomocna.isEmpty())
-            throw new EntityExistsException("Username or email already exists!");
+        User pomocna = userRepository.findByEmail(userVM.getEmail());
+        if (pomocna!=null)
+            throw new EntityExistsException("Email already exists!");
 
         // provjeri dodavanje rola i passworda
         return userRepository.save(UserVM.toEntity(userVM)); // bcript
@@ -33,39 +33,43 @@ public class UserService {
     }
 
     public User editUser(Integer id, UserVM userVM) {
-        if (!userRepository.findByUserNameOrEmail(userVM.getUserName(), userVM.getEmail()).isEmpty())
-            throw new EntityExistsException("Username or email already exists!");
+        if (userRepository.findByEmail(userVM.getEmail())!=null)
+            throw new EntityExistsException("Email already exists!");
 
         User user = userRepository.findById(id).orElseThrow(() -> new EntityExistsException("Could not find user with id " + id));
 
-        user.setUserName(userVM.getUserName());
         user.setEmail(userVM.getEmail());
         user.setPassword(userVM.getPassword());
-        user.setRoleId(userVM.getRoleId());
+        user.setRole(userVM.getRole());
 
         // provjeri dodavanje rola i passworda
         return userRepository.save(user);
 
     }
 
-    public User addRoleToUser(Integer id, Integer roleId) {
+    public User addRoleToUser(Integer id, Role role) {
         User user = userRepository.findById(id).orElseThrow(() -> new EntityExistsException("Could not find user with id " + id));
-        user.setRoleId(roleId);
+        user.setRole(role);
         return user;
     }
 
     public User getUser(Integer id) {
         return userRepository.findById(id).orElseThrow(() -> new EntityExistsException("Could not find user with id " + id));
     }
-
+    public User getUserByEmail(String email) {
+        try {
+            return userRepository.findByEmail(email);
+        }
+        catch (Exception e)
+        {
+            throw  new EntityExistsException("Could not find user with email " + email);
+        }
+    }
     public Page<User> getAllUsers(int page, int size, String sortBy, String userName) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         Page<User> users;
-        if (userName != null) {
-            users = userRepository.findByUserNameContaining(userName, pageable);
-        } else {
-            users = userRepository.findAll(pageable);
-        }
+
+        users = userRepository.findAll(pageable);
         if (users.isEmpty()) {
             throw new EntityNotFoundException("There are no users");
         }

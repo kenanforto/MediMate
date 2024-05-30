@@ -1,5 +1,6 @@
 package com.medimate.UserMicroservice.controllers;
 
+import com.medimate.UserMicroservice.models.Role;
 import com.medimate.UserMicroservice.models.User;
 import com.medimate.UserMicroservice.services.UserService;
 import com.medimate.UserMicroservice.viewmodels.UserVM;
@@ -42,6 +43,11 @@ public class UserController {
         User user = userService.getUser(id);
         return (user != null) ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
     }
+    @GetMapping(path = "{email}")
+    public ResponseEntity<User> getUser(@PathVariable("email") String email) {
+        User user = userService.getUserByEmail(email);
+        return (user != null) ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
+    }
 
     @DeleteMapping(path = "{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer id) {
@@ -60,7 +66,7 @@ public class UserController {
     }
 
     @PostMapping("{id}/role/{roleId}")
-    public ResponseEntity<User> addRoleToUser(@PathVariable Integer id, @PathVariable Integer roleId) {
+    public ResponseEntity<User> addRoleToUser(@PathVariable Integer id, @PathVariable Role roleId) {
         User user = userService.addRoleToUser(id, roleId);
         return ResponseEntity.status(200).body(user);
     }

@@ -17,20 +17,18 @@ public class User {
     @GeneratedValue
     private Integer id;
 
-    @NotBlank(message = "Username is mandatory")
-    @Size(max = 20, message = "Username must contain less than 20 characters")
-    private String userName;
-
     @NotEmpty
     private String password;
 
+    @NotBlank(message = "Email is mandatory")
     @Email(regexp = ".+[@].+[\\.].+")
     @Email(message="Please provide a valid email address")
     private String email;
 
     @NotNull
     @Column(name = "role_id")
-    private Integer roleId;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @JsonIgnore
     @OneToOne(mappedBy = "user")
@@ -44,10 +42,9 @@ public class User {
     @OneToOne(mappedBy ="user")
     private Patient patient;
 
-    public User(String userName, String password, String email, Integer roleId) {
-        this.userName = userName;
+    public User(String email,String password, Role role) {
         this.password = password;
         this.email = email;
-        this.roleId = roleId;
+        this.role = role;
     }
 }
