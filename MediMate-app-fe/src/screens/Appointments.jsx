@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import BackgroundImg from "../assets/background4.png";
-import PatientList from "../components/Lists/PatientsList";
+import AppointmentsList from "../components/Lists/AppointmentsList";
 
 const Appointments = () => {
   const [currentDateTime, setCurrentDateTime] = useState(dayjs());
@@ -15,7 +15,7 @@ const Appointments = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const patientsRemaining = [
+  const appointmentsRemaining = [
     {
       id: "26262626262",
       name: "John Doe",
@@ -42,7 +42,7 @@ const Appointments = () => {
     },
   ];
 
-  const patientsServed = [
+  const appointmentsServed = [
     {
       id: "26262626262",
       name: "John Doe",
@@ -102,7 +102,7 @@ const Appointments = () => {
         >
           Remaining Patients
         </Typography>
-        <PatientList patients={patientsRemaining} />
+        <AppointmentsList appointments={appointmentsRemaining} />
       </Box>
 
       <Box
@@ -117,7 +117,7 @@ const Appointments = () => {
         >
           Previous Patients
         </Typography>
-        <PatientList patients={patientsServed} />
+        <AppointmentsList appointments={appointmentsServed} />
       </Box>
     </Box>
   );

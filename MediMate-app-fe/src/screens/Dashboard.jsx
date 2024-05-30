@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import BackgroundImg from "../assets/background2.png";
 import GreetingCard from "../components/Cards/GreetingCard";
 import PatientsInfoCard from "../components/Cards/PatientsInfoCard";
-import PatientList from "../components/Lists/PatientsList";
+import AppointmentsList from "../components/Lists/AppointmentsList";
 
 const Dashboard = () => {
   const [currentDateTime, setCurrentDateTime] = useState(dayjs());
@@ -18,7 +18,7 @@ const Dashboard = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const patients = [
+  const appointments = [
     {
       id: "26262626262",
       name: "John Doe",
@@ -89,7 +89,7 @@ const Dashboard = () => {
           Remaining Patients
         </Typography>
 
-        <PatientList patients={patients} />
+        <AppointmentsList appointments={appointments} />
       </Box>
     </Box>
   );

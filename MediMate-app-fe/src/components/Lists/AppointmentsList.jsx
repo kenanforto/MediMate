@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, Paper, Grid, Button, Divider, Box } from "@mui/material";
 import PropTypes from "prop-types";
 
-const PatientsList = ({ patients }) => {
+const AppointmentsList = ({ appointments }) => {
   return (
     <Box
       sx={{
@@ -46,7 +46,7 @@ const PatientsList = ({ patients }) => {
               <Typography sx={{ textAlign: "center" }}>Phone Number</Typography>
             </Grid>
             <Grid item xs={2}>
-              <Typography sx={{ textAlign: "center" }}>Last Visit</Typography>
+              <Typography sx={{ textAlign: "center" }}>Time Booked</Typography>
             </Grid>
             <Grid item xs={2}>
               <Typography sx={{ textAlign: "center" }}>Actions</Typography>
@@ -61,35 +61,35 @@ const PatientsList = ({ patients }) => {
             overflowY: "auto",
           }}
         >
-          {patients.map((patient, index) => (
+          {appointments.map((appointment, index) => (
             <React.Fragment
-              key={patient.id}
+              key={appointment.id}
               sx={{ maxHeight: "80px", overflowY: "auto" }}
             >
               <Grid container spacing={2} sx={{ paddingTop: 2 }}>
                 <Grid item xs={2}>
                   <Typography sx={{ textAlign: "center" }}>
-                    {patient.id}
+                    {appointment.id}
                   </Typography>
                 </Grid>
                 <Grid item xs={2}>
                   <Typography sx={{ textAlign: "center" }}>
-                    {patient.name}
+                    {appointment.name}
                   </Typography>
                 </Grid>
                 <Grid item xs={2}>
                   <Typography sx={{ textAlign: "center" }}>
-                    {patient.email}
+                    {appointment.email}
                   </Typography>
                 </Grid>
                 <Grid item xs={2}>
                   <Typography sx={{ textAlign: "center" }}>
-                    {patient.phone}
+                    {appointment.phone}
                   </Typography>
                 </Grid>
                 <Grid item xs={2}>
                   <Typography sx={{ textAlign: "center" }}>
-                    {patient.lastVisit}
+                    {appointment.time}
                   </Typography>
                 </Grid>
                 <Grid
@@ -101,25 +101,44 @@ const PatientsList = ({ patients }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Button
-                    sx={{
-                      borderRadius: "42px",
-                      background: "#02618A",
-                      color: "#f5f5f5",
-                      padding: "2px 6px",
-                      textTransform: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      "&:hover": {
-                        background: "#7BB4D6",
-                      },
-                    }}
-                  >
-                    View Last Record
-                  </Button>
+                  {appointment.hadAppointment ? (
+                    <Button
+                      sx={{
+                        borderRadius: "42px",
+                        background: "#02618A",
+                        color: "#f5f5f5",
+                        padding: "2px 6px",
+                        textTransform: "none",
+                        display: "flex",
+                        alignItems: "center",
+                        "&:hover": {
+                          background: "#7BB4D6",
+                        },
+                      }}
+                    >
+                      View Last Record
+                    </Button>
+                  ) : (
+                    <Button
+                      sx={{
+                        borderRadius: "42px",
+                        background: "#02618A",
+                        color: "#f5f5f5",
+                        padding: "2px 6px",
+                        textTransform: "none",
+                        display: "flex",
+                        alignItems: "center",
+                        "&:hover": {
+                          background: "#7BB4D6",
+                        },
+                      }}
+                    >
+                      Take Patient
+                    </Button>
+                  )}
                 </Grid>
               </Grid>
-              {index < patients.length - 1 && (
+              {index < appointments.length - 1 && (
                 <Divider
                   sx={{
                     paddingTop: 1,
@@ -135,17 +154,17 @@ const PatientsList = ({ patients }) => {
   );
 };
 
-PatientsList.propTypes = {
-  patients: PropTypes.arrayOf(
+AppointmentsList.propTypes = {
+  appointments: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
       phone: PropTypes.string.isRequired,
-      lastVisit: PropTypes.string.isRequired,
+      time: PropTypes.string.isRequired,
       hadAppointment: PropTypes.bool.isRequired,
     })
   ).isRequired,
 };
 
-export default PatientsList;
+export default AppointmentsList;
