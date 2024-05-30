@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -160,8 +160,7 @@ function Page({ children }) {
           </List>
         </Box>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Toolbar />
+      <Box component="main" sx={{ flexGrow: 1}}>
         {children}
       </Box>
     </Box>
