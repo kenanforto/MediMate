@@ -14,10 +14,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Integer> {
     //    @Query("SELECT u FROM User u WHERE u.userName ilike :userName AND u.email ilike :email")
 //    List<User> findByUserNameOrEmail(@Param("userName") String userName, @Param("email") String email);
-    List<User> findByUserNameOrEmail(String userName, String email);
+    User findByEmail(String email);
 
-    User findByUserName(String username);
-
-    Page<User> findByUserNameContaining(String userName, Pageable pageable);
 
 }

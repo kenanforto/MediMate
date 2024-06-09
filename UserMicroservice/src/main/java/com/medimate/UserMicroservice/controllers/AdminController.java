@@ -4,6 +4,7 @@ import com.medimate.UserMicroservice.models.Admin;
 import com.medimate.UserMicroservice.services.AdminService;
 import com.medimate.UserMicroservice.viewmodels.AdminVM;
 import jakarta.validation.Valid;
+import jakarta.ws.rs.DefaultValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -39,8 +40,8 @@ public class AdminController {
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "1") Integer size,
             @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(required = false) String firstName,
-            @RequestParam(required = false) String lastName
+            @RequestParam(required = false) @DefaultValue("") String firstName,
+            @RequestParam(required = false) @DefaultValue("") String lastName
     ) {
         Page<Admin> admins = adminService.getAll(page, size, sortBy, firstName, lastName);
 
