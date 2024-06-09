@@ -21,13 +21,15 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupsIcon from "@mui/icons-material/Groups";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import dayjs from "dayjs";
-
+import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/LogoAndText.png";
 
 const drawerWidth = 240;
 
 function Page({ children }) {
   const [currentDateTime, setCurrentDateTime] = useState(dayjs());
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -37,6 +39,9 @@ function Page({ children }) {
     return () => clearInterval(intervalId);
   }, []);
 
+  const handleLogout = () => {
+    navigate("/login");
+  };
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -85,6 +90,7 @@ function Page({ children }) {
                   background: "#7BB4D6",
                 },
               }}
+              onClick={handleLogout}
             >
               Log out
             </Button>
@@ -160,7 +166,7 @@ function Page({ children }) {
           </List>
         </Box>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1}}>
+      <Box component="main" sx={{ flexGrow: 1 }}>
         {children}
       </Box>
     </Box>

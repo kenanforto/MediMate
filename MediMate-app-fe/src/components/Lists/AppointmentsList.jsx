@@ -1,8 +1,12 @@
 import React from "react";
 import { Typography, Paper, Grid, Button, Divider, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const AppointmentsList = ({ appointments }) => {
+  const navigate = useNavigate();
+
+  console.log("APPP", appointments);
   return (
     <Box
       sx={{
@@ -63,7 +67,7 @@ const AppointmentsList = ({ appointments }) => {
         >
           {appointments.map((appointment, index) => (
             <React.Fragment
-              key={appointment.id}
+              key={appointment.patientId}
               sx={{ maxHeight: "80px", overflowY: "auto" }}
             >
               <Grid container spacing={2} sx={{ paddingTop: 2 }}>
@@ -115,6 +119,11 @@ const AppointmentsList = ({ appointments }) => {
                           background: "#7BB4D6",
                         },
                       }}
+                      onClick={() => {
+                        navigate(
+                          `/patients/${appointment.patientId}/record/RECORDID`
+                        );
+                      }}
                     >
                       View Last Record
                     </Button>
@@ -131,6 +140,11 @@ const AppointmentsList = ({ appointments }) => {
                         "&:hover": {
                           background: "#7BB4D6",
                         },
+                      }}
+                      onClick={() => {
+                        navigate(
+                          `/patients/${appointment.patientId}/appointment/APPOINTMENTID`
+                        );
                       }}
                     >
                       Take Patient
@@ -158,6 +172,7 @@ AppointmentsList.propTypes = {
   appointments: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
+      patientId: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
       phone: PropTypes.string.isRequired,

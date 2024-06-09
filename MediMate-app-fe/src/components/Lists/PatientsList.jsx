@@ -1,8 +1,11 @@
 import React from "react";
 import { Typography, Paper, Grid, Button, Divider, Box } from "@mui/material";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const PatientsList = ({ patients }) => {
+  const navigate = useNavigate();
+
   return (
     <Box
       sx={{
@@ -113,6 +116,9 @@ const PatientsList = ({ patients }) => {
                       "&:hover": {
                         background: "#7BB4D6",
                       },
+                    }}
+                    onClick={() => {
+                      navigate(`${patient.id}/record/RECORDID`);
                     }}
                   >
                     View Last Record
