@@ -25,10 +25,6 @@ public class Supplies {
     @NotNull
     private Integer adminId;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "admin_id", insertable = false, updatable = false)
-    private Admin admin;
 
     public Supplies(String medicationName, Integer amount, Integer adminId) {
         this.medicationName = medicationName;

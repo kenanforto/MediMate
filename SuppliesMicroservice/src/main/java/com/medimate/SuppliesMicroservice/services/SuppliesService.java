@@ -1,8 +1,6 @@
 package com.medimate.SuppliesMicroservice.services;
 
-import com.medimate.SuppliesMicroservice.models.Admin;
 import com.medimate.SuppliesMicroservice.models.Supplies;
-import com.medimate.SuppliesMicroservice.repositories.AdminRepository;
 import com.medimate.SuppliesMicroservice.repositories.SuppliesRepository;
 import com.medimate.SuppliesMicroservice.viewmodels.SuppliesVM;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,9 +18,6 @@ public class SuppliesService {
 
     @Autowired
     SuppliesRepository repo;
-
-    @Autowired
-    AdminRepository adminRepo;
 
     public Supplies addOne(SuppliesVM suppliesVM) {
         return repo.save(SuppliesVM.toEntity(suppliesVM));
