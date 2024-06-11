@@ -8,6 +8,7 @@ import Patients from "./screens/Patients";
 import Appointments from "./screens/Appointments";
 import TakeAppointment from "./screens/TakeAppointment";
 import WriteRecord from "./screens/WriteRecord";
+import PatientLastRecord from "./screens/PatientLastRecord";
 
 function App() {
   const location = useLocation();
@@ -42,6 +43,11 @@ function PageRoutes() {
         <Route
           path="/patients/26262626262/record/new"
           element={<WriteRecord />}
+        />
+
+        <Route
+          path="/patients/26262626262/record/RECORDID"
+          element={<PatientLastRecord />}
         />
       </Routes>
     </Page>

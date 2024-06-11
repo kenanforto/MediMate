@@ -1,20 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Box,
   Typography,
   Button,
   Paper,
-  Avatar,
   Grid,
   TextField,
-  FormControlLabel,
-  Checkbox,
   Autocomplete,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import dayjs from "dayjs";
 import BackgroundImg from "../assets/background4.png";
-import AppointmentsList from "../components/Lists/AppointmentsList";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -336,6 +331,8 @@ const WriteRecord = () => {
               id="outlined-basic"
               variant="outlined"
               fullWidth
+              multiline
+              rows={6}
               className={classes.gradientBorder}
             />
           </Paper>

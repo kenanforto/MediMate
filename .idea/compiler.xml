@@ -9,13 +9,15 @@
         <module name="EurekaServer" />
         <module name="WorkingHoursMicroservice" />
         <module name="UserMicroservice" />
-        <module name="AdmissionMicroservice" />
         <module name="ConfigServer" />
         <module name="MedicalRecordMicroservice" />
         <module name="SurveyMicroservice" />
         <module name="SuppliesMicroservice" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="AdmissionMicroservice" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

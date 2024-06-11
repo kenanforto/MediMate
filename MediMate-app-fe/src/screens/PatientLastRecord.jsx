@@ -1,37 +1,24 @@
-import {
-  Box,
-  Typography,
-  Button,
-  Paper,
-  Avatar,
-  Grid,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box, Typography, Paper, Avatar, Grid } from "@mui/material";
 import BackgroundImg from "../assets/background4.png";
 
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles(() => ({
-  gradientBorder: {
-    "& .MuiOutlinedInput-root": {
-      borderRadius: "16px",
-      "& .MuiOutlinedInput-notchedOutline": {
-        borderImage: "linear-gradient(180deg, #02618A, #BFDEEA) 1",
-        borderImageSlice: 10,
-      },
+const PatientLastRecord = () => {
+  const prescriptions = [
+    {
+      id: "26262626262",
+      name: "Paracetamol",
+      amount: 2,
     },
-  },
-}));
-
-const TakeAppointment = () => {
-  const navigate = useNavigate();
-  const classes = useStyles();
-  const handleWriteRecordClick = () => {
-    navigate("/patients/26262626262/record/new");
-  };
+    {
+      id: "26262626263",
+      name: "Lecadol",
+      amount: 1,
+    },
+    {
+      id: "26262626264",
+      name: "Tylolhot",
+      amount: 4,
+    },
+  ];
 
   return (
     <Box
@@ -46,34 +33,6 @@ const TakeAppointment = () => {
         paddingX: 4,
       }}
     >
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "center",
-        }}
-      >
-        <Button
-          sx={{
-            borderRadius: "42px",
-            background: "#02618A",
-            color: "#f5f5f5",
-            boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
-            padding: "8px 18px",
-            textTransform: "none",
-            display: "flex",
-            alignItems: "center",
-            "&:hover": {
-              background: "#7BB4D6",
-            },
-          }}
-          onClick={handleWriteRecordClick}
-        >
-          Write record
-        </Button>
-      </Box>
-
       <Grid
         container
         spacing={1}
@@ -210,27 +169,43 @@ const TakeAppointment = () => {
               boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
             }}
           >
-            <TextField
-              id="outlined-basic"
-              label="Start of Appointmet"
-              variant="outlined"
-              fullWidth
-              className={classes.gradientBorder}
-            />
+            <Grid container spacing={2}>
+              <Box
+                sx={{
+                  padding: "1px 10px",
+                  width: "100%",
+                }}
+              >
+                <Typography sx={{ fontSize: "26px" }}>Prescriptions</Typography>
+              </Box>
 
-            <FormControlLabel
-              sx={{
-                paddingTop: 5,
-              }}
-              control={
-                <Checkbox
-                  sx={{
-                    color: "#02618A",
-                  }}
-                />
-              }
-              label="Urgent"
-            />
+              {prescriptions.map((prescription, index) => (
+                <Grid item xs={6} key={index}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 2,
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: "18px",
+                      }}
+                    >
+                      {prescription.name}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "18px",
+                      }}
+                    >
+                      x{prescription.amount}
+                    </Typography>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
           </Paper>
         </Grid>
 
@@ -252,7 +227,7 @@ const TakeAppointment = () => {
                 fontSize: "26px",
               }}
             >
-              Patients Symptoms
+              Diagnosis
             </Typography>
 
             <Box
@@ -298,4 +273,4 @@ const TakeAppointment = () => {
   );
 };
 
-export default TakeAppointment;
+export default PatientLastRecord;
