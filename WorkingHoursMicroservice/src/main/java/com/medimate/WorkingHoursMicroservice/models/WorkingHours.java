@@ -46,10 +46,10 @@ public class WorkingHours {
     @NotNull
     private Integer trackWorkingHoursId;
 
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "doctor_id", insertable = false, updatable = false)
-    private Doctor doctor;
+//    @JsonIgnore
+//    @OneToOne
+//    @JoinColumn(name = "doctor_id", insertable = false, updatable = false)
+//    private Doctor doctor;
 
     @JsonIgnore
     @ManyToOne

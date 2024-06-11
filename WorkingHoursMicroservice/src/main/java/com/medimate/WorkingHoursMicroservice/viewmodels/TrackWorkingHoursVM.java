@@ -1,10 +1,8 @@
 package com.medimate.WorkingHoursMicroservice.viewmodels;
 
-import com.medimate.WorkingHoursMicroservice.models.Admin;
 import com.medimate.WorkingHoursMicroservice.models.TrackWorkingHours;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class TrackWorkingHoursVM {

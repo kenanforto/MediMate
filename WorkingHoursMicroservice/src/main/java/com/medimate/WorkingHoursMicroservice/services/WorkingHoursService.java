@@ -1,7 +1,6 @@
 package com.medimate.WorkingHoursMicroservice.services;
 
 import com.medimate.WorkingHoursMicroservice.models.WorkingHours;
-import com.medimate.WorkingHoursMicroservice.repositories.DoctorRepository;
 import com.medimate.WorkingHoursMicroservice.repositories.TrackWorkingHoursRepository;
 import com.medimate.WorkingHoursMicroservice.repositories.WorkingHoursRepository;
 import com.medimate.WorkingHoursMicroservice.viewmodels.WorkingHoursVM;
@@ -21,8 +20,6 @@ public class WorkingHoursService {
     @Autowired
     private WorkingHoursRepository repo;
 
-    @Autowired
-    private DoctorRepository doctorRepo;
 
     @Autowired
     private TrackWorkingHoursRepository trackWHRepo;
