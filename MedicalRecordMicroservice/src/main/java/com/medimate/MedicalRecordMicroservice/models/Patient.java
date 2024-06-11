@@ -48,14 +48,6 @@ public class Patient {
     @Pattern(regexp = "^\\+?[0-9]{7,14}$")
     private String phoneNumber;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "patient")
-    private List<MedicalRecord> medicalRecords;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "patient")
-    private List<AdmissionRecord> admissionRecords;
-
     public Patient(String firstName, String lastName, LocalDate birthdate, Gender gender, String address, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;

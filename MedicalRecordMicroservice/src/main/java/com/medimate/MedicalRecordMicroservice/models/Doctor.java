@@ -38,10 +38,6 @@ public class Doctor {
     @Pattern(regexp="[A-Za-z]+")
     private String title;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "doctor")
-    private List<MedicalRecord> medicalRecords;
-
     public Doctor(String firstName, String lastName, String title) {
         this.firstName = firstName;
         this.lastName = lastName;

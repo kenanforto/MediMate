@@ -1,9 +1,7 @@
 package com.medimate.MedicalRecordMicroservice.services;
 
 import com.medimate.MedicalRecordMicroservice.models.MedicalRecord;
-import com.medimate.MedicalRecordMicroservice.models.Patient;
 import com.medimate.MedicalRecordMicroservice.repositories.MedicalRecordRepository;
-import com.medimate.MedicalRecordMicroservice.repositories.PatientRepository;
 import com.medimate.MedicalRecordMicroservice.viewmodels.MedicalRecordVM;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
@@ -22,8 +20,8 @@ public class MedicalRecordService {
     @Autowired
     private MedicalRecordRepository medicalRecordRepository;
 
-    @Autowired
-    private PatientRepository patientRepository;
+//    @Autowired
+//    private PatientRepository patientRepository;
 
     public MedicalRecord addMedicalRecord(MedicalRecordVM medicalRecordVM) {
         return medicalRecordRepository.save(MedicalRecordVM.toEntity(medicalRecordVM));
@@ -62,9 +60,9 @@ public class MedicalRecordService {
     }
 
     public void deleteMedicalRecordForPatient(Integer id, Integer patientId) {
-        if (patientRepository.findById(patientId).orElse(null) == null) {
-            throw new EntityExistsException("Could not find patient with id " + patientId);
-        }
+//        if (patientRepository.findById(patientId).orElse(null) == null) {
+//            throw new EntityExistsException("Could not find patient with id " + patientId);
+//        }
 
         if (medicalRecordRepository.findById(id).orElse(null) == null) {
             throw new EntityExistsException("Could not find medical record with id " + patientId);
@@ -74,9 +72,9 @@ public class MedicalRecordService {
     }
 
     public void deleteAllMedicalRecordsForPatient(Integer patientId) {
-        if (patientRepository.findById(patientId).orElse(null) == null) {
-            throw new EntityExistsException("Could not find patient with id " + patientId);
-        }
+//        if (patientRepository.findById(patientId).orElse(null) == null) {
+//            throw new EntityExistsException("Could not find patient with id " + patientId);
+//        }
         medicalRecordRepository.deleteAllByPatientId(patientId);
     }
 

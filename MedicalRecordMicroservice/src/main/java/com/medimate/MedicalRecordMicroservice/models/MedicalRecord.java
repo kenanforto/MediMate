@@ -45,16 +45,6 @@ public class MedicalRecord {
     private Integer admissionRecordId;
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name="patient_id", insertable = false, updatable = false)
-    private Patient patient;
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name="doctor_id", insertable = false, updatable = false)
-    private Doctor doctor;
-
-    @JsonIgnore
     @OneToOne
     @JoinColumn(name="admission_record_id", insertable = false, updatable = false)
     private AdmissionRecord admissionRecord;
