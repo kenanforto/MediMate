@@ -158,8 +158,15 @@ const Signup = () => {
             }}
           >
             <TextField
-              id="fullName"
-              label="First and Last Name"
+              id="firstName"
+              label="First Name"
+              variant="outlined"
+              className={classes.gradientBorder}
+              fullWidth
+            />
+            <TextField
+              id="lastName"
+              label="Last Name"
               variant="outlined"
               className={classes.gradientBorder}
               fullWidth
