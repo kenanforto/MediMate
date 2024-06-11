@@ -1,6 +1,5 @@
 package com.medimate.SuppliesMicroservice.controllers;
 
-import com.medimate.SuppliesMicroservice.models.Admin;
 import com.medimate.SuppliesMicroservice.models.Supplies;
 import com.medimate.SuppliesMicroservice.services.SuppliesService;
 import com.medimate.SuppliesMicroservice.viewmodels.SuppliesVM;

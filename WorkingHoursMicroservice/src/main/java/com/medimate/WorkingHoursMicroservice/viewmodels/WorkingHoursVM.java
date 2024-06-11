@@ -1,8 +1,5 @@
 package com.medimate.WorkingHoursMicroservice.viewmodels;
 
-import com.medimate.WorkingHoursMicroservice.models.Admin;
-import com.medimate.WorkingHoursMicroservice.models.Doctor;
-import com.medimate.WorkingHoursMicroservice.models.TrackWorkingHours;
 import com.medimate.WorkingHoursMicroservice.models.WorkingHours;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

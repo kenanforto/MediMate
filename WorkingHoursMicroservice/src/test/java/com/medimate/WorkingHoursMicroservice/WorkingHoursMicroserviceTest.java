@@ -1,13 +1,10 @@
 package com.medimate.WorkingHoursMicroservice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.medimate.WorkingHoursMicroservice.models.Admin;
-import com.medimate.WorkingHoursMicroservice.models.Doctor;
 import com.medimate.WorkingHoursMicroservice.models.TrackWorkingHours;
 import com.medimate.WorkingHoursMicroservice.models.WorkingHours;
 import com.medimate.WorkingHoursMicroservice.repositories.WorkingHoursRepository;
 import com.medimate.WorkingHoursMicroservice.services.WorkingHoursService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

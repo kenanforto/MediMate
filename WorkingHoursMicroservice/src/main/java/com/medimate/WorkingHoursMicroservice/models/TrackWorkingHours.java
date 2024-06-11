@@ -26,20 +26,14 @@ public class TrackWorkingHours {
     @NotNull
     private Integer adminId;
 
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "admin_id", insertable = false, updatable = false)
-    private Admin admin;
+//    @JsonIgnore
+//    @OneToOne
+//    @JoinColumn(name = "admin_id", insertable = false, updatable = false)
+//    private Admin admin;
 
     @JsonIgnore
     @OneToMany(mappedBy = "trackWorkingHours")
     private List<WorkingHours> workingHours;
-
-    public TrackWorkingHours(Integer totalHours, Integer breakHours, Admin admin) {
-        this.totalHours = totalHours;
-        this.breakHours = breakHours;
-        this.admin = admin;
-    }
 
     public TrackWorkingHours(Integer totalHours, Integer breakHours, Integer adminId) {
         this.totalHours = totalHours;
