@@ -79,6 +79,26 @@ function Page({ children }) {
             <Button
               sx={{
                 borderRadius: "42px",
+                background: "linear-gradient(35deg, #02618A, #7BB4D6)",
+                color: "#f5f5f5",
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                padding: "8px 18px",
+                marginRight: 2,
+                textTransform: "none",
+                display: "flex",
+                alignItems: "center",
+                "&:hover": {
+                  background: "#7BB4D6",
+                },
+              }}
+              onClick={handleLogout}
+            >
+              + Make an Appointment
+            </Button>
+
+            <Button
+              sx={{
+                borderRadius: "42px",
                 background: "#02618A",
                 color: "#f5f5f5",
                 boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
