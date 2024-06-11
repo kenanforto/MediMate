@@ -37,12 +37,7 @@ public class UserController {
 
         return (users != null && !users.isEmpty()) ? ResponseEntity.ok().body(users) : ResponseEntity.notFound().build();
     }
-
-    @GetMapping(path = "{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") Integer id) {
-        User user = userService.getUser(id);
-        return (user != null) ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
-    }
+    
     @GetMapping(path = "{email}")
     public ResponseEntity<User> getUser(@PathVariable("email") String email) {
         User user = userService.getUserByEmail(email);
