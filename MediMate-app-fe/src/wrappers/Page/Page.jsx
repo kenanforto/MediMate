@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import PropTypes, { string } from "prop-types";
 import {
   Box,
   Drawer,
@@ -15,19 +15,25 @@ import {
   Avatar,
   Typography,
   Button,
+  Collapse,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupsIcon from "@mui/icons-material/Groups";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/LogoAndText.png";
 
 const drawerWidth = 240;
 
-function Page({ children }) {
+function Page({ children, role }) {
   const [currentDateTime, setCurrentDateTime] = useState(dayjs());
+  const [openAppointments, setOpenAppointments] = useState(false);
+  const [openPatients, setOpenPatients] = useState(false);
+  const [openDoctors, setOpenDoctors] = useState(false);
 
   const navigate = useNavigate();
 
@@ -39,7 +45,6 @@ function Page({ children }) {
     return () => clearInterval(intervalId);
   }, []);
 
-  
   const handleLogout = () => {
     navigate("/login");
   };
@@ -47,6 +52,19 @@ function Page({ children }) {
   const handleMakeAnAppointmentClick = () => {
     navigate("/create-appointment");
   };
+
+  const handleAppointmentsClick = () => {
+    setOpenAppointments(!openAppointments);
+  };
+
+  const handlePatientsClick = () => {
+    setOpenPatients(!openPatients);
+  };
+
+  const handleDoctorsClick = () => {
+    setOpenDoctors(!openDoctors);
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -161,33 +179,131 @@ function Page({ children }) {
               </ListItem>
             </Link>
 
-            <Link
-              style={{ textDecoration: "none", color: "#023047" }}
-              to="/appointments"
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
+            {role === "admin" ? (
+              <>
+                <ListItemButton onClick={handleAppointmentsClick}>
                   <ListItemIcon>
                     <AssignmentTurnedInIcon sx={{ color: "#02618a" }} />
                   </ListItemIcon>
                   <ListItemText primary="Appointments" />
+                  {openAppointments ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
-              </ListItem>
-            </Link>
+                <Collapse in={openAppointments} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <Link
+                      style={{ textDecoration: "none", color: "#023047" }}
+                      to="/appointments"
+                    >
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemText primary="View Appointments" />
+                      </ListItemButton>
+                    </Link>
+                    <Link
+                      style={{ textDecoration: "none", color: "#023047" }}
+                      to="/create-appointment"
+                    >
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemText primary="Add New Appointment" />
+                      </ListItemButton>
+                    </Link>
+                  </List>
+                </Collapse>
+              </>
+            ) : (
+              <Link
+                style={{ textDecoration: "none", color: "#023047" }}
+                to="/appointments"
+              >
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <AssignmentTurnedInIcon sx={{ color: "#02618a" }} />
+                    </ListItemIcon>
+                    <ListItemText primary="Appointments" />
+                  </ListItemButton>
+                </ListItem>
+              </Link>
+            )}
 
-            <Link
-              style={{ textDecoration: "none", color: "#023047" }}
-              to="/patients"
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
+            {role === "admin" ? (
+              <>
+                <ListItemButton onClick={handlePatientsClick}>
                   <ListItemIcon>
                     <GroupsIcon sx={{ color: "#02618a" }} />
                   </ListItemIcon>
                   <ListItemText primary="Patients" />
+                  {openPatients ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
-              </ListItem>
-            </Link>
+                <Collapse in={openPatients} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <Link
+                      style={{ textDecoration: "none", color: "#023047" }}
+                      to="/patients"
+                    >
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemText primary="View Patients" />
+                      </ListItemButton>
+                    </Link>
+                    <Link
+                      style={{ textDecoration: "none", color: "#023047" }}
+                      to="/create-patient"
+                    >
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemText primary="Add New Patient" />
+                      </ListItemButton>
+                    </Link>
+                  </List>
+                </Collapse>
+              </>
+            ) : role !== "patient" ? (
+              <Link
+                style={{ textDecoration: "none", color: "#023047" }}
+                to="/patients"
+              >
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <GroupsIcon sx={{ color: "#02618a" }} />
+                    </ListItemIcon>
+                    <ListItemText primary="Patients" />
+                  </ListItemButton>
+                </ListItem>
+              </Link>
+            ) : null}
+
+            {role === "admin" ? (
+              <>
+                <ListItemButton onClick={handleDoctorsClick}>
+                  <ListItemIcon>
+                    <GroupsIcon sx={{ color: "#02618a" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Doctors" />
+                  {openDoctors ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+                <Collapse in={openDoctors} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <Link
+                      style={{ textDecoration: "none", color: "#023047" }}
+                      to="/doctors"
+                    >
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemText primary="View Doctors" />
+                      </ListItemButton>
+                    </Link>
+                    <Link
+                      style={{ textDecoration: "none", color: "#023047" }}
+                      to="/create-doctor"
+                    >
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemText primary="Add New Doctor" />
+                      </ListItemButton>
+                    </Link>
+                  </List>
+                </Collapse>
+              </>
+            ) : (
+              <></>
+            )}
           </List>
         </Box>
       </Drawer>
@@ -200,6 +316,7 @@ function Page({ children }) {
 
 Page.propTypes = {
   children: PropTypes.node,
+  role: string
 };
 
 export default Page;

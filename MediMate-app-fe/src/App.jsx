@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import Signup from "./screens/Signup";
 import Login from "./screens/Login";
 import Page from "./wrappers/Page/Page";
@@ -10,6 +10,10 @@ import TakeAppointment from "./screens/TakeAppointment";
 import WriteRecord from "./screens/WriteRecord";
 import PatientLastRecord from "./screens/PatientLastRecord";
 import CreateAppointment from "./screens/CreateAppointment";
+import Doctors from "./screens/Doctors";
+import AdminCreateDoctor from "./screens/AdminCreateDoctor";
+import AdminCreateAppointment from "./screens/AdminCreateAppointment";
+import AdminCreatePatient from "./screens/AdminCreatePatient";
 
 function App() {
   const location = useLocation();
@@ -28,14 +32,18 @@ function App() {
   );
 }
 
+const role = "admin";
+
 function PageRoutes() {
   return (
-    <Page>
+    <Page role={role}>
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/patients" element={<Patients />} />
+        <Route path="/doctors" element={<Doctors />} />
         <Route path="/appointments" element={<Appointments />} />
+
         <Route
           path="/patients/26262626262/appointment/APPOINTMENTID"
           element={<TakeAppointment />}
@@ -51,7 +59,30 @@ function PageRoutes() {
           element={<PatientLastRecord />}
         />
 
-        <Route path="/create-appointment" element={<CreateAppointment />} />
+        <Route
+          path="/create-doctor"
+          element={
+            role === "admin" ? <AdminCreateDoctor /> : <Navigate to="/" />
+          }
+        />
+
+        <Route
+          path="/create-patient"
+          element={
+            role === "admin" ? <AdminCreatePatient /> : <Navigate to="/" />
+          }
+        />
+
+        <Route
+          path="/create-appointment"
+          element={
+            role === "admin" ? (
+              <AdminCreateAppointment />
+            ) : (
+              <CreateAppointment />
+            )
+          }
+        />
       </Routes>
     </Page>
   );

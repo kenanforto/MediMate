@@ -9,7 +9,10 @@ import {
 } from "@mui/material";
 import BackgroundImg from "../assets/background4.png";
 import dayjs from "dayjs";
+
+import "react-quill/dist/quill.snow.css";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 
@@ -27,7 +30,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CreateAppointment = () => {
+
+const AdminCreateAppointment = () => {
   const departments = [
     {
       id: "26262626262",
@@ -55,6 +59,21 @@ const CreateAppointment = () => {
     {
       id: "26262626264",
       name: "Doctor 3",
+    },
+  ];
+
+  const patients = [
+    {
+      id: "26262626262",
+      name: "Patient 1",
+    },
+    {
+      id: "26262626263",
+      name: "Patient 2",
+    },
+    {
+      id: "26262626264",
+      name: "Patient 3",
     },
   ];
 
@@ -97,32 +116,20 @@ const CreateAppointment = () => {
             }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <TextField
-                  label="First Name"
-                  className={classes.gradientBorder}
-                />
-              </Grid>
-
-              <Grid item xs={6}>
-                <TextField
-                  label="Last Name"
-                  className={classes.gradientBorder}
-                />
-              </Grid>
-
-              <Grid item xs={6}>
-                <TextField
-                  label="Age"
-                  fullWidthclassName={classes.gradientBorder}
-                />
-              </Grid>
-
-              <Grid item xs={6}>
-                <TextField
-                  label="Phone Number"
-                  fullWidth
-                  className={classes.gradientBorder}
+              <Grid item xs={12}>
+                <Autocomplete
+                  freeSolo
+                  options={patients.map((option) => option.name)}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Patient"
+                      className={classes.gradientBorder}
+                      InputProps={{
+                        ...params.InputProps,
+                      }}
+                    />
+                  )}
                 />
               </Grid>
 
@@ -298,4 +305,4 @@ const CreateAppointment = () => {
   );
 };
 
-export default CreateAppointment;
+export default AdminCreateAppointment;
