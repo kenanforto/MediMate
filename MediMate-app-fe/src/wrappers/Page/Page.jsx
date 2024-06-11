@@ -39,8 +39,13 @@ function Page({ children }) {
     return () => clearInterval(intervalId);
   }, []);
 
+  
   const handleLogout = () => {
     navigate("/login");
+  };
+
+  const handleMakeAnAppointmentClick = () => {
+    navigate("/create-appointment");
   };
   return (
     <Box sx={{ display: "flex" }}>
@@ -91,7 +96,7 @@ function Page({ children }) {
                   background: "#7BB4D6",
                 },
               }}
-              onClick={handleLogout}
+              onClick={handleMakeAnAppointmentClick}
             >
               + Make an Appointment
             </Button>
