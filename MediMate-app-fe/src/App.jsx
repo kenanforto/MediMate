@@ -38,7 +38,8 @@ function App() {
 
 function PageRoutes() {
   const { user } = useContext(AuthContext);
-  const role = user ? user.role : null;
+  // const role = user ? user.role : null; OVO ODKOMENTARISAT KAD DOBIJEMO ROLU IZ TOKENA
+  const role = "admin";
   return (
     <Page role={role}>
       <Routes>
