@@ -34,37 +34,37 @@ const useStyles = makeStyles(() => ({
 const AdminCreateAppointment = () => {
   const departments = [
     {
-      id: "26262626262",
+      id: "121221",
       name: "Department 1",
     },
     {
-      id: "26262626263",
+      id: "26262623213213126263",
       name: "Department 2",
     },
     {
-      id: "26262626264",
+      id: "2626262555556264",
       name: "Department 3",
     },
   ];
 
   const doctors = [
     {
-      id: "26262626262",
+      id: "65656565",
       name: "Doctor 1",
     },
     {
-      id: "26262626263",
+      id: "26262643242326263",
       name: "Doctor 2",
     },
     {
-      id: "26262626264",
+      id: "262628765426264",
       name: "Doctor 3",
     },
   ];
 
   const patients = [
     {
-      id: "26262626262",
+      id: "26263213122626262",
       name: "Patient 1",
     },
     {

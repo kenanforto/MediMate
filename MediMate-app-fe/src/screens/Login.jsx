@@ -1,3 +1,4 @@
+import { useState, useContext } from "react";
 import {
   Box,
   Typography,
@@ -12,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import BackgroundImg from "../assets/background1.png";
 import LogoAndText from "../assets/LogoAndText.png";
 
+import { AuthContext } from "../context/AuthContext";
+
 const useStyles = makeStyles(() => ({
   gradientBorder: {
     "& .MuiOutlinedInput-root": {
@@ -25,10 +28,42 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const classes = useStyles();
   const navigate = useNavigate();
+
+  const { login } = useContext(AuthContext);
+
   const handleClick = () => {
     navigate("/signup");
+  };
+
+  const handleLoginClick = async () => {
+    const role = "admin";
+    const userData = { email, password, role };
+    login(userData);
+    navigate("/dashboard");
+
+    // const loginResponse = await fetch("http://localhost:8080/api/login", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     email: email,
+    //     password: password,
+    //   }),
+    // });
+
+    // if (loginResponse.ok) {
+    //   const loginData = await loginResponse.json();
+    //   login(loginData);
+    //   navigate("/dashboard");
+    // } else {
+    //   const loginErrorData = await loginResponse.json();
+    //   alert(`Login Error: ${loginErrorData.message}`);
+    // }
   };
   return (
     <Box
@@ -163,6 +198,7 @@ const Login = () => {
               variant="outlined"
               className={classes.gradientBorder}
               fullWidth
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               id="password"
@@ -171,6 +207,7 @@ const Login = () => {
               type="password"
               className={classes.gradientBorder}
               fullWidth
+              onChange={(e) => setPassword(e.target.value)}
             />
           </Stack>
           <Box
@@ -195,6 +232,7 @@ const Login = () => {
                   background: "#7BB4D6",
                 },
               }}
+              onClick={handleLoginClick}
             >
               Log in
             </Button>

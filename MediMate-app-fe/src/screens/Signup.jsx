@@ -1,3 +1,4 @@
+import { useState, useContext } from "react";
 import {
   Box,
   Typography,
@@ -7,10 +8,10 @@ import {
   Button,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-
 import { useNavigate } from "react-router-dom";
 import BackgroundImg from "../assets/background1.png";
 import LogoAndText from "../assets/LogoAndText.png";
+import { AuthContext } from "../context/AuthContext";
 
 const useStyles = makeStyles(() => ({
   gradientBorder: {
@@ -27,9 +28,84 @@ const useStyles = makeStyles(() => ({
 const Signup = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [id]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    try {
+      const registerResponse = await fetch(
+        "http://localhost:8080/api/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            password: formData.password,
+          }),
+        }
+      );
+
+      if (registerResponse.ok) {
+        // const userData = await registerResponse.json();
+
+        const loginResponse = await fetch("http://localhost:8080/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+          }),
+        });
+
+        if (loginResponse.ok) {
+          const loginData = await loginResponse.json();
+          login(loginData); 
+          navigate("/dashboard");
+        } else {
+          const loginErrorData = await loginResponse.json();
+          alert(`Login Error: ${loginErrorData.message}`);
+        }
+      } else {
+        const registerErrorData = await registerResponse.json();
+        alert(`Register Error: ${registerErrorData.message}`);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
+
   const handleClick = () => {
     navigate("/login");
   };
+
   return (
     <Box
       sx={{
@@ -73,7 +149,6 @@ const Signup = () => {
           >
             Welcome to
           </Typography>
-
           <img src={LogoAndText} alt="logo" />
           <Typography
             sx={{
@@ -87,7 +162,6 @@ const Signup = () => {
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </Typography>
         </Box>
-
         <Paper
           elevation={3}
           sx={{
@@ -131,7 +205,6 @@ const Signup = () => {
               Sign in
             </Typography>
           </Box>
-
           <Box
             sx={{
               display: "flex",
@@ -149,78 +222,90 @@ const Signup = () => {
               Create Your <br /> MediMate Account
             </Typography>
           </Box>
-
-          <Stack
-            spacing={3}
-            sx={{
-              width: "80%",
-              paddingY: 6,
-            }}
-          >
-            <TextField
-              id="firstName"
-              label="First Name"
-              variant="outlined"
-              className={classes.gradientBorder}
-              fullWidth
-            />
-            <TextField
-              id="lastName"
-              label="Last Name"
-              variant="outlined"
-              className={classes.gradientBorder}
-              fullWidth
-            />
-            <TextField
-              id="email"
-              label="Email"
-              variant="outlined"
-              className={classes.gradientBorder}
-              fullWidth
-            />
-            <TextField
-              id="password"
-              label="Password"
-              variant="outlined"
-              type="password"
-              className={classes.gradientBorder}
-              fullWidth
-            />
-            <TextField
-              id="confirmPassword"
-              label="Confirm Password"
-              variant="outlined"
-              type="password"
-              className={classes.gradientBorder}
-              fullWidth
-            />
-          </Stack>
-          <Box
-            sx={{
-              width: "80%",
-              display: "flex",
-              justifyContent: "flex-start",
-            }}
-          >
-            <Button
+          <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+            <Stack
+              spacing={3}
               sx={{
-                borderRadius: "42px",
-                width: "40%",
-                background: "#02618A",
-                color: "#f5f5f5",
-                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
-                padding: "8px 18px",
-                textTransform: "none",
-                display: "flex",
-                alignItems: "center",
-                "&:hover": {
-                  background: "#7BB4D6",
-                },
+                width: "80%",
+                paddingY: 6,
               }}
             >
-              Register
-            </Button>
-          </Box>
+              <TextField
+                id="firstName"
+                label="First Name"
+                variant="outlined"
+                className={classes.gradientBorder}
+                fullWidth
+                value={formData.firstName}
+                onChange={handleChange}
+              />
+              <TextField
+                id="lastName"
+                label="Last Name"
+                variant="outlined"
+                className={classes.gradientBorder}
+                fullWidth
+                value={formData.lastName}
+                onChange={handleChange}
+              />
+              <TextField
+                id="email"
+                label="Email"
+                variant="outlined"
+                className={classes.gradientBorder}
+                fullWidth
+                value={formData.email}
+                onChange={handleChange}
+              />
+              <TextField
+                id="password"
+                label="Password"
+                variant="outlined"
+                type="password"
+                className={classes.gradientBorder}
+                fullWidth
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <TextField
+                id="confirmPassword"
+                label="Confirm Password"
+                variant="outlined"
+                type="password"
+                className={classes.gradientBorder}
+                fullWidth
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
+            </Stack>
+            <Box
+              sx={{
+                width: "80%",
+                display: "flex",
+                justifyContent: "flex-start",
+              }}
+            >
+              <Button
+                type="submit"
+                sx={{
+                  borderRadius: "42px",
+                  width: "40%",
+                  background: "#02618A",
+                  color: "#f5f5f5",
+                  boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+                  padding: "8px 18px",
+                  textTransform: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  "&:hover": {
+                    background: "#7BB4D6",
+                  },
+                }}
+              >
+                Register
+              </Button>
+            </Box>
+          </form>
         </Paper>
       </Paper>
     </Box>

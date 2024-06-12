@@ -29,16 +29,16 @@ const useStyles = makeStyles(() => ({
 
 const medications = [
   {
-    id: "26262626262",
+    id: "26262687675626262",
     name: "Paracetamol",
   },
   {
-    id: "26262626263",
+    id: "26262654626263",
     name: "Lecadol",
     email: "jane@example.com",
   },
   {
-    id: "26262626264",
+    id: "2626223456626264",
     name: "Tylolhot",
   },
 ];

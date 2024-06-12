@@ -17,8 +17,8 @@ const Appointments = () => {
 
   const appointmentsRemaining = [
     {
-      id: "212312312",
-      patientId: "26262626262",
+      id: "21231552312",
+      patientId: "26262632131241326262",
       name: "John Doe",
       email: "john@example.com",
       phone: "2015550123",
@@ -26,8 +26,8 @@ const Appointments = () => {
       hadAppointment: false,
     },
     {
-      id: "212312312",
-      patientId: "26262626262",
+      id: "255512312312",
+      patientId: "423423423",
       name: "Jane Doe",
       email: "jane@example.com",
       phone: "2015550124",
@@ -35,8 +35,8 @@ const Appointments = () => {
       hadAppointment: false,
     },
     {
-      id: "212312312",
-      patientId: "26262626262",
+      id: "21231552312",
+      patientId: "26262626546456262",
       name: "Jim Beam",
       email: "jim@example.com",
       phone: "2015550125",
@@ -47,8 +47,8 @@ const Appointments = () => {
 
   const appointmentsServed = [
     {
-      id: "212312312",
-      patientId: "26262626262",
+      id: "216662312312",
+      patientId: "7777777",
       name: "John Doe",
       email: "john@example.com",
       phone: "2015550123",
@@ -56,8 +56,8 @@ const Appointments = () => {
       hadAppointment: true,
     },
     {
-      id: "212312312",
-      patientId: "26262626262",
+      id: "266612312312",
+      patientId: "2626655452626262",
       name: "Jane Doe",
       email: "jane@example.com",
       phone: "2015550124",
@@ -65,8 +65,8 @@ const Appointments = () => {
       hadAppointment: true,
     },
     {
-      id: "212312312",
-      patientId: "26262626262",
+      id: "66666666",
+      patientId: "3213125",
       name: "Jim Beam",
       email: "jim@example.com",
       phone: "2015550125",

@@ -56,40 +56,39 @@ const DoctorsList = ({ doctors }) => {
           }}
         >
           {doctors.map((doctor, index) => (
-            <React.Fragment
-              key={doctor.id}
-              sx={{ maxHeight: "80px", overflowY: "auto" }}
-            >
-              <Grid container spacing={2} sx={{ paddingTop: 2 }}>
-                <Grid item xs={3}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {doctor.id}
-                  </Typography>
+            <React.Fragment key={doctor.id}>
+              <Box sx={{ maxHeight: "80px", overflowY: "auto" }}>
+                <Grid container spacing={2} sx={{ paddingTop: 2 }}>
+                  <Grid item xs={3}>
+                    <Typography sx={{ textAlign: "center" }}>
+                      {doctor.id}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography sx={{ textAlign: "center" }}>
+                      {doctor.name}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography sx={{ textAlign: "center" }}>
+                      {doctor.email}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography sx={{ textAlign: "center" }}>
+                      {doctor.phone}
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={3}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {doctor.name}
-                  </Typography>
-                </Grid>
-                <Grid item xs={3}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {doctor.email}
-                  </Typography>
-                </Grid>
-                <Grid item xs={3}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {doctor.phone}
-                  </Typography>
-                </Grid>
-              </Grid>
-              {index < doctors.length - 1 && (
-                <Divider
-                  sx={{
-                    paddingTop: 1,
-                    width: "100%",
-                  }}
-                />
-              )}
+                {index < doctors.length - 1 && (
+                  <Divider
+                    sx={{
+                      paddingTop: 1,
+                      width: "100%",
+                    }}
+                  />
+                )}
+              </Box>
             </React.Fragment>
           ))}
         </Box>

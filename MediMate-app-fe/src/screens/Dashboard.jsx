@@ -21,7 +21,7 @@ const Dashboard = () => {
   const appointments = [
     {
       id: "212312312",
-      patientId: "26262626262",
+      patientId: "26262677726262",
       name: "John Doe",
       email: "john@example.com",
       phone: "2015550123",
@@ -29,8 +29,8 @@ const Dashboard = () => {
       hadAppointment: false,
     },
     {
-      id: "212312312",
-      patientId: "26262626262",
+      id: "2123123121",
+      patientId: "31221312",
       name: "Jane Doe",
       email: "jane@example.com",
       phone: "2015550124",
@@ -38,8 +38,8 @@ const Dashboard = () => {
       hadAppointment: false,
     },
     {
-      id: "212312312",
-      patientId: "26262626262",
+      id: "21231231112",
+      patientId: "262665462626262",
       name: "Jim Beam",
       email: "jim@example.com",
       phone: "2015550125",

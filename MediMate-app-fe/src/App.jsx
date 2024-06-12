@@ -1,4 +1,5 @@
 import "./App.css";
+import { useContext } from "react";
 import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import Signup from "./screens/Signup";
 import Login from "./screens/Login";
@@ -14,10 +15,13 @@ import Doctors from "./screens/Doctors";
 import AdminCreateDoctor from "./screens/AdminCreateDoctor";
 import AdminCreateAppointment from "./screens/AdminCreateAppointment";
 import AdminCreatePatient from "./screens/AdminCreatePatient";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const location = useLocation();
   console.log(location.pathname);
+  const { user } = useContext(AuthContext);
+  console.log("USER IS", user);
 
   return (
     <Routes>
@@ -32,54 +36,139 @@ function App() {
   );
 }
 
-const role = "admin";
-
 function PageRoutes() {
+  const { user } = useContext(AuthContext);
+  const role = user ? user.role : null;
   return (
     <Page role={role}>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/patients" element={<Patients />} />
-        <Route path="/doctors" element={<Doctors />} />
-        <Route path="/appointments" element={<Appointments />} />
-
         <Route
-          path="/patients/26262626262/appointment/APPOINTMENTID"
-          element={<TakeAppointment />}
+          path="/"
+          element={user ? <Dashboard /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/dashboard"
+          element={user ? <Dashboard /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/patients"
+          element={
+            user ? (
+              role && role !== "patient" ? (
+                <Patients />
+              ) : (
+                <Navigate to="/login" />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/doctors"
+          element={
+            user ? (
+              role && role === "admin" ? (
+                <Doctors />
+              ) : (
+                <Navigate to="/login" />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/appointments"
+          element={
+            user ? (
+              role && role !== "patient" ? (
+                <Appointments />
+              ) : (
+                <Navigate to="/login" />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
 
         <Route
-          path="/patients/26262626262/record/new"
-          element={<WriteRecord />}
+          path="/patients/2626261126262/appointment/APPOINTMENTID"
+          element={
+            user ? (
+              role && role !== "patient" ? (
+                <TakeAppointment />
+              ) : (
+                <Navigate to="/login" />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
 
         <Route
-          path="/patients/26262626262/record/RECORDID"
-          element={<PatientLastRecord />}
+          path="/patients/2626332626262/record/new"
+          element={
+            user ? (
+              role && role !== "patient" ? (
+                <WriteRecord />
+              ) : (
+                <Navigate to="/login" />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="/patients/2623362626262/record/RECORDID"
+          element={user ? <PatientLastRecord /> : <Navigate to="/login" />}
         />
 
         <Route
           path="/create-doctor"
           element={
-            role === "admin" ? <AdminCreateDoctor /> : <Navigate to="/" />
+            user ? (
+              role && role === "admin" ? (
+                <AdminCreateDoctor />
+              ) : (
+                <Navigate to="/" />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
 
         <Route
           path="/create-patient"
           element={
-            role === "admin" ? <AdminCreatePatient /> : <Navigate to="/" />
+            user ? (
+              role && role === "admin" ? (
+                <AdminCreatePatient />
+              ) : (
+                <Navigate to="/" />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
 
         <Route
           path="/create-appointment"
           element={
-            role === "admin" ? (
-              <AdminCreateAppointment />
+            user ? (
+              role && role === "admin" ? (
+                <AdminCreateAppointment />
+              ) : (
+                <CreateAppointment />
+              )
             ) : (
-              <CreateAppointment />
+              <Navigate to="/login" />
             )
           }
         />

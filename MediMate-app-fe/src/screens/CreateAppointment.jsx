@@ -30,30 +30,30 @@ const useStyles = makeStyles(() => ({
 const CreateAppointment = () => {
   const departments = [
     {
-      id: "26262626262",
+      id: "26262621236262",
       name: "Department 1",
     },
     {
-      id: "26262626263",
+      id: "262623212626263",
       name: "Department 2",
     },
     {
-      id: "26262626264",
+      id: "26262432432626264",
       name: "Department 3",
     },
   ];
 
   const doctors = [
     {
-      id: "26262626262",
+      id: "262626254546262",
       name: "Doctor 1",
     },
     {
-      id: "26262626263",
+      id: "26262665656263",
       name: "Doctor 2",
     },
     {
-      id: "26262626264",
+      id: "262626767626264",
       name: "Doctor 3",
     },
   ];

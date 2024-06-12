@@ -65,74 +65,73 @@ const PatientsList = ({ patients }) => {
           }}
         >
           {patients.map((patient, index) => (
-            <React.Fragment
-              key={patient.id}
-              sx={{ maxHeight: "80px", overflowY: "auto" }}
-            >
-              <Grid container spacing={2} sx={{ paddingTop: 2 }}>
-                <Grid item xs={2}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {patient.id}
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {patient.name}
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {patient.email}
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {patient.phone}
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {patient.lastVisit}
-                  </Typography>
-                </Grid>
-                <Grid
-                  item
-                  xs={2}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Button
+            <React.Fragment key={patient.id}>
+              <Box sx={{ maxHeight: "80px", overflowY: "auto" }}>
+                <Grid container spacing={2} sx={{ paddingTop: 2 }}>
+                  <Grid item xs={2}>
+                    <Typography sx={{ textAlign: "center" }}>
+                      {patient.id}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography sx={{ textAlign: "center" }}>
+                      {patient.name}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography sx={{ textAlign: "center" }}>
+                      {patient.email}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography sx={{ textAlign: "center" }}>
+                      {patient.phone}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography sx={{ textAlign: "center" }}>
+                      {patient.lastVisit}
+                    </Typography>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={2}
                     sx={{
-                      borderRadius: "42px",
-                      background: "#02618A",
-                      color: "#f5f5f5",
-                      padding: "2px 6px",
-                      textTransform: "none",
                       display: "flex",
+                      justifyContent: "center",
                       alignItems: "center",
-                      "&:hover": {
-                        background: "#7BB4D6",
-                      },
-                    }}
-                    onClick={() => {
-                      navigate(`${patient.id}/record/RECORDID`);
                     }}
                   >
-                    View Last Record
-                  </Button>
+                    <Button
+                      sx={{
+                        borderRadius: "42px",
+                        background: "#02618A",
+                        color: "#f5f5f5",
+                        padding: "2px 6px",
+                        textTransform: "none",
+                        display: "flex",
+                        alignItems: "center",
+                        "&:hover": {
+                          background: "#7BB4D6",
+                        },
+                      }}
+                      onClick={() => {
+                        navigate(`${patient.id}/record/RECORDID`);
+                      }}
+                    >
+                      View Last Record
+                    </Button>
+                  </Grid>
                 </Grid>
-              </Grid>
-              {index < patients.length - 1 && (
-                <Divider
-                  sx={{
-                    paddingTop: 1,
-                    width: "100%",
-                  }}
-                />
-              )}
+                {index < patients.length - 1 && (
+                  <Divider
+                    sx={{
+                      paddingTop: 1,
+                      width: "100%",
+                    }}
+                  />
+                )}
+              </Box>
             </React.Fragment>
           ))}
         </Box>

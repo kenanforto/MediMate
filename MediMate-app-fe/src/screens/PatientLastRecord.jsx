@@ -4,17 +4,17 @@ import BackgroundImg from "../assets/background4.png";
 const PatientLastRecord = () => {
   const prescriptions = [
     {
-      id: "26262626262",
+      id: "262628675626262",
       name: "Paracetamol",
       amount: 2,
     },
     {
-      id: "26262626263",
+      id: "262626868626263",
       name: "Lecadol",
       amount: 1,
     },
     {
-      id: "26262626264",
+      id: "26264747442626264",
       name: "Tylolhot",
       amount: 4,
     },

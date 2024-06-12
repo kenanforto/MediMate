@@ -15,7 +15,7 @@ const Patients = () => {
 
   const patients = [
     {
-      id: "26262626262",
+      id: "2626262323123126262",
       name: "John Doe",
       email: "john@example.com",
       phone: "2015550123",
@@ -23,7 +23,7 @@ const Patients = () => {
       hadAppointment: false,
     },
     {
-      id: "26262626263",
+      id: "2626262654543543263",
       name: "Jane Doe",
       email: "jane@example.com",
       phone: "2015550124",
@@ -31,7 +31,7 @@ const Patients = () => {
       hadAppointment: false,
     },
     {
-      id: "26262626264",
+      id: "26262627676575676264",
       name: "Jim Beam",
       email: "jim@example.com",
       phone: "2015550125",

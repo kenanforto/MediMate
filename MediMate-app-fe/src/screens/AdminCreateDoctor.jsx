@@ -20,15 +20,15 @@ const useStyles = makeStyles(() => ({
 const AdminCreateDoctor = () => {
   const departments = [
     {
-      id: "26262626262",
+      id: "2626262626122",
       name: "Department 1",
     },
     {
-      id: "26262626263",
+      id: "26262262621263",
       name: "Department 2",
     },
     {
-      id: "26262626264",
+      id: "2626261226264",
       name: "Department 3",
     },
   ];

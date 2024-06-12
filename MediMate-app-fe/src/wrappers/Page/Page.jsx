@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import PropTypes, { string } from "prop-types";
 import {
   Box,
@@ -26,6 +26,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/LogoAndText.png";
+import { AuthContext } from "../../context/AuthContext";
 
 const drawerWidth = 240;
 
@@ -36,6 +37,7 @@ function Page({ children, role }) {
   const [openDoctors, setOpenDoctors] = useState(false);
 
   const navigate = useNavigate();
+  const { user, logout } = useContext(AuthContext);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -46,6 +48,7 @@ function Page({ children, role }) {
   }, []);
 
   const handleLogout = () => {
+    logout();
     navigate("/login");
   };
 
@@ -160,8 +163,17 @@ function Page({ children, role }) {
               padding: 2,
             }}
           >
-            <Avatar sx={{ width: 56, height: 56, marginRight: 4 }}>H</Avatar>
-            <Typography>Hello World</Typography>
+            <Avatar sx={{ width: 56, height: 56, marginRight: 1 }}>H</Avatar>
+            <Typography
+              sx={{
+                width: "100%",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {user && user.email}
+            </Typography>
           </List>
           <Divider />
           <List>
@@ -316,7 +328,7 @@ function Page({ children, role }) {
 
 Page.propTypes = {
   children: PropTypes.node,
-  role: string
+  role: string,
 };
 
 export default Page;
