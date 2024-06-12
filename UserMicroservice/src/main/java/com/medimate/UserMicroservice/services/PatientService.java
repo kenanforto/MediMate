@@ -29,19 +29,11 @@ public class PatientService {
         return repo.findById(id).orElseThrow(() -> new EntityNotFoundException("Could not find patient with id: " + id));
     }
 
-    public Page<Patient> getAllPatients(int page, int size, String sortBy, String firstName, String lastName) {
+    public Page<Patient> getAllPatients(int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
 
         Page<Patient> patients;
-        if (firstName != null && lastName != null) {
-            patients = repo.findByFirstNameContainingAndLastNameContaining(firstName, lastName, pageable);
-        } else if (firstName != null) {
-            patients = repo.findByFirstNameContaining(firstName, pageable);
-        } else if (lastName != null) {
-            patients = repo.findByLastNameContaining(lastName, pageable);
-        } else {
-            patients = repo.findAll(pageable);
-        }
+        patients = repo.findAll(pageable);
 
         if (patients.isEmpty()) {
             throw new EntityNotFoundException("There are no patients matching the given filters");

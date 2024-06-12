@@ -19,10 +19,6 @@ public class Patient {
     @GeneratedValue
     private Integer id;
 
-    private String firstName;
-
-    private String lastName;
-
     private LocalDate birthdate;
 
     private Gender gender;
@@ -39,9 +35,7 @@ public class Patient {
     @JoinColumn(name="user_id", insertable = false, updatable = false)
     private User user;
 
-    public Patient(String firstName, String lastName, LocalDate birthdate, Gender gender, String address, String phoneNumber,Integer userId) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Patient(LocalDate birthdate, Gender gender, String address, String phoneNumber,Integer userId) {
         this.birthdate = birthdate;
         this.gender = gender;
         this.address = address;

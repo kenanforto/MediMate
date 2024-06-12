@@ -28,23 +28,23 @@ public class DoctorService {
     }
 
 
-    public Page<Doctor> getAllDoctors(int page, int size, String sortBy, String firstName, String lastName, String title) {
+    public Page<Doctor> getAllDoctors(int page, int size, String sortBy, String title) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
 
         Page<Doctor> doctors;
-        if (firstName != null && lastName != null && title != null) {
-            doctors = repo.findByFirstNameContainingAndLastNameContainingAndTitleContaining(firstName, lastName, title, pageable);
-        } else if (firstName != null && lastName != null) {
-            doctors = repo.findByFirstNameContainingAndLastNameContaining(firstName, lastName, pageable);
-        } else if (firstName != null && title != null) {
-            doctors = repo.findByFirstNameContainingAndTitleContaining(firstName, title, pageable);
-        } else if (lastName != null && title != null) {
-            doctors = repo.findByLastNameContainingAndTitleContaining(lastName, title, pageable);
-        } else if (firstName != null) {
-            doctors = repo.findByFirstNameContaining(firstName, pageable);
-        } else if (lastName != null) {
-            doctors = repo.findByLastNameContaining(lastName, pageable);
-        } else if (title != null) {
+//        if (firstName != null && lastName != null && title != null) {
+//            doctors = repo.findByFirstNameContainingAndLastNameContainingAndTitleContaining(firstName, lastName, title, pageable);
+//        } else if (firstName != null && lastName != null) {
+//            doctors = repo.findByFirstNameContainingAndLastNameContaining(firstName, lastName, pageable);
+//        } else if (firstName != null && title != null) {
+//            doctors = repo.findByFirstNameContainingAndTitleContaining(firstName, title, pageable);
+//        } else if (lastName != null && title != null) {
+//            doctors = repo.findByLastNameContainingAndTitleContaining(lastName, title, pageable);
+//        } else if (firstName != null) {
+//            doctors = repo.findByFirstNameContaining(firstName, pageable);
+//        } else if (lastName != null) {
+//            doctors = repo.findByLastNameContaining(lastName, pageable);
+        if (title != null) {
             doctors = repo.findByTitleContaining(title, pageable);
         } else {
             doctors = repo.findAll(pageable);

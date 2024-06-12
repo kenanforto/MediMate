@@ -23,15 +23,6 @@ public class Doctor {
 
     @NotNull
     @NotBlank
-    private String firstName;
-
-    @NotNull
-    @NotBlank
-    @Pattern(regexp="[A-Za-z]+")
-    private String lastName;
-
-    @NotNull
-    @NotBlank
     @Pattern(regexp="[A-Za-z]+")
     private String title;
 
@@ -43,9 +34,7 @@ public class Doctor {
     @JoinColumn(name="user_id", insertable = false, updatable = false)
     private User user;
 
-    public Doctor(String first_name, String last_name, String title, Integer userId) {
-        this.firstName = first_name;
-        this.lastName = last_name;
+    public Doctor( String title, Integer userId) {
         this.title = title;
         this.userId=userId;
     }

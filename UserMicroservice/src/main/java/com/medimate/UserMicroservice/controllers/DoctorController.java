@@ -25,11 +25,11 @@ public class DoctorController {
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "1") Integer size,
             @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(required = false) String firstName,
-            @RequestParam(required = false) String lastName,
+//            @RequestParam(required = false) String firstName,
+//            @RequestParam(required = false) String lastName,
             @RequestParam(required = false) String title
     ) {
-        Page<Doctor> doctors = doctorService.getAllDoctors(page, size, sortBy, firstName, lastName, title);
+        Page<Doctor> doctors = doctorService.getAllDoctors(page, size, sortBy, title);
 
         return (doctors != null && !doctors.isEmpty()) ? ResponseEntity.ok().body(doctors) : ResponseEntity.notFound().build();
     }

@@ -19,10 +19,6 @@ public class Admin {
     @GeneratedValue
     private Integer id;
 
-    private String firstName;
-
-    private String lastName;
-
     @Column(name = "user_id")
     private Integer userId;
 
@@ -31,9 +27,7 @@ public class Admin {
     @JoinColumn(name="user_id", insertable = false, updatable = false)
     private User user;
 
-    public Admin(String firstName, String lastName,Integer userId) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Admin(Integer userId) {
         this.userId=userId;
     }
 }

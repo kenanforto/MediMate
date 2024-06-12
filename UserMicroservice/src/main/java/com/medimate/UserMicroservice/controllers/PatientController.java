@@ -25,11 +25,9 @@ public class PatientController {
     public ResponseEntity<Page<Patient>> getAllPatients(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "1") Integer size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(required = false) String firstName,
-            @RequestParam(required = false) String lastName
+            @RequestParam(defaultValue = "id") String sortBy
     ) {
-        Page<Patient> patients = patientService.getAllPatients(page, size, sortBy, firstName, lastName);
+        Page<Patient> patients = patientService.getAllPatients(page, size, sortBy);
         return (patients != null && !patients.isEmpty()) ? ResponseEntity.ok().body(patients) : ResponseEntity.notFound().build();
     }
 

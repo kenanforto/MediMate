@@ -17,6 +17,16 @@ public class User {
     @GeneratedValue
     private Integer id;
 
+
+    @NotNull
+    @NotBlank
+    private String firstName;
+
+    @NotNull
+    @NotBlank
+    @Pattern(regexp="[A-Za-z]+")
+    private String lastName;
+
     @NotEmpty
     private String password;
 
@@ -42,7 +52,9 @@ public class User {
     @OneToOne(mappedBy ="user")
     private Patient patient;
 
-    public User(String email,String password, Role role) {
+    public User(String firstName , String lastName,String email,String password, Role role) {
+        this.firstName=firstName;
+        this.lastName=lastName;
         this.password = password;
         this.email = email;
         this.role = role;

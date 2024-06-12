@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdminRepository extends JpaRepository<Admin,Integer> {
 
-    Page<Admin> findByFirstNameContainingAndLastNameContaining(String firstName, String lastName, Pageable pageable);
-    Page<Admin> findByFirstNameContaining(String firstName, Pageable pageable);
-    Page<Admin> findByLastNameContaining(String lastName, Pageable pageable);
+//    Page<Admin> findByFirstNameContainingAndLastNameContaining(String firstName, String lastName, Pageable pageable);
+//    Page<Admin> findByFirstNameContaining(String firstName, Pageable pageable);
+//    Page<Admin> findByLastNameContaining(String lastName, Pageable pageable);
 }

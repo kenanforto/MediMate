@@ -39,19 +39,19 @@ public class AdminController {
     public ResponseEntity<Page<Admin>> getAll(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "1") Integer size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(required = false) @DefaultValue("") String firstName,
-            @RequestParam(required = false) @DefaultValue("") String lastName
+            @RequestParam(defaultValue = "id") String sortBy
+//            @RequestParam(required = false) @DefaultValue("") String firstName,
+//            @RequestParam(required = false) @DefaultValue("") String lastName
     ) {
-        Page<Admin> admins = adminService.getAll(page, size, sortBy, firstName, lastName);
+        Page<Admin> admins = adminService.getAll(page, size, sortBy);
 
         return (admins != null && !admins.isEmpty()) ? ResponseEntity.ok().body(admins) : ResponseEntity.notFound().build();
     }
 
 
-    @PutMapping("{id}")
-    public ResponseEntity<Admin> updateAdmin(@PathVariable Integer id, @RequestBody AdminVM adminVM) {
-        Admin updatedAdmin = adminService.updateById(id, adminVM);
-        return ResponseEntity.ok(updatedAdmin);
-    }
+//    @PutMapping("{id}")
+//    public ResponseEntity<Admin> updateAdmin(@PathVariable Integer id, @RequestBody AdminVM adminVM) {
+//        Admin updatedAdmin = adminService.updateById(id, adminVM);
+//        return ResponseEntity.ok(updatedAdmin);
+//    }
 }
