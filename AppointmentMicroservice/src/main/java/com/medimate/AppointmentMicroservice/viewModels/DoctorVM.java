@@ -1,6 +1,5 @@
 package com.medimate.AppointmentMicroservice.viewModels;
 
-import com.medimate.AppointmentMicroservice.models.Doctor;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -35,8 +34,5 @@ public class DoctorVM {
     public String getTitle() {
         return title;
     }
-    public static Doctor toEntity(DoctorVM doctor)
-    {
-        return new Doctor(doctor.firstName, doctor.lastName, doctor.title);
-    }
+
 }

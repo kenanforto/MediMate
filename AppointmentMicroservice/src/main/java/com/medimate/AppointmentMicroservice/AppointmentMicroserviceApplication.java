@@ -1,6 +1,6 @@
-package com.medimate.AdmissionMicroservice;
+package com.medimate.AppointmentMicroservice;
 
-import com.medimate.AdmissionMicroservice.interceptor.SystemEventsInterceptor;
+import com.medimate.AppointmentMicroservice.interceptor.SystemEventsInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;

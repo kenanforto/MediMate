@@ -1,10 +1,9 @@
-package com.medimate.AdmissionMicroservice.controllers;
+package com.medimate.AppointmentMicroservice.controllers;
 
-import com.medimate.AdmissionMicroservice.models.Appointment;
-import com.medimate.AdmissionMicroservice.models.Doctor;
-import com.medimate.AdmissionMicroservice.service.AppointmentService;
-import com.medimate.AdmissionMicroservice.viewModels.AppointmentVM;
-import com.medimate.AdmissionMicroservice.viewModels.DoctorVM;
+import com.medimate.AppointmentMicroservice.models.Appointment;
+import com.medimate.AppointmentMicroservice.service.AppointmentService;
+import com.medimate.AppointmentMicroservice.viewModels.AppointmentVM;
+import com.medimate.AppointmentMicroservice.viewModels.DoctorVM;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,14 +1,8 @@
-package com.medimate.AdmissionMicroservice.viewModels;
+package com.medimate.AppointmentMicroservice.viewModels;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.medimate.AdmissionMicroservice.models.Appointment;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import com.medimate.AppointmentMicroservice.models.Appointment;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class AppointmentVM {
