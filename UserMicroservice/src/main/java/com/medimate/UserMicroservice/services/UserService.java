@@ -1,7 +1,9 @@
 package com.medimate.UserMicroservice.services;
 
+import com.medimate.UserMicroservice.models.Patient;
 import com.medimate.UserMicroservice.models.Role;
 import com.medimate.UserMicroservice.models.User;
+import com.medimate.UserMicroservice.repositories.PatientRepository;
 import com.medimate.UserMicroservice.repositories.UserRepository;
 import com.medimate.UserMicroservice.viewmodels.UserVM;
 import jakarta.persistence.EntityExistsException;
@@ -21,6 +23,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PatientRepository patientRepository;
+
 
     public User createUser(UserVM userVM) {
         User pomocna = userRepository.findByEmail(userVM.getEmail());
@@ -28,8 +33,9 @@ public class UserService {
             throw new EntityExistsException("Email already exists!");
 
         // provjeri dodavanje rola i passworda
-        return userRepository.save(UserVM.toEntity(userVM)); // bcript
-
+        User user= userRepository.save(UserVM.toEntity(userVM)); // bcript
+        patientRepository.save(new Patient(null,null,null,null,user.getId()));
+        return user;
     }
 
     public User editUser(Integer id, UserVM userVM) {

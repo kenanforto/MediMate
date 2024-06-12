@@ -32,9 +32,8 @@ public class AuthenticationController {
 
     }
     @GetMapping(path = "/me")
-    public String me(@AuthenticationPrincipal String userDetails)
+    public Mono<UserDao> me(@AuthenticationPrincipal String userDetails)
     {
-        System.out.println(userDetails);
-        return userDetails;
+        return authenticationService.findByUserEmail(userDetails);
     }
 }

@@ -2,7 +2,11 @@ package com.medimate.UserMicroservice.controllers;
 
 import com.medimate.UserMicroservice.models.Role;
 import com.medimate.UserMicroservice.models.User;
+import com.medimate.UserMicroservice.repositories.AdminRepository;
+import com.medimate.UserMicroservice.repositories.DoctorRepository;
+import com.medimate.UserMicroservice.repositories.PatientRepository;
 import com.medimate.UserMicroservice.services.UserService;
+import com.medimate.UserMicroservice.viewmodels.ObjectDao;
 import com.medimate.UserMicroservice.viewmodels.UserVM;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private PatientRepository patientRepository;
+    @Autowired
+    private DoctorRepository doctorRepository;
+    @Autowired
+    private AdminRepository adminRepository;
 
     @PostMapping
     public User AddUser(@Valid @RequestBody UserVM userVM) {
@@ -64,5 +74,32 @@ public class UserController {
     public ResponseEntity<User> addRoleToUser(@PathVariable Integer id, @PathVariable Role roleId) {
         User user = userService.addRoleToUser(id, roleId);
         return ResponseEntity.status(200).body(user);
+    }
+
+    @GetMapping(path = "/getUser/{email}")
+    public ResponseEntity<ObjectDao> getUserId(@PathVariable String email)
+    {
+        User user = userService.getUserByEmail(email);
+        ObjectDao object=new ObjectDao();
+
+        if(user.getRole()==Role.PATIENT)
+        {
+            object.setRole(user.getRole());
+            object.setFirstName(user.getFirstName());
+            object.setId(patientRepository.findByUserId(user.getId()).getId());
+        }
+        else if (user.getRole()==Role.DOCTOR)
+        {
+            object.setRole(user.getRole());
+            object.setFirstName(user.getFirstName());
+            object.setId(doctorRepository.findByUserId(user.getId()).getId());
+        }
+        else
+        {
+            object.setRole(user.getRole());
+            object.setFirstName(user.getFirstName());
+            object.setId(adminRepository.findByUserId(user.getId()).getId());
+        }
+        return  ResponseEntity.ok(object);
     }
 }

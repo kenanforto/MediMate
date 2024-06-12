@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AdminRepository extends JpaRepository<Admin,Integer> {
+    Admin findByUserId(Integer UserId);
 
 //    Page<Admin> findByFirstNameContainingAndLastNameContaining(String firstName, String lastName, Pageable pageable);
 //    Page<Admin> findByFirstNameContaining(String firstName, Pageable pageable);

@@ -21,4 +21,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Integer> {
 //    Page<Doctor> findByLastNameContaining(String lastName, Pageable pageable);
 
     Page<Doctor> findByTitleContaining(String title, Pageable pageable);
+
+    Doctor findByUserId(Integer userId);
 }

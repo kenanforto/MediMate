@@ -65,4 +65,27 @@ public class AuthenticationService {
                     return Mono.just(ResponseEntity.status(500).body("An error occurred"));
                 });
     }
+
+    public Mono<UserDao> findByUserEmail(String email)
+    {
+        return webClientBuilder.build()
+                .get()
+                .uri("lb://USERMICROSERVICE/users/getUser/{email}", email)
+                .retrieve()
+                .toEntity(UserDao.class)
+                .flatMap(responseEntity ->{
+                            if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                                UserDao user= new UserDao.UserDaoBuilder()
+                                        .id(responseEntity.getBody().getId())
+                                        .firstName(responseEntity.getBody().getFirstName())
+                                        .role(responseEntity.getBody().getRole())
+                                        .build();
+                                return Mono.just(user);
+
+                            }
+                            return Mono.empty();
+                        }
+
+                );
+    }
 }
