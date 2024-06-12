@@ -71,8 +71,6 @@ const Signup = () => {
       );
 
       if (registerResponse.ok) {
-        // const userData = await registerResponse.json();
-
         const loginResponse = await fetch("http://localhost:8080/api/login", {
           method: "POST",
           headers: {
@@ -85,16 +83,27 @@ const Signup = () => {
         });
 
         if (loginResponse.ok) {
-          const loginData = await loginResponse.json();
-          login(loginData); 
+          const loginData = await loginResponse.txt;
+          console.log("TXT",loginData)
+          login(loginData);
           navigate("/dashboard");
         } else {
-          const loginErrorData = await loginResponse.json();
-          alert(`Login Error: ${loginErrorData.message}`);
+          try {
+            const loginErrorData = await loginResponse.json();
+            alert(`Login Error: ${loginErrorData.message}`);
+          } catch (error) {
+            console.error("Error:", error);
+            alert("Login Error: Unexpected response format.");
+          }
         }
       } else {
-        const registerErrorData = await registerResponse.json();
-        alert(`Register Error: ${registerErrorData.message}`);
+        try {
+          const registerErrorData = await registerResponse.json();
+          alert(`Register Error: ${registerErrorData.message}`);
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Register Error: Unexpected response format.");
+        }
       }
     } catch (error) {
       console.error("Error:", error);

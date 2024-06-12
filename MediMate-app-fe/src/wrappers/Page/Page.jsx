@@ -37,7 +37,7 @@ function Page({ children, role }) {
   const [openDoctors, setOpenDoctors] = useState(false);
 
   const navigate = useNavigate();
-  const { user, logout } = useContext(AuthContext);
+  const { user, userDetails, logout } = useContext(AuthContext);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -68,6 +68,8 @@ function Page({ children, role }) {
     setOpenDoctors(!openDoctors);
   };
 
+
+  console.log("USER IN PAGE WAPPER", userDetails)
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -163,7 +165,7 @@ function Page({ children, role }) {
               padding: 2,
             }}
           >
-            <Avatar sx={{ width: 56, height: 56, marginRight: 1 }}>H</Avatar>
+            <Avatar sx={{ width: 56, height: 56, marginRight: 1 }}>A</Avatar>
             <Typography
               sx={{
                 width: "100%",
@@ -172,7 +174,7 @@ function Page({ children, role }) {
                 whiteSpace: "nowrap",
               }}
             >
-              {user && user.email}
+              {userDetails && userDetails.firstName}
             </Typography>
           </List>
           <Divider />

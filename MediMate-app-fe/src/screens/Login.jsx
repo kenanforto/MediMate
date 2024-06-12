@@ -33,38 +33,56 @@ const Login = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const { login } = useContext(AuthContext);
+  const { login, userDetailsFn } = useContext(AuthContext);
 
   const handleClick = () => {
     navigate("/signup");
   };
 
   const handleLoginClick = async () => {
-    const role = "admin";
-    const userData = { email, password, role };
-    login(userData);
-    navigate("/dashboard");
+    try {
+      const loginResponse = await fetch("http://localhost:8080/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
 
-    // const loginResponse = await fetch("http://localhost:8080/api/login", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     email: email,
-    //     password: password,
-    //   }),
-    // });
+      if (loginResponse.ok) {
+        const loginData = await loginResponse.text();
+        login(loginData);
 
-    // if (loginResponse.ok) {
-    //   const loginData = await loginResponse.json();
-    //   login(loginData);
-    //   navigate("/dashboard");
-    // } else {
-    //   const loginErrorData = await loginResponse.json();
-    //   alert(`Login Error: ${loginErrorData.message}`);
-    // }
+        const token = loginData;
+        // console.log("TOKEN IS", token);
+
+        navigate("/dashboard");
+
+        const meResponse = await fetch("http://localhost:8080/api/me", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const meData = await meResponse.json();
+        console.log("ME RESPONSE", meResponse);
+        console.log("ME DATA", meData);
+        userDetailsFn(meData);
+      } else {
+        const loginErrorData = await loginResponse.text();
+        alert(`Login Error: ${loginErrorData.message}`);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again later.");
+    }
   };
+
   return (
     <Box
       sx={{
