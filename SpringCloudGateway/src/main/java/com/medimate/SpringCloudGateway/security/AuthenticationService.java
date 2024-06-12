@@ -51,7 +51,7 @@ public class AuthenticationService {
                 });
     }
 
-    public Mono<ResponseEntity<String>> register(AuthenticationRequest user) throws ExecutionException, InterruptedException {
+    public Mono<ResponseEntity<String>> register(RegistrationRequest user) throws ExecutionException, InterruptedException {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return webClientBuilder.build()
                 .post()

@@ -39,7 +39,7 @@ public class ApplicationConfig {
     public ReactiveUserDetailsService userDetailsService() {
         return new ReactiveUserDetailsService() {
             public Mono<UserDetails> findByUsername(String username) {
-                System.out.println("Uslo je ovdje ");
+//                System.out.println("Uslo je ovdje ");
                 return webClientBuilder.build()
                         .get()
                         .uri("lb://USERMICROSERVICE/users/{email}", username)
