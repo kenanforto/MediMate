@@ -1,0 +1,167 @@
+version: '3'
+
+services:
+
+  postgresql-db:
+    container_name: postgresql-db
+    hostname: postgresql
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./UserMicroservice/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/userMS_schema.sql
+      - ./UserMicroservice/src/main/resources/data.sql:/docker-entrypoint-initdb.d/userMS_tables.sql
+      - ./WorkingHoursMicroservice/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/workingHoursMS_schema.sql
+      - ./WorkingHoursMicroservice/src/main/resources/data.sql:/docker-entrypoint-initdb.d/workingHoursMS_tables.sql
+      - ./MedicalRecordMicroservice/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/medicalRecordMS_schema.sql
+      - ./MedicalRecordMicroservice/src/main/resources/data.sql:/docker-entrypoint-initdb.d/medicalRecordMS_tables.sql
+      - ./AppointmentMicroservice/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/appointmentMS_schema.sql
+      - ./AppointmentMicroservice/src/main/resources/data.sql:/docker-entrypoint-initdb.d/appointmentMS_tables.sql
+      - ./SuppliesMicroservice/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/suppliesMS_schema.sql
+      - ./SuppliesMicroservice/src/main/resources/data.sql:/docker-entrypoint-initdb.d/suppliesMS_tables.sql
+
+  config-server:
+    container_name: config-server
+    hostname: config-service
+    build:
+      context: ./ConfigServer/
+      dockerfile: Dockerfile
+    image: config-server:latest
+    restart: on-failure
+    expose:
+      - 8888
+    ports:
+      - 8888:8888
+
+  eureka-server:
+    container_name: eureka-server
+    hostname: discovery-server
+    build:
+      context: ./EurekaServer/
+      dockerfile: Dockerfile
+    image: eureka-server:latest
+    restart: on-failure
+    expose:
+      - 8761
+    ports:
+      - 8761:8761
+    depends_on:
+      - config-server
+
+  user-microservice:
+    container_name: user-service
+    build:
+      context: ./UserMicroservice/
+      dockerfile: Dockerfile
+    image: user-service:latest
+    restart: on-failure
+    command: [ "java", "-jar", "app.jar", "--config-server-url=http://config-server:8888", "--postgresql-db=jdbc:postgresql://postgresql-db:5432/userMS", "--eureka-server-url=http://eureka-server:8761", "--postgres-password=12345" ]
+
+    expose:
+      - 8300
+    ports:
+      - 8300:8300
+    depends_on:
+      - postgresql-db
+      - config-server
+      - eureka-server
+
+  working-hours-microservice:
+    container_name: working-hours-service
+    build:
+      context: ./WorkingHoursMicroservice/
+      dockerfile: Dockerfile
+    image: working-hours-service:latest
+    restart: on-failure
+    command: [ "java", "-jar", "app.jar", "--config-server-url=http://config-server:8888", "--postgresql-db=jdbc:postgresql://postgresql-db:5432/workingHoursMS", "--eureka-server-url=http://eureka-server:8761", "--postgres-password=12345" ]
+
+    expose:
+      - 8400
+    ports:
+      - 8400:8400
+    depends_on:
+      - postgresql-db
+      - config-server
+      - eureka-server
+
+  supplies-microservice:
+    container_name: supplies-service
+    build:
+      context: ./SuppliesMicroservice/
+      dockerfile: Dockerfile
+    image: supplies-service:latest
+    restart: on-failure
+    command: [ "java", "-jar", "app.jar", "--config-server-url=http://config-server:8888", "--postgresql-db=jdbc:postgresql://postgresql-db:5432/suppliesMS", "--eureka-server-url=http://eureka-server:8761", "--postgres-password=12345" ]
+
+    expose:
+      - 8200
+    ports:
+      - 8200:8200
+    depends_on:
+      - postgresql-db
+      - config-server
+      - eureka-server
+
+  medical-record-microservice:
+    container_name: medical-record-service
+    build:
+      context: ./MedicalRecordMicroservice/
+      dockerfile: Dockerfile
+    image: medical-record-service:latest
+    restart: on-failure
+    command: [ "java", "-jar", "app.jar", "--config-server-url=http://config-server:8888", "--postgresql-db=jdbc:postgresql://postgresql-db:5432/medicalRecordMS", "--eureka-server-url=http://eureka-server:8761", "--postgres-password=12345" ]
+
+    expose:
+      - 8100
+    ports:
+      - 8100:8100
+    depends_on:
+      - postgresql-db
+      - config-server
+      - eureka-server
+
+  appointment-microservice:
+    container_name: appointment-service
+    build:
+      context: ./AppointmentMicroservice/
+      dockerfile: Dockerfile
+    image: appointment-service:latest
+    restart: on-failure
+    command: [ "java", "-jar", "app.jar", "--config-server-url=http://config-server:8888", "--postgresql-db=jdbc:postgresql://postgresql-db:5432/appointmentMS", "--eureka-server-url=http://eureka-server:8761", "--postgres-password=12345" ]
+
+    expose:
+      - 8000
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgresql-db
+      - config-server
+      - eureka-server
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./SpringCloudGateway/
+      dockerfile: Dockerfile
+    image: api-gateway:latest
+    restart: on-failure
+    command: [ "java", "-jar", "app.jar", "--eureka-server-url=http://eureka-server:8761"]
+
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    depends_on:
+      - eureka-server
+      - config-server
+      - postgresql-db
+      - user-microservice
+      - working-hours-microservice
+      - supplies-microservice
+      - medical-record-microservice
+      - appointment-microservice
