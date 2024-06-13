@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Box, Typography } from "@mui/material";
 import dayjs from "dayjs";
 
@@ -6,9 +6,14 @@ import BackgroundImg from "../assets/background2.png";
 import GreetingCard from "../components/Cards/GreetingCard";
 import PatientsInfoCard from "../components/Cards/PatientsInfoCard";
 import AppointmentsList from "../components/Lists/AppointmentsList";
+import { AuthContext } from "../context/AuthContext";
 
 const Dashboard = () => {
+  const { userDetails } = useContext(AuthContext);
+
   const [currentDateTime, setCurrentDateTime] = useState(dayjs());
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -17,6 +22,12 @@ const Dashboard = () => {
 
     return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    if (userDetails) {
+      setLoading(false);
+    }
+  }, [userDetails]);
 
   const appointments = [
     {
@@ -70,30 +81,36 @@ const Dashboard = () => {
           gap: 3,
         }}
       >
-        <GreetingCard />
-        <PatientsInfoCard
-          title="Total patients"
-          patientsCount={23}
-          currentDateTime={currentDateTime}
-        />
-        <PatientsInfoCard title="Remaining patients" patientsCount={15} />
+        <GreetingCard userDetails={userDetails} loading={loading} />
+        {userDetails && userDetails.role !== "PATIENT" && (
+          <>
+            <PatientsInfoCard
+              title="Total patients"
+              patientsCount={23}
+              currentDateTime={currentDateTime}
+            />
+            <PatientsInfoCard title="Remaining patients" patientsCount={15} />
+          </>
+        )}
       </Box>
 
-      <Box
-        sx={{
-          paddingY: 10,
-        }}
-      >
-        <Typography
+      {userDetails && userDetails.role !== "PATIENT" && (
+        <Box
           sx={{
-            fontSize: "22px",
+            paddingY: 10,
           }}
         >
-          Remaining Patients
-        </Typography>
+          <Typography
+            sx={{
+              fontSize: "22px",
+            }}
+          >
+            Remaining Patients
+          </Typography>
 
-        <AppointmentsList appointments={appointments} />
-      </Box>
+          <AppointmentsList appointments={appointments} />
+        </Box>
+      )}
     </Box>
   );
 };

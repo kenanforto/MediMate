@@ -37,7 +37,7 @@ function Page({ children, role }) {
   const [openDoctors, setOpenDoctors] = useState(false);
 
   const navigate = useNavigate();
-  const { user, userDetails, logout } = useContext(AuthContext);
+  const { userDetails, logout } = useContext(AuthContext);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -68,8 +68,6 @@ function Page({ children, role }) {
     setOpenDoctors(!openDoctors);
   };
 
-
-  console.log("USER IN PAGE WAPPER", userDetails)
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -165,7 +163,9 @@ function Page({ children, role }) {
               padding: 2,
             }}
           >
-            <Avatar sx={{ width: 56, height: 56, marginRight: 1 }}>A</Avatar>
+            <Avatar sx={{ width: 56, height: 56, marginRight: 1 }}>
+              {userDetails?.firstName?.charAt(0).toUpperCase()}
+            </Avatar>
             <Typography
               sx={{
                 width: "100%",
@@ -193,7 +193,7 @@ function Page({ children, role }) {
               </ListItem>
             </Link>
 
-            {role === "admin" ? (
+            {role === "ADMIN" ? (
               <>
                 <ListItemButton onClick={handleAppointmentsClick}>
                   <ListItemIcon>
@@ -239,7 +239,7 @@ function Page({ children, role }) {
               </Link>
             )}
 
-            {role === "admin" ? (
+            {role === "ADMIN" ? (
               <>
                 <ListItemButton onClick={handlePatientsClick}>
                   <ListItemIcon>
@@ -258,18 +258,10 @@ function Page({ children, role }) {
                         <ListItemText primary="View Patients" />
                       </ListItemButton>
                     </Link>
-                    <Link
-                      style={{ textDecoration: "none", color: "#023047" }}
-                      to="/create-patient"
-                    >
-                      <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemText primary="Add New Patient" />
-                      </ListItemButton>
-                    </Link>
                   </List>
                 </Collapse>
               </>
-            ) : role !== "patient" ? (
+            ) : role !== "PATIENT" ? (
               <Link
                 style={{ textDecoration: "none", color: "#023047" }}
                 to="/patients"
@@ -285,7 +277,7 @@ function Page({ children, role }) {
               </Link>
             ) : null}
 
-            {role === "admin" ? (
+            {role === "ADMIN" ? (
               <>
                 <ListItemButton onClick={handleDoctorsClick}>
                   <ListItemIcon>

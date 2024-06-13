@@ -20,8 +20,7 @@ import { AuthContext } from "./context/AuthContext";
 function App() {
   const location = useLocation();
   console.log(location.pathname);
-  const { user } = useContext(AuthContext);
-  console.log("USER IS", user);
+
 
   return (
     <Routes>
@@ -37,9 +36,9 @@ function App() {
 }
 
 function PageRoutes() {
-  const { user } = useContext(AuthContext);
-  // const role = user ? user.role : null; OVO ODKOMENTARISAT KAD DOBIJEMO ROLU IZ TOKENA
-  const role = "admin";
+  const { user, userDetails } = useContext(AuthContext);
+  const role = userDetails ? userDetails.role : null;
+  // const role = "admin";
   return (
     <Page role={role}>
       <Routes>
@@ -55,7 +54,7 @@ function PageRoutes() {
           path="/patients"
           element={
             user ? (
-              role && role !== "patient" ? (
+              role && role !== "PATIENT" ? (
                 <Patients />
               ) : (
                 <Navigate to="/login" />
@@ -69,7 +68,7 @@ function PageRoutes() {
           path="/doctors"
           element={
             user ? (
-              role && role === "admin" ? (
+              role && role === "ADMIN" ? (
                 <Doctors />
               ) : (
                 <Navigate to="/login" />
@@ -83,10 +82,10 @@ function PageRoutes() {
           path="/appointments"
           element={
             user ? (
-              role && role !== "patient" ? (
+              role && role !== "PATIENT" ? (
                 <Appointments />
               ) : (
-                <Navigate to="/login" />
+                <Navigate to="/create-appointment" />
               )
             ) : (
               <Navigate to="/login" />
@@ -98,7 +97,7 @@ function PageRoutes() {
           path="/patients/2626261126262/appointment/APPOINTMENTID"
           element={
             user ? (
-              role && role !== "patient" ? (
+              role && role !== "PATIENT" ? (
                 <TakeAppointment />
               ) : (
                 <Navigate to="/login" />
@@ -113,7 +112,7 @@ function PageRoutes() {
           path="/patients/2626332626262/record/new"
           element={
             user ? (
-              role && role !== "patient" ? (
+              role && role !== "PATIENT" ? (
                 <WriteRecord />
               ) : (
                 <Navigate to="/login" />
@@ -133,7 +132,7 @@ function PageRoutes() {
           path="/create-doctor"
           element={
             user ? (
-              role && role === "admin" ? (
+              role && role === "ADMIN" ? (
                 <AdminCreateDoctor />
               ) : (
                 <Navigate to="/" />
@@ -148,7 +147,7 @@ function PageRoutes() {
           path="/create-patient"
           element={
             user ? (
-              role && role === "admin" ? (
+              role && role === "PATIENT" ? (
                 <AdminCreatePatient />
               ) : (
                 <Navigate to="/" />
@@ -163,7 +162,7 @@ function PageRoutes() {
           path="/create-appointment"
           element={
             user ? (
-              role && role === "admin" ? (
+              role && role === "ADMIN" ? (
                 <AdminCreateAppointment />
               ) : (
                 <CreateAppointment />
