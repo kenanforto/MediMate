@@ -239,29 +239,7 @@ function Page({ children, role }) {
               </Link>
             )}
 
-            {role === "ADMIN" ? (
-              <>
-                <ListItemButton onClick={handlePatientsClick}>
-                  <ListItemIcon>
-                    <GroupsIcon sx={{ color: "#02618a" }} />
-                  </ListItemIcon>
-                  <ListItemText primary="Patients" />
-                  {openPatients ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-                <Collapse in={openPatients} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <Link
-                      style={{ textDecoration: "none", color: "#023047" }}
-                      to="/patients"
-                    >
-                      <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemText primary="View Patients" />
-                      </ListItemButton>
-                    </Link>
-                  </List>
-                </Collapse>
-              </>
-            ) : role !== "PATIENT" ? (
+            {role !== "PATIENT" ? (
               <Link
                 style={{ textDecoration: "none", color: "#023047" }}
                 to="/patients"

@@ -115,7 +115,7 @@ const AdminCreateDoctor = () => {
                   }}
                   onClick={handleSubmit}
                 >
-                  Write record
+                  Create doctor
                 </Button>
               </Grid>
             </Grid>
