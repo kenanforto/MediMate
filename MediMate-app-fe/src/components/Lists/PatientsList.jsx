@@ -39,18 +39,16 @@ const PatientsList = ({ patients }) => {
             <Grid item xs={2}>
               <Typography sx={{ textAlign: "center" }}>Patient ID</Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <Typography sx={{ textAlign: "center" }}>Name</Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <Typography sx={{ textAlign: "center" }}>Email</Typography>
             </Grid>
             <Grid item xs={2}>
               <Typography sx={{ textAlign: "center" }}>Phone Number</Typography>
             </Grid>
-            <Grid item xs={2}>
-              <Typography sx={{ textAlign: "center" }}>Last Visit</Typography>
-            </Grid>
+
             <Grid item xs={2}>
               <Typography sx={{ textAlign: "center" }}>Actions</Typography>
             </Grid>
@@ -73,12 +71,12 @@ const PatientsList = ({ patients }) => {
                       {patient.id}
                     </Typography>
                   </Grid>
-                  <Grid item xs={2}>
+                  <Grid item xs={3}>
                     <Typography sx={{ textAlign: "center" }}>
                       {patient.name}
                     </Typography>
                   </Grid>
-                  <Grid item xs={2}>
+                  <Grid item xs={3}>
                     <Typography sx={{ textAlign: "center" }}>
                       {patient.email}
                     </Typography>
@@ -88,11 +86,7 @@ const PatientsList = ({ patients }) => {
                       {patient.phone}
                     </Typography>
                   </Grid>
-                  <Grid item xs={2}>
-                    <Typography sx={{ textAlign: "center" }}>
-                      {patient.lastVisit}
-                    </Typography>
-                  </Grid>
+
                   <Grid
                     item
                     xs={2}
@@ -116,7 +110,7 @@ const PatientsList = ({ patients }) => {
                         },
                       }}
                       onClick={() => {
-                        navigate(`${patient.id}/record/RECORDID`);
+                        navigate(`${patient.id}/record/${patient.recordId}`);
                       }}
                     >
                       View Last Record

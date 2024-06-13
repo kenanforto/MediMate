@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Box,
   Paper,
@@ -10,6 +10,7 @@ import {
 import BackgroundImg from "../assets/background4.png";
 
 import "react-quill/dist/quill.snow.css";
+import { AuthContext } from "../context/AuthContext";
 
 import { makeStyles } from "@mui/styles";
 
@@ -28,13 +29,57 @@ const useStyles = makeStyles(() => ({
 const AdminCreateDoctor = () => {
   const departments = ["Department 1", "Department 2", "Department 3"];
 
+  const { user } = useContext(AuthContext);
+
   const classes = useStyles();
 
   const [email, setEmail] = useState("");
   const [department, setDepartment] = useState("");
 
-  const handleSubmit = () => {
-    console.log("SUBMIT", email, department);
+  const handleSubmit = async () => {
+    console.log("TOKEN IS", user)
+    const response = await fetch(
+      `http://localhost:8080/users/users/id/${email}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user}`,
+        },
+      }
+    );
+
+    const userId = await response.json();
+    console.log("USER ID", userId)
+
+    await fetch(`http://localhost:8080/users/patients/${userId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user}`,
+      },
+    });
+
+    await fetch(`http://localhost:8080/users/users/upgrade-role/${email}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user}`,
+      },
+    });
+
+    await fetch(`http://localhost:8080/users/doctors`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user}`,
+      },
+      body: JSON.stringify({
+        email: email,
+        department: department,
+      }),
+    });
+
   };
   return (
     <Box

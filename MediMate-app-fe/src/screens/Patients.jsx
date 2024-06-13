@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -9,36 +9,34 @@ import {
 import BackgroundImg from "../assets/background4.png";
 import SearchIcon from "@mui/icons-material/Search";
 import PatientsList from "../components/Lists/PatientsList";
+import { PatientsContext } from "../context/PatientsContext";
+import { AuthContext } from "../context/AuthContext";
 
 const Patients = () => {
   const [selectedPatient, setSelectedPatient] = useState(null);
+  const { patients, dispatch } = useContext(PatientsContext);
+  const { user } = useContext(AuthContext);
 
-  const patients = [
-    {
-      id: "2626262323123126262",
-      name: "John Doe",
-      email: "john@example.com",
-      phone: "2015550123",
-      lastVisit: "12 Jul 2024",
-      hadAppointment: false,
-    },
-    {
-      id: "2626262654543543263",
-      name: "Jane Doe",
-      email: "jane@example.com",
-      phone: "2015550124",
-      lastVisit: "12 Jul 2024",
-      hadAppointment: false,
-    },
-    {
-      id: "26262627676575676264",
-      name: "Jim Beam",
-      email: "jim@example.com",
-      phone: "2015550125",
-      lastVisit: "12 Jul 2024",
-      hadAppointment: false,
-    },
-  ];
+  useEffect(() => {
+    const fetchPatients = async () => {
+      const response = await fetch("http://localhost:8080/users/patients", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user}`,
+        },
+      });
+      const json = await response.json();
+
+      if (response.ok) {
+        dispatch({ type: "SET_PATIENTS", payload: json });
+      }
+    };
+
+    if (user) {
+      fetchPatients();
+    }
+  }, [dispatch, user]);
 
   const handlePatientChange = (event, value) => {
     setSelectedPatient(value);
@@ -74,47 +72,49 @@ const Patients = () => {
           width: "30%",
         }}
       >
-        <Autocomplete
-          freeSolo
-          value={selectedPatient}
-          onChange={handlePatientChange}
-          sx={{
-            backgroundColor: "#f5f5f5",
-            borderRadius: "16px",
-            ".MuiInputBase-root": {
-              height: "40px",
-            },
-            ".MuiOutlinedInput-root": {
-              padding: 0,
-            },
-            ".MuiOutlinedInput-notchedOutline": {
+        {patients && (
+          <Autocomplete
+            freeSolo
+            value={selectedPatient}
+            onChange={handlePatientChange}
+            sx={{
+              backgroundColor: "#f5f5f5",
               borderRadius: "16px",
-            },
-          }}
-          options={patients.map((option) => option.name)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              placeholder="Search patients"
-              InputProps={{
-                ...params.InputProps,
-                startAdornment: (
-                  <InputAdornment position="start" sx={{ marginLeft: 2 }}>
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-                sx: {
-                  height: "40px",
-                  paddingLeft: 1,
-                  paddingRight: 1,
-                  ".MuiOutlinedInput-input": {
-                    padding: "8px 8px",
+              ".MuiInputBase-root": {
+                height: "40px",
+              },
+              ".MuiOutlinedInput-root": {
+                padding: 0,
+              },
+              ".MuiOutlinedInput-notchedOutline": {
+                borderRadius: "16px",
+              },
+            }}
+            options={patients.map((option) => option.name)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                placeholder="Search patients"
+                InputProps={{
+                  ...params.InputProps,
+                  startAdornment: (
+                    <InputAdornment position="start" sx={{ marginLeft: 2 }}>
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                  sx: {
+                    height: "40px",
+                    paddingLeft: 1,
+                    paddingRight: 1,
+                    ".MuiOutlinedInput-input": {
+                      padding: "8px 8px",
+                    },
                   },
-                },
-              }}
-            />
-          )}
-        />
+                }}
+              />
+            )}
+          />
+        )}
       </Box>
 
       <Box
@@ -122,7 +122,7 @@ const Patients = () => {
           paddingY: 3,
         }}
       >
-        <PatientsList patients={filteredPatients} />
+        {patients ? <PatientsList patients={filteredPatients} /> : <></>}
       </Box>
     </Box>
   );
