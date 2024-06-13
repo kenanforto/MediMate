@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient,Integer> {
     Patient findByUserId(Integer userId);
+
+    void deleteByUserId(Integer userId);
 //    Page<Patient> findByFirstNameContainingAndLastNameContaining(String firstName, String lastName, Pageable pageable);
 //    Page<Patient> findByFirstNameContaining(String firstName, Pageable pageable);
 //    Page<Patient> findByLastNameContaining(String lastName, Pageable pageable);

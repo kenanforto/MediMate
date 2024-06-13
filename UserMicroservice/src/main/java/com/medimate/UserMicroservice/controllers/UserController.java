@@ -102,4 +102,15 @@ public class UserController {
         }
         return  ResponseEntity.ok(object);
     }
+    @GetMapping(path = "/id/{email}")
+    public ResponseEntity<Integer> getUserIdByEmail(@PathVariable String email)
+    {
+        return userService.getUserIdByEmail(email);
+    }
+
+    @PatchMapping(path = "/upgrade-role/{email}")
+    public ResponseEntity<String> upgradeRole(@PathVariable String email)
+    {
+        return userService.upgradeRole(email);
+    }
 }

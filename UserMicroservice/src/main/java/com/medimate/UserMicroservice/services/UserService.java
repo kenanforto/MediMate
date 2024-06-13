@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -84,5 +85,24 @@ public class UserService {
 
     public void deleteUser(Integer id) {
         userRepository.deleteById(id);
+    }
+
+    public ResponseEntity<String> upgradeRole(String email) {
+        User user=userRepository.findByEmail(email);
+        if(user!=null) {
+            user.setRole(Role.DOCTOR);
+            userRepository.save(user);
+            return ResponseEntity.ok("User successfully updated!");
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    public ResponseEntity<Integer> getUserIdByEmail(String email) {
+        User user=userRepository.findByEmail(email);
+        if(user!=null)
+        {
+            return ResponseEntity.ok(user.getId());
+        }
+        return ResponseEntity.notFound().build();
     }
 }

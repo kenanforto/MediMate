@@ -1,6 +1,7 @@
 package com.medimate.UserMicroservice.controllers;
 
 import com.medimate.UserMicroservice.models.Patient;
+import com.medimate.UserMicroservice.models.User;
 import com.medimate.UserMicroservice.services.PatientService;
 import com.medimate.UserMicroservice.viewmodels.PatientVM;
 import jakarta.validation.Valid;
@@ -40,5 +41,6 @@ public class PatientController {
     public void deletePatient(@PathVariable Integer id) {
         patientService.deletePatient(id);
     }
+
 }
 

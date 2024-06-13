@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -41,8 +42,8 @@ public class PatientService {
         return patients;
     }
 
-
-    public void deletePatient(Integer id) {
-        repo.deleteById(id);
+    @Transactional
+    public void deletePatient(Integer userId) {
+        repo.deleteByUserId(userId);
     }
 }
